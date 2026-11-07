@@ -1,0 +1,550 @@
+# ⚡ FastAPI Layered Architecture Template
+
+A modern, production-ready FastAPI template utilizing a clean, layered (hexagonal-style) architecture. This template is designed for building robust and scalable backend services with clear separation of concerns, easy testing, and high maintainability.
+
+## 💡 Why This Template?
+
+While FastAPI is incredibly fast and flexible, it doesn't enforce a specific project structure. As projects grow, they often turn into a tangled mess of tightly coupled route handlers, business logic, and database calls. This template provides **Enterprise-Grade Readiness** from minute zero.
+
+- **Pre-Configured Tooling:** `uv`, `pytest`, `ruff`, and `alembic` are pre-integrated. No wrestling with environment setups.
+- **Scalable Architecture:** Extends beyond simple MVC. It isolates API routing, business logic (Services), and database interactions (Repositories) making the app highly testable and maintainable.
+- **Production-Ready Security & Observability:** JWT authentication, HttpOnly cookies for refresh tokens, token blacklisting, password hashing, and rate limiting are baked in. Out-of-the-box integration with Sentry for robust error monitoring.
+- **Consistent Responses:** Global exception handlers utilizing centralized success and error messages prevent hardcoded strings and standardize the API response structures.
+- **Docker First:** A `docker-compose.yaml` is ready to spin up your backend, PostgreSQL database, and Redis instances instantly.
+
+---
+
+## 🔗 Frontend Compatibility
+
+This backend template is designed to seamlessly integrate with the companion **Next.js 16 + React 19 + TypeScript Enterprise Template**.
+You can find the frontend template here: [kemalcalak/NextJS-Template](https://github.com/kemalcalak/NextJS-Template).
+
+The two templates share the same auth contract: HttpOnly `access_token` / `refresh_token` cookies, `/api/v1` prefix, `X-Requested-With` CSRF header, and a uniform `{ success, data, message, error }` response envelope.
+
+---
+
+## 🚀 Features & Tech Stack
+
+This template integrates the best-in-class Python ecosystem tools to provide a seamless developer experience:
+
+- **Framework:** [FastAPI](https://fastapi.tiangolo.com/) for building APIs with Python 3.12+ based on standard Python type hints.
+- **Architecture:** Strict Layered Architecture separating routers, services, repositories, use cases, and models, fully utilizing FastAPI's dependency injection.
+- **Database & ORM:** [SQLAlchemy 2.0](https://www.sqlalchemy.org/) with `asyncpg` for non-blocking operations, and [Alembic](https://alembic.sqlalchemy.org/) for schema migrations.
+- **Observability & Error Tracking:** [Sentry](https://sentry.io/) built-in integration for tracking unhandled exceptions and performance tracing.
+- **Caching:** [Redis](https://redis.io/) integration using `redis.asyncio` for robust, high-performance distributed caching.
+- **Validation & Config:** [Pydantic v2](https://docs.pydantic.dev/latest/) and `pydantic-settings` for robust data validation and environment management.
+- **Security & Auth:** JWT access/refresh tokens accepted via either HttpOnly cookies *or* `Authorization: Bearer`, `bcrypt` password hashing, **Redis-backed token blacklist** (logout invalidation), strict origin-check middleware (returns 404 for foreign origins), and [Slowapi](https://slowapi.readthedocs.io/en/latest/) rate limiting for brute-force protection.
+- **Account Lifecycle:** Email verification, password reset, password change, and **soft-delete with grace period** — accounts marked for deletion can be reactivated until the cron worker purges them.
+- **File Uploads & Avatars:** [Cloudinary](https://cloudinary.com/)-backed image uploads via `POST /upload` (image-only, 5 MB cap, rate-limited + audited). A generic `File` model lets any feature attach uploads; user avatars enforce **ownership (IDOR) guards** — you may only attach a file you uploaded — and auto-delete the replaced avatar's asset. Admins get full file management (list/filter by uploader, hard-delete with avatar references auto-cleared). See [File Uploads & Avatars](#-file-uploads--avatars) below.
+- **Background Jobs:** [arq](https://arq-docs.helpmanual.io/) worker (separate container in compose) runs cron jobs such as `delete_expired_accounts` and `purge_stale_sessions` at the configured time.
+- **Audit Trail:** `user_activity` table records auth events and CRUD actions with IP / user agent, plus the **HTTP status code** of each event (`200` on success, the raised error code on failure) — filterable in the admin panel. The `audit_unexpected_failure` decorator captures unexpected route failures.
+- **Smart Email Validation & Delivery:** Built-in asynchronous email sending with SMTP, domain MX record checking using `dnspython`, and auto-updating disposable email provider filtering via Redis cache.
+- **Standardized API Responses:** Global exception handlers standardizing success/error schemas, utilizing a centralized `messages` module (`app/core/messages/`) to prevent hardcoded responses.
+- **Role-Based Access Control (RBAC):** Three roles — `user` / `admin` / `superadmin`. Superadmins bypass every check and **create/delete admins** and assign their permissions; plain admins are gated per **`resource:action`** permission (`users:read`, `users:write`, `support:update`, …) stored in `admin_permission` and enforced by a single `require_permission(...)` dependency. The **superadmin tier** (promote an admin to superadmin, demote a superadmin, transfer root via email OTP) is reserved for the **root superadmin** (`is_root_superadmin`); the last active superadmin is always protected. See [Admin & RBAC](#-admin--rbac-roles--permissions).
+- **Support / Ticketing System:** Full ticket lifecycle — open, reply with image attachments, status/priority, admin assignment — fanned out over a **Redis-backed WebSocket bus** so the ticket thread, the admin queue, and per-user feeds update live across workers. See [Support System & Realtime](#-support-ticketing-system--realtime).
+- **Notification System:** Persistent in-app notifications (`notification` table) layered on the same realtime bus — domain events (a support reply, a ticket status change, an RBAC grant change) call a single `notify()` use case that stores the row **and** pushes it to the recipient's `notifications:{id}` feed, so offline users still find it in their inbox on the next fetch. Notification copy is stored as a stable machine `type` + `data` payload (no human text), so the frontend renders it in any locale. REST covers paginated listing (`unread_only` filter), the unread badge count, and mark-(all-)read. See [Notification System](#-notification-system).
+- **Broadcast / Announcements:** Admins compose an announcement — from a reusable **template catalog** (typed variables: localized datetimes + per-language text) or **custom** per-language text — and fan it out to an audience (`all` / `active` / by `role`). Each recipient gets a persistent notification via a chunked `notify_many` use case (bulk insert + realtime), and optionally a **multilingual email** sent in throttled batches by an `arq` job. Content is stored language-agnostically so it renders in each user's locale; datetimes are stored UTC. A `show_banner` flag exposes the latest as a top banner (`GET /announcements/active`). Gated by `broadcast:read` / `broadcast:write`.
+- **System Settings:** Runtime-editable, **registry-backed** key-value settings — a typed code registry (`core/settings_registry.py`) is the single source of truth (type, default, category, `is_public`, validation) and the `system_setting` table stores **only admin overrides**, so a missing row falls back to the env/registry default. An unauthenticated `GET /settings/public` exposes only `is_public` settings (site name, logo URL, maintenance flag, …) for the login / maintenance screens; admins read & patch all via RBAC (`system_settings:read` / `system_settings:write`). Flags are wired to real behaviour: a **maintenance-mode middleware** 503s non-admins, and registration / support / max-upload-size are enforced from the settings. See [System Settings](#-system-settings).
+- **Session / Device Management:** Every login opens a `user_session` row whose id rides in both tokens as the JWT `sid` claim, so a user can list their active devices and revoke any one (or all but the current). Refresh **rotates** the session's `jti` and detects **replay** — a stale refresh token revokes the whole session as compromised; logout and password change revoke sessions too. Revocation kills a session's still-valid access tokens instantly via a Redis `sid` flag, and broadcasts `sessions_revoked` so open tabs drop to login live. Admins can list/terminate a user's sessions, gated by the `users:sessions` permission. A nightly arq job purges stale rows. See [Session Management](#-session--device-management).
+- **First Superadmin Seed:** On startup a **root superadmin** (`is_root_superadmin`) is created from `FIRST_SUPERUSER` / `FIRST_SUPERUSER_PASSWORD` if none exists (a matching existing account is promoted instead; older deployments get their oldest superadmin flagged as root) — guaranteeing a root account.
+- **Tooling:** [uv](https://docs.astral.sh/uv/) for blazing-fast package management, and [Ruff](https://docs.astral.sh/ruff/) for linting and formatting.
+- **Testing:** Comprehensive async testing setup with `pytest` and `pytest-asyncio`, in-memory SQLite via `aiosqlite`, `fakeredis`, and autouse SMTP/MX patches — tests never hit Postgres or the network.
+
+---
+
+## ✅ CI/CD Ready
+
+The repository structure supports standard Continuous Integration pipelines out-of-the-box. Ensure you configure your CI (GitHub Actions, GitLab CI, etc.) to run:
+
+1.  **Dependency Install:** `uv sync`
+2.  **Linting:** `uv run ruff check .`
+3.  **Formatting Check:** `uv run ruff format --check .`
+4.  **Unit & Integration Tests:** `uv run pytest`
+
+---
+
+## 📦 Setup & Local Development
+
+### Prerequisites
+
+- Python >= 3.12
+- Docker & Docker Compose (for local database and Redis)
+- [`uv`](https://docs.astral.sh/uv/) package manager (recommended)
+
+### 1. Clone the Repository
+
+Clone the repository to your local machine:
+
+```bash
+git clone https://github.com/kemalcalak/fastapi-template.git
+cd fastapi-template
+```
+
+### 2. Environment Variables
+
+Create a `.env` file from the provided template:
+
+```bash
+cp .env.example .env
+```
+
+Your `.env` file should look like this, filled with your actual configuration:
+
+```env
+# Application Settings
+PROJECT_NAME="FastAPI Template"
+SECRET_KEY="changethis"
+ENVIRONMENT="local"
+FIRST_SUPERUSER="admin@example.com"
+FIRST_SUPERUSER_PASSWORD="changethis"
+FRONTEND_HOST="http://localhost:5173"
+# Comma-separated Host header allowlist enforced in production only.
+ALLOWED_HOSTS=""
+
+# Host address Docker binds the DB/Redis ports to (loopback by default).
+DOCKER_BIND_HOST="127.0.0.1"
+
+# Database Settings
+POSTGRES_SERVER="localhost"
+POSTGRES_PORT=5432
+POSTGRES_USER="postgres"
+POSTGRES_PASSWORD="changethis"
+POSTGRES_DB="app"
+
+# Redis Cache Settings
+REDIS_URL="redis://localhost:6379/0"
+
+# Email / SMTP Settings (Optional)
+SMTP_HOST="smtp.example.com"
+SMTP_PORT=465
+SMTP_USE_STARTTLS=True
+SMTP_USE_SSL=False
+SMTP_USER="smtp_username"
+SMTP_PASSWORD="smtp_password"
+EMAILS_FROM_EMAIL="noreply@example.com"
+
+# Cloudinary (file/avatar uploads). Required to use POST /upload.
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+CLOUDINARY_UPLOAD_FOLDER="uploads"
+# Max upload size in bytes (default 5 MB). Uploads above this are rejected.
+MAX_UPLOAD_SIZE_BYTES=5242880
+
+# Admin MFA (TOTP) is dormant by default; see "Audit Retention & Admin MFA".
+ADMIN_MFA_REQUIRED=false
+# Fernet key encrypting TOTP secrets. Required outside ENVIRONMENT="local" once MFA is enabled.
+MFA_ENCRYPTION_KEY=
+
+# Sentry (only initialized when ENVIRONMENT != "local")
+SENTRY_DSN=
+```
+
+### 3. Start the Application via Docker
+
+This project provides a `docker-compose.yaml` to spin up the entire stack, including the backend service, a local PostgreSQL instance, a Redis container, and the **arq background worker**:
+
+```bash
+docker-compose up -d --build
+```
+
+The API will be available at `http://localhost:8000`. You can test the endpoints via the Swagger UI available at `http://localhost:8000/docs`.
+
+To run the worker manually (e.g. when developing the API on the host):
+
+```bash
+uv run arq app.worker.settings.WorkerSettings
+```
+
+### 4. Run Migrations
+
+To generate and apply the database tables using Alembic, run the migration command inside the backend container:
+
+```bash
+# Apply existing migrations
+docker-compose exec backend uv run alembic upgrade head
+```
+
+If you modify models in `app/models/` and need to generate a new migration script:
+
+```bash
+docker-compose exec backend uv run alembic revision --autogenerate -m "description_of_changes"
+docker-compose exec backend uv run alembic upgrade head
+```
+
+---
+
+## 🛠️ Testing & Code Quality
+
+### Testing
+
+Tests are written using `pytest` and configured for async execution with `pytest-asyncio`. Configuration details can be found in `pytest.ini`.
+
+To run the test suite locally:
+
+```bash
+uv run pytest
+```
+
+### Load Testing
+
+The `loadtest/` directory contains [Locust](https://locust.io/) scenarios for measuring capacity. Run the API with `ENVIRONMENT=local` so rate limiting is disabled and the test measures real throughput rather than the limiter.
+
+1. Seed verified test accounts directly into the database (the login flow rejects unverified users, so they cannot be created via the public register endpoint):
+
+   ```bash
+   uv run python -m loadtest.seed_users   # 50 accounts by default (LT_USER_COUNT)
+   ```
+
+2. Run a scenario — pick the user class by name:
+
+   ```bash
+   uv run locust -f loadtest/locustfile.py ActiveUser --host http://localhost:8000
+   ```
+
+Available scenarios:
+
+- **`ActiveUser`** — realistic mixed workload: log in once, then reads (`GET /users/me`), token refreshes, and profile updates with think time. Use this to gauge concurrent active users.
+- **`HealthCeilingUser`** — raw throughput ceiling (`GET /health/live`, no DB, no wait).
+- **`LoginStormUser`** — bcrypt-bound login throughput.
+
+Tune behaviour via env vars: `LT_USER_COUNT`, `LT_PASSWORD`, `LT_WAIT_MIN` / `LT_WAIT_MAX`, `LT_API_PREFIX`. For non-interactive runs add `--headless -u <users> -r <spawn-rate> -t <duration>`.
+
+### Code Quality
+
+This project uses [Ruff](https://docs.astral.sh/ruff/) for both code linting and formatting. The configurations are specified in `pyproject.toml`.
+
+- **Check for issues:** `uv run ruff check .`
+- **Format code:** `uv run ruff format .`
+- **Auto-fix lint issues:** `uv run ruff check --fix .`
+
+### Git Hooks (pre-commit)
+
+The repo ships a `.pre-commit-config.yaml`. After cloning, install both hook stages once:
+
+```bash
+uv run pre-commit install --hook-type pre-commit --hook-type pre-push
+```
+
+**`pre-commit`** (~5–15 s) — runs on every `git commit` against staged files:
+
+- `trim trailing whitespace`, `end-of-file-fixer`, `check-yaml`, `check-toml`, `check-added-large-files`, `check-merge-conflict`, `detect-private-key`
+- `ruff check --fix` (auto-fix lint)
+- `ruff format`
+
+**`pre-push`** (~30–60 s) — runs on every `git push`:
+
+- `uv run pytest` — full test suite must pass before code leaves the machine.
+
+To run all hooks manually against the whole repo: `uv run pre-commit run --all-files`.
+
+### Metrics (Prometheus)
+
+`prometheus-fastapi-instrumentator` collects metrics for every handled request. The `/metrics` endpoint (root path, **outside `/api/v1`**, hidden from Swagger) exposes them in the standard Prometheus exposition format. Default metrics: request count, latency histograms, in-progress requests, exceptions per handler, plus the standard Python runtime + process metrics. Health endpoints and `/metrics` itself are excluded from instrumentation to avoid noise.
+
+**Auth model — three layers:**
+
+1. **`include_in_schema=False`** — the endpoint is invisible in Swagger / OpenAPI.
+2. **Environment-gated bearer token** — outside `ENVIRONMENT="local"`, the endpoint requires `Authorization: Bearer ${METRICS_TOKEN}`. Mismatched or missing tokens return **404** (not 401/403) so the endpoint's existence is not disclosed.
+3. **`origin_check_middleware`** — browser cross-origin requests with a foreign `Origin` header are rejected by the global middleware, regardless of the token.
+
+**Local dev — open access:**
+
+```bash
+curl http://localhost:8000/metrics
+```
+
+**Production / staging — bearer token required:**
+
+```bash
+# .env (or your secret store)
+METRICS_TOKEN=$(openssl rand -hex 32)
+
+# Prometheus scrape config (prometheus.yml)
+scrape_configs:
+  - job_name: fastapi
+    authorization:
+      type: Bearer
+      credentials: <your METRICS_TOKEN>
+    static_configs:
+      - targets: ['api.example.com:8000']
+```
+
+> Even with the token, prefer to also restrict `/metrics` at the reverse proxy (Prometheus scraper IP allowlist or VPC-internal-only exposure). Defense-in-depth — the token is one layer, network policy is another.
+
+### Tracing (OpenTelemetry)
+
+Metrics tell you *what* is slow ("p99 latency on `/users/{id}` doubled at 14:02"). Traces tell you *why* — a single request's full waterfall: route handler → SQLAlchemy queries → Redis calls → outbound httpx requests, each with its own span and timing.
+
+**Opt-in by design.** When `OTEL_EXPORTER_OTLP_ENDPOINT` is unset, `init_telemetry()` returns early and there is **zero overhead** — no spans created, no exporter started, no extra allocations. Local dev and the test suite stay clean.
+
+**Wiring (`app/core/telemetry.py`):**
+
+| Layer | Instrumentation | What you get |
+| --- | --- | --- |
+| FastAPI | `FastAPIInstrumentor` | Per-request span named after the route template (`/users/{id}`, not `/users/42`); `/metrics` and `/health` excluded |
+| SQLAlchemy | `SQLAlchemyInstrumentor` | One span per query, with the SQL statement and duration |
+| Redis | `RedisInstrumentor` | One span per Redis call (cache hits, rate-limit checks, pub/sub) |
+| httpx | `HTTPXClientInstrumentor` | Outbound HTTP spans (e.g. disposable-email blocklist refresh) |
+
+**Enabling traces:** point `OTEL_EXPORTER_OTLP_ENDPOINT` at any OTLP/HTTP collector — Tempo, Jaeger, Honeycomb, the OTel Collector, etc.
+
+```bash
+# .env
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
+OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+OTEL_SERVICE_NAME=fastapi-template
+```
+
+The SDK reads every other `OTEL_*` variable natively (sampler, headers, batch size, etc.) — see the [OTel SDK environment variables reference](https://opentelemetry.io/docs/specs/otel/configuration/sdk-environment-variables/) for the full list.
+
+---
+
+## 📤 File Uploads & Avatars
+
+Image uploads are backed by [Cloudinary](https://cloudinary.com/). The binary lives in Cloudinary; Postgres stores only metadata (`url`, `public_id`, `content_type`, `size`, uploader) in a generic `file` table — so any feature (avatars today, galleries or attachments later) attaches an upload through its own `file_id` column rather than the `File` model referencing it.
+
+**Opt-in by design.** The Cloudinary credentials are optional at boot — the app starts fine without them. Uploads then fail *clearly at request time* (`500`, with a config error logged) rather than silently. Set the four `CLOUDINARY_*` vars (see `.env.example`) to enable `POST /upload`.
+
+| Method & path | Auth | Purpose |
+| --- | --- | --- |
+| `POST /upload` | any active user | Upload one image, return its `FilePublic` metadata. Rate-limited (`20/minute`) and audit-logged. |
+| `PATCH /users/me` | self | Attach or clear your own avatar via `avatar_file_id`. |
+| `GET /admin/files` | superuser | List / paginate uploads; filter by `content_type` or `uploader` (case-insensitive name / email match). |
+| `GET /admin/files/{id}` | superuser | A single file's admin view (includes uploader identity and `public_id`). |
+| `DELETE /admin/files/{id}` | superuser | Hard-delete the Cloudinary asset **and** the DB row. |
+
+**Rules baked in:**
+
+- **Images only, 5 MB cap** — `image/jpeg`, `image/png`, `image/webp`, `image/gif`. Oversized → `413`, wrong type → `415`, empty → `400`, Cloudinary failure → `502`. Limits live in `MAX_UPLOAD_SIZE_BYTES` and the upload service's MIME whitelist.
+- **Ownership (IDOR) guard** — you may only set your avatar to a file *you* uploaded; pointing at someone else's file returns `403`.
+- **Replaced-file cleanup** — swapping your avatar deletes the previous file's Cloudinary asset and DB row automatically, so no orphans accumulate.
+- **Safe deletes** — both `user.avatar_file_id` and `file.uploaded_by_id` are `ON DELETE SET NULL`, so deleting a file never leaves a dangling avatar and a file outlives the user who uploaded it.
+
+---
+
+## 🔐 Admin & RBAC (Roles + Permissions)
+
+Three roles layer the admin surface from least to most privileged:
+
+| Role | Access |
+| --- | --- |
+| `user` | Regular app user. No admin surface. |
+| `admin` | Reaches the admin panel, but **every action is gated by the permissions granted to them**. |
+| `superadmin` | Bypasses all permission checks; creates/deletes admins and assigns their permissions. |
+| `superadmin` *(root)* | The first seeded superadmin (`is_root_superadmin`). Additionally owns the **superadmin tier**: promote an admin to superadmin, demote a superadmin, and transfer root. |
+
+**Permission model.** Permissions are `resource:action` keys (33 in `Permission`): admin keys such as `users:read`, `users:suspend`, `support:write`, `roles:write`, `admins:write`, and `self.*` keys for ordinary accounts (`self.profile:update`, `self.files:upload`, `self.notifications:read`, `self.support:read|create|reply|close`). Keys are grouped into **permission sets** and sets into **roles** (`rbac_permission_set`, `rbac_role`, joined by `rbac_role_permission_set`). An account's effective permissions are the union of its roles (`rbac_user_role`) and the sets granted to it directly (`rbac_user_permission_set`), each assignment with an optional expiry. System roles and sets (`user`, `administrator`, `support_agent`, `auditor`, ...) are defined in `app/core/rbac_catalog.py` and seeded at startup; custom ones are managed under `/admin/rbac/*` (`roles:*` and `permission_sets:*`) and per account under `/admin/users/{id}/access`, `/roles` and `/permission-sets`. Each role and set has an audience (`admin` or `user`) restricting the keys it may hold. Superadmins implicitly hold every admin key and have no assignments. The legacy `admin_permission` table is kept for history only.
+
+**Enforcement.** Every route declares exactly what it needs with one dependency:
+
+```python
+@router.get("")
+async def list_users(
+    _admin: Annotated[User, Depends(require_permission(Permission.USERS_READ))],
+    session: SessionDep,
+): ...
+```
+
+`require_permission` (admin keys), `require_any_permission`, `require_permissions` (base key plus body-conditional keys) and `require_user_permission` (`self.*` keys on any active account) chain auth, account state and the effective-permission lookup; each labels its dependency with `__rbac_permission__`. `GET /users/me` returns the caller's effective `permissions` plus `is_root_superadmin`, so the frontend mirrors the exact gating.
+
+**The socle stays outside RBAC:** `/auth/*`, `GET /users/me`, `/users/me/events`, `/users/me/sessions*`, `DELETE /users/me`, `POST /users/me/reactivate`, `/settings/public`, `/announcements/active`, plus health, metrics and docs routes. Admin MFA is dormant (`ADMIN_MFA_REQUIRED=False`) and there is no step-up authentication.
+
+**A permission is born with its route.** `app/tests/test_rbac_route_coverage.py` walks `app.routes` and fails for any route that carries neither a permission (admin keys on `/admin/*`, `self.*` elsewhere) nor an entry in `SOCLE_ROUTES` or the justified superadmin-only list (`transfer-root`, `promote`, `demote`). Fix the route, not the list.
+
+**Hard invariants** (`services/admin/`):
+
+- There is **no user↔admin role transition** on the users surface — admins are provisioned as accounts and removed by deletion (there is no demote-to-user path).
+- The **superadmin tier is root-only**: only the root superadmin may promote an admin to superadmin or demote a superadmin back to admin.
+- The root superadmin's own role is immutable; it can only be handed over via the **email-OTP root transfer** (a one-time code is sent to the current root's address).
+- A superadmin can only be modified/deleted by another superadmin, and the **last active superadmin** is always protected.
+
+**Managing admins** (`routes/admin/admins.py`; read/write/delete need `admins:*`, the superadmin tier is root-only):
+
+| Method & path | Purpose |
+| --- | --- |
+| `GET /admin/admins` | List admin-tier accounts with their permissions. |
+| `GET /admin/admins/permissions` | The full permission catalog (powers the grant UI). |
+| `POST /admin/admins` | Create a new admin account with an initial permission set. |
+| `PATCH /admin/admins/{id}/permissions` | Replace an admin's grants. |
+| `DELETE /admin/admins/{id}` | Delete an admin account. |
+| `POST /admin/admins/{id}/promote` | Promote an admin to superadmin (**root only**). |
+| `POST /admin/admins/{id}/demote` | Demote a superadmin back to admin (**root only**). |
+| `POST /admin/admins/transfer-root` | Email a one-time code to begin a root transfer (**root only**). |
+| `POST /admin/admins/transfer-root/confirm` | Confirm the OTP and hand over root (**root only**). |
+
+After any grant or tier change a `permissions_updated` realtime event is pushed to the affected account(s) (see below), so their session re-fetches `/users/me` and the UI updates without a re-login.
+
+---
+
+## 🎫 Support (Ticketing) System & Realtime
+
+A complete support desk built on a generic realtime bus that any feature can reuse.
+
+| Method & path | Auth | Purpose |
+| --- | --- | --- |
+| `POST /support/tickets` | user | Open a ticket (optional image attachments). |
+| `GET /support/tickets` · `/{id}` | owner | List / view own tickets and message thread. |
+| `POST /support/tickets/{id}/messages` | owner | Reply to own ticket. |
+| `GET /admin/support/tickets` · `/{id}` | `support:read` | Admin queue + full ticket view. |
+| `POST /admin/support/tickets/{id}/messages` | `support:write` | Admin reply (auto-assigns when unassigned). |
+| `PATCH /admin/support/tickets/{id}` | `support:write` (+ `support:update` to reassign) | Change status / priority / assignee. |
+| `WS /admin/support/ws` · `/support/ws` | admin / owner | Multiplexed ticket + queue feed. |
+| `WS /users/me/events` | any user | Per-user account feed (e.g. live `permissions_updated`). |
+
+**Realtime bus (`app/core/realtime.py`).** A thin in-process `ConnectionManager` sits behind a Redis pub/sub bridge: services `publish()` to a topic — `ticket:{id}`, `admin`, `user:{id}`, `account:{id}`, or `notifications:{id}` — and a per-worker listener fans the event to the matching local sockets, so an event raised in one worker reaches clients connected to any worker. The `account:{id}` topic carries both `permissions_updated` (RBAC grant change) and `sessions_revoked` (a device was logged out). Publishing is best-effort (`publish_safe`), so a realtime hiccup never breaks the originating request.
+
+---
+
+## 🔔 Notification System
+
+Persistent, per-user in-app notifications built on the same realtime bus as support — so an event raised in any worker reaches the recipient live, and is still waiting in their inbox if they were offline.
+
+| Method & path | Auth | Purpose |
+| --- | --- | --- |
+| `GET /notifications` | self | List own notifications, newest first (`skip` / `limit`, `unread_only` filter). |
+| `GET /notifications/unread-count` | self | Unread count for the bell badge. |
+| `POST /notifications/{id}/read` | owner | Mark one notification read (idempotent; IDOR-guarded). |
+| `POST /notifications/read-all` | self | Mark every unread notification read in one set-based `UPDATE`. |
+| `WS /notifications/ws` | self | Live feed — new notifications arrive as `notification_created` frames. |
+
+**Emitting (`app/use_cases/notify.py`).** Any domain service calls one cross-cutting `notify(session, user_id, type, data)` — it persists the row and best-effort `publish_safe`s it to the recipient's `notifications:{id}` topic (mirroring `log_activity`, so a service never has to call another service). It is wired into admin support replies (`support_ticket_replied`), ticket status changes (`support_ticket_status_changed`), and RBAC grant changes (`admin_permissions_changed`); self-actions are skipped so nobody is notified about their own action.
+
+**Locale-free storage.** A notification stores a stable machine `type` plus a `data` JSON payload (ids, subject, status) — never human text — so the frontend produces the message in the active language. Adding a type means adding an enum value plus a locale entry; the table schema never changes.
+
+---
+
+## ⚙️ System Settings
+
+Runtime-editable, site-wide settings an admin can change without a redeploy (site name, logo, maintenance mode, feature toggles, limits).
+
+**Registry is the single source of truth.** `core/settings_registry.py` defines every setting as a typed, immutable `SettingDefinition` — `value_type` (`bool` / `int` / `string`), `default`, `category`, `is_public`, and an optional validator. The `system_setting` table stores **only admin-overridden values** (`key` → serialised `value`); a setting with no row falls back to its registry default. Several defaults are seeded from the environment at import (`site_name` ← `PROJECT_NAME`, `default_locale` ← `DEFAULT_LANGUAGE`, `max_upload_size_mb` ← `MAX_UPLOAD_SIZE_BYTES`), so settings are initialised from env yet remain runtime-editable. Adding a setting is one registry entry — **no migration**.
+
+| Method & path | Auth | Purpose |
+| --- | --- | --- |
+| `GET /settings/public` | **public** | Only `is_public` settings as `key → typed value` (site name, logo, maintenance flag, …); powers the login & maintenance screens before auth. |
+| `GET /admin/system-settings` | `system_settings:read` | Every setting with metadata (type, category, current value, last editor). |
+| `PATCH /admin/system-settings/{key}` | `system_settings:write` | Update one setting; validated against the registry (type + validator) and audited. |
+
+**Typed access (`use_cases/settings.py`).** `get_bool` / `get_int` / `get_str` resolve a setting to its typed value (DB override → registry/env default). They live in `use_cases/` so any service can read a setting without a service-to-service call.
+
+**Behavioural bindings.** Settings drive real behaviour: a `maintenance_mode_middleware` returns **503** to non-admins while maintenance is on (auth, health and `/settings/public` stay open so admins can sign in); `registration_enabled` gates registration, `support_enabled` gates new tickets, and `max_upload_size_mb` caps uploads. The logo is uploaded through the normal file pipeline (Cloudinary + `file` table) under the `branding_logo` category and its URL is stored in `logo_url`.
+
+---
+
+## 🔒 Session / Device Management
+
+Per-device login sessions backed by the `user_session` table, so a user can see where they're signed in and revoke access remotely. Each login mints an access + refresh pair carrying the session id as the JWT `sid` claim; the row records the device user-agent (parsed into browser/OS at the schema layer — the raw IP stays server-side and is never returned).
+
+| Method & path | Auth | Purpose |
+| --- | --- | --- |
+| `GET /users/me/sessions` | self | List own active sessions (paginated), current device flagged. |
+| `DELETE /users/me/sessions/{id}` | owner | Revoke one of own sessions (foreign / unknown id → uniform 404). |
+| `DELETE /users/me/sessions` | self | Revoke every session **except** the current device. |
+| `GET /admin/users/{id}/sessions` | `users:sessions` | List a user's active sessions (admin view). |
+| `DELETE /admin/users/{id}/sessions` | `users:sessions` | Terminate all of a user's sessions (remote logout). |
+
+**Rotation & replay (`app/services/auth_service.py`).** Refresh validates the `sid`, rotates the session's stored `refresh_jti`, and pushes the expiry forward. A presented refresh token whose `jti` no longer matches the row is a **replay** — the whole session is revoked as compromised and audited, so a leaked token is single-use even if the Redis blacklist ever loses state. Legacy tokens minted before the feature (no `sid`) are rejected on refresh; the holder simply logs in again.
+
+**Instant revocation.** Revoking a session blacklists its tokens **and** writes a `revoked:session:{sid}` Redis flag (TTL = access-token lifetime), which `get_current_user` checks on every request — so a still-valid access token dies the moment its session is killed, without a per-request DB hit. The same paths broadcast `sessions_revoked` on the `account:{id}` topic so a kicked device's open tab drops to login live. Logout, password change (revokes **all** of the user's sessions), and admin termination all flow through here.
+
+**Housekeeping.** A nightly arq cron (`app/worker/jobs/purge_stale_sessions.py`) deletes expired rows immediately and revoked rows after a retention window (`SESSION_REVOKED_RETENTION_DAYS`, default 30) in one set-based `DELETE`.
+
+---
+
+## 🧾 Audit Retention & Admin MFA
+
+### Audit trail retention
+
+`user_activity.user_id` is nullable with `ON DELETE SET NULL`: deleting an account **keeps** its audit rows instead of cascading. Each kept row carries `actor_ref` (a pseudonymous reference to the former actor) and `user_deleted_at` (when the account disappeared); failed logins for an unknown email are stored with no user at all. A nightly arq cron (`app/worker/jobs/purge_anonymized_activities.py`) deletes these anonymized rows once they are older than `ANONYMIZED_AUDIT_RETENTION_DAYS` (default `365`), at `AUDIT_PURGE_CRON_HOUR` / `AUDIT_PURGE_CRON_MINUTE` (default 05:00). Revoked or expired sessions follow their own window (`SESSION_REVOKED_RETENTION_DAYS`, default `30`).
+
+### Admin MFA (TOTP): dormant
+
+The backend support for TOTP is in place but **off by default** (`ADMIN_MFA_REQUIRED=false`): nothing changes for admins until it is enabled. Two tables back it: `user_mfa` (encrypted TOTP secret, activation date, last accepted time step) and `user_mfa_recovery_code` (hashed single-use recovery codes). Both cascade when the user is deleted.
+
+To enable it:
+
+```env
+ADMIN_MFA_REQUIRED=true
+MFA_ENCRYPTION_KEY=<Fernet key>
+```
+
+Generate the key with `python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"`. `MFA_ENCRYPTION_KEY` is required whenever `ENVIRONMENT` is not `local` and MFA is enabled (the app refuses to start without a valid Fernet key); locally a key is derived from `SECRET_KEY` when unset. Keep the key stable: losing or changing it makes every stored TOTP secret unreadable.
+
+> **Warning:** the frontend enrollment and verification screens and the step-up check do **not exist yet**. Enabling `ADMIN_MFA_REQUIRED` today therefore blocks admin sign-in through the UI. Leave it `false` until those screens ship.
+
+**Last-resort reset.** Every account except the root superadmin is reset through the admin API route; its admin panel screen will come with MFA. If the root superadmin loses their authenticator and recovery codes, run from a server shell:
+
+```bash
+python -m app.cli.reset_mfa <email>
+```
+
+The command refuses any account that is not the root superadmin, clears its MFA enrollment, revokes its sessions and writes an audit entry.
+
+---
+
+## 📂 Project Structure
+
+```bash
+├── app/
+│   ├── alembic/          # Alembic env + versions/ (generated migration scripts)
+│   ├── api/              # API Layer: routers, deps.py, exception handlers, decorators
+│   │   └── routes/
+│   │       ├── auth.py, users.py, files.py, support.py, health.py
+│   │       └── admin/    # Admin surface — RBAC-gated via require_permission;
+│   │                     #   admins/ (admin management) is superadmin-only
+│   ├── core/             # config, db, security, redis, rate_limit, email, storage, realtime, bootstrap, messages/
+│   ├── models/           # Domain Layer: SQLAlchemy ORM (User, UserSession, UserActivity, File, SupportTicket, Notification, AdminPermission, …)
+│   ├── repositories/     # Data Layer: async DB queries (no business rules)
+│   ├── schemas/          # Pydantic v2 DTOs (Create / Update / Response per domain)
+│   ├── services/         # Business Logic Layer: pure async functions, take AsyncSession
+│   ├── use_cases/        # Cross-domain orchestration (e.g. activity logging, notifications)
+│   ├── worker/           # arq worker — settings + cron jobs (e.g. account deletion)
+│   ├── utils/            # Helper functions (datetime, email templates)
+│   ├── tests/            # pytest suite (in-memory SQLite, fakeredis, mocked SMTP)
+│   └── main.py           # FastAPI app, lifespan, CORS + origin middleware
+├── alembic.ini           # Alembic settings
+├── docker-compose.yaml   # Compose stack: backend + worker + db + redis
+├── dockerfile            # Backend image (uv-based multi-stage build)
+├── pyproject.toml        # Project dependencies and tool configurations
+├── pytest.ini            # Pytest settings
+└── uv.lock               # Dependency lock file (commit alongside dep changes)
+```
+
+---
+
+## 🚀 Getting Started Checklist
+
+- [ ] Clone the repository and `cd fastapi-template`
+- [ ] Copy `.env.example` → `.env` and set `SECRET_KEY`, `FIRST_SUPERUSER`, and `FIRST_SUPERUSER_PASSWORD`
+- [ ] Start the stack with `docker-compose up -d --build` (backend + worker + PostgreSQL + Redis)
+- [ ] Apply migrations: `docker-compose exec backend uv run alembic upgrade head`
+- [ ] Open the Swagger UI at `http://localhost:8000/docs`
+- [ ] Confirm the **first superadmin** was seeded from `FIRST_SUPERUSER` on startup, then log in with it
+- [ ] Create an admin account and assign `resource:action` permissions from the admin endpoints (superadmin-only)
+- [ ] Log in as that permission-limited admin and verify each route is gated by `require_permission(...)`
+- [ ] Try the support flow: open a ticket, then reply/assign it as an admin and watch the WebSocket bus push updates live
+- [ ] Reply to that ticket as an admin and confirm the owner receives a notification at `GET /notifications` (and live over the `notifications:{id}` feed)
+- [ ] Set Cloudinary keys (`CLOUDINARY_*`) if you need `POST /upload` for files/avatars
+- [ ] Run the test suite with `uv run pytest` to confirm everything is green
+- [ ] Add a new message constant to `app/core/messages/` before introducing any user-facing string
+
+---
+
+## 🤝 Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+> This project follows [Conventional Commits](https://www.conventionalcommits.org/).
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'feat: Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See the `LICENSE` file at the root of the workspace for more information.

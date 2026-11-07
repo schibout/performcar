@@ -1,0 +1,278 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Theme color values are injected from src/lib/theme/colors.ts via the locale
+   layout's inline <style> tag (both :root and .dark blocks). Edit colors there.
+   This block only maps them onto Tailwind v4's color tokens so utilities like
+   bg-primary, text-muted-foreground, etc. resolve correctly. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+}
+
+/* Atmosphere utilities for the PERFORM'CAR theme. The grain overlay and mesh
+   glows derive from theme tokens, so they adapt to light/dark automatically. */
+@utility texture-grain {
+  position: relative;
+  isolation: isolate;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.05'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Slowly drifting aurora layer behind the hero. */
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate(-6%, -4%) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(6%, 5%) rotate(6deg) scale(1.15);
+  }
+}
+
+@utility aurora-veil {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  /* Light surfaces wash out subtle tints, so the light theme runs hotter;
+     .dark dials it back to the softer night values. */
+  background:
+    radial-gradient(
+      40% 50% at 30% 30%,
+      color-mix(in oklch, var(--primary) 32%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      35% 45% at 70% 60%,
+      color-mix(in oklch, var(--primary) 20%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 60% at 50% 15%,
+      color-mix(in oklch, var(--primary) 12%, transparent),
+      transparent 70%
+    );
+  filter: blur(48px);
+  animation: aurora-drift 18s ease-in-out infinite;
+
+  .dark & {
+    background:
+      radial-gradient(
+        40% 50% at 30% 30%,
+        color-mix(in oklch, var(--primary) 20%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        35% 45% at 70% 60%,
+        color-mix(in oklch, var(--primary) 12%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        50% 60% at 50% 15%,
+        color-mix(in oklch, var(--secondary) 55%, transparent),
+        transparent 70%
+      );
+  }
+}
+
+/* Seamless infinite marquee: content is rendered twice, the track slides by
+   exactly half its width. Pauses on hover via group-hover on the parent. */
+@keyframes marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility animate-marquee {
+  animation: marquee-scroll 36s linear infinite;
+}
+
+/* Conic highlight that orbits a panel border (used via a padded wrapper). */
+@keyframes border-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@utility animate-border-spin {
+  animation: border-spin 9s linear infinite;
+}
+
+@utility animate-marquee-reverse {
+  animation: marquee-scroll 36s linear infinite reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-veil,
+  .animate-marquee,
+  .animate-marquee-reverse,
+  .animate-border-spin {
+    animation: none;
+  }
+}
+
+@utility mesh-glow {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    /* Hotter in light theme (tints vanish on white), softer in dark. */
+    background:
+      radial-gradient(
+        42rem 28rem at 12% -8%,
+        color-mix(in oklch, var(--primary) 24%, transparent),
+        transparent 65%
+      ),
+      radial-gradient(
+        36rem 24rem at 95% 15%,
+        color-mix(in oklch, var(--primary) 16%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        30rem 22rem at 50% 110%,
+        color-mix(in oklch, var(--primary) 10%, transparent),
+        transparent 70%
+      );
+  }
+
+  .dark &::before {
+    background:
+      radial-gradient(
+        42rem 28rem at 12% -8%,
+        color-mix(in oklch, var(--primary) 14%, transparent),
+        transparent 65%
+      ),
+      radial-gradient(
+        36rem 24rem at 95% 15%,
+        color-mix(in oklch, var(--primary) 9%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        30rem 22rem at 50% 110%,
+        color-mix(in oklch, var(--secondary) 55%, transparent),
+        transparent 70%
+      );
+  }
+}
+
+/* antd dropdown menus (admin table row actions, sidebar language menu, â€¦)
+   follow the same glass-panel language as the custom avatar/notification
+   panels. !important wins over antd's runtime-injected cssinjs styles. */
+.ant-dropdown .ant-dropdown-menu {
+  border-radius: calc(var(--radius) * 1.8) !important;
+  border: 1px solid color-mix(in oklch, var(--border) 70%, transparent) !important;
+  background: color-mix(in oklch, var(--card) 95%, transparent) !important;
+  backdrop-filter: blur(24px);
+  box-shadow:
+    0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
+  padding: 0.375rem !important;
+}
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item {
+  border-radius: calc(var(--radius) * 0.8) !important;
+  padding: 0.5rem 0.75rem !important;
+  font-weight: 500;
+  transition: background-color 0.15s ease;
+}
+.ant-dropdown
+  .ant-dropdown-menu
+  .ant-dropdown-menu-item:not(.ant-dropdown-menu-item-disabled):hover {
+  background: var(--muted) !important;
+}
+
+/* Theme-aware scrollbars across the entire app. Colors come from the injected
+   theme tokens so they adapt to light/dark automatically. Applied globally so
+   every scroll surface (pages, modals, dropdowns, the admin sidebar) matches. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 9999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--muted-foreground);
+}
+
+/* Quote print view: only the quote document reaches the paper (or the PDF). */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .quote-document,
+  .quote-document * {
+    visibility: visible;
+  }
+  .quote-document {
+    position: absolute;
+    inset: 0 0 auto 0;
+    color: #111;
+  }
+}

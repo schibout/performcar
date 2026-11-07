@@ -1,0 +1,64 @@
+{
+  "title": "Paramètres système",
+  "subtitle": "Configurez le comportement général, l'identité visuelle et les fonctionnalités.",
+  "save": "Enregistrer les modifications",
+  "saving": "Enregistrement…",
+  "noChanges": "Aucune modification à enregistrer",
+  "loading": "Chargement des paramètres…",
+  "categories": {
+    "system": "Système",
+    "auth": "Authentification",
+    "uploads": "Téléversements",
+    "support": "Assistance",
+    "branding": "Identité visuelle"
+  },
+  "logo": {
+    "upload": "Téléverser un logo",
+    "replace": "Remplacer le logo",
+    "empty": "Aucun logo défini",
+    "uploading": "Téléversement…"
+  },
+  "maintenance": {
+    "title": "Nous revenons très vite",
+    "description": "Une maintenance programmée est en cours. Merci de revenir un peu plus tard."
+  },
+  "locales": {
+    "fr": "Français",
+    "en": "Anglais"
+  },
+  "fields": {
+    "maintenance_mode": {
+      "label": "Mode maintenance",
+      "description": "Lorsqu'il est activé, seuls les administrateurs accèdent à l'application ; les autres utilisateurs voient l'écran de maintenance."
+    },
+    "registration_enabled": {
+      "label": "Inscriptions ouvertes",
+      "description": "Lorsque cette option est désactivée, la création de nouveaux comptes est refusée."
+    },
+    "max_upload_size_mb": {
+      "label": "Taille maximale des fichiers (Mo)",
+      "description": "Taille maximale autorisée pour un fichier téléversé, en mégaoctets."
+    },
+    "support_enabled": {
+      "label": "Assistance activée",
+      "description": "Lorsque cette option est désactivée, les utilisateurs ne peuvent plus ouvrir de nouvelles demandes d'assistance."
+    },
+    "site_name": {
+      "label": "Nom du site",
+      "description": "Nom du produit affiché dans l'application et les e-mails."
+    },
+    "logo_url": {
+      "uploadRestricted": "Vous ne pouvez pas téléverser de fichiers : le logo ne peut donc pas être remplacé.",
+      "label": "Logo",
+      "description": "Logo du site. Il est téléversé dans le stockage et son URL est enregistrée ici."
+    },
+    "support_email": {
+      "label": "E-mail d'assistance",
+      "description": "Adresse e-mail de contact affichée aux utilisateurs."
+    },
+    "default_locale": {
+      "label": "Langue par défaut",
+      "description": "Langue par défaut des nouveaux utilisateurs."
+    }
+  }
+}

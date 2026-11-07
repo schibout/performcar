@@ -1,0 +1,76 @@
+{
+  "success": {
+    "user": {
+      "deleted": "User deleted successfully.",
+      "created": "User created successfully.",
+      "updated": "User updated successfully.",
+      "email_verified": "Email verified successfully.",
+      "verification_email_sent": "Verification email sent."
+    },
+    "auth": {
+      "login": "Logged in successfully.",
+      "password_reset_sent": "Password reset link sent.",
+      "password_reset_success": "Password reset successfully.",
+      "password_change_success": "Password changed successfully. Please sign in again.",
+      "logout_success": "Logged out successfully.",
+      "register_success": "Registered successfully. Please verify your email."
+    },
+    "account": {
+      "deactivated": "Account deactivated. It will be deleted in 30 days unless you reactivate it.",
+      "reactivated": "Welcome back! Your account is active again."
+    },
+    "admin": {
+      "user_updated": "User updated successfully.",
+      "user_suspended": "User suspended. They cannot log in until an admin lifts the suspension.",
+      "user_unsuspended": "Suspension lifted. The user can sign in again.",
+      "user_unlocked": "Account unlocked. The user can sign in again.",
+      "user_deleted": "User permanently deleted.",
+      "password_changed": "User's password has been reset. They'll be notified by email and must use the 'Forgot Password' flow to regain access.",
+      "created": "Admin account created.",
+      "account_deleted": "Admin account deleted.",
+      "superadmin_promoted": "Admin promoted to superadmin.",
+      "superadmin_demoted": "Superadmin demoted to admin.",
+      "permissions_updated": "Permissions updated.",
+      "root_transfer_initiated": "Verification code sent to your email.",
+      "root_transferred": "Root superadmin transferred."
+    },
+    "rbac": {
+      "role_deleted": "Role deleted.",
+      "permission_set_deleted": "Permission set deleted."
+    },
+    "notification": {
+      "read": "Notification marked as read.",
+      "all_read": "All notifications marked as read."
+    },
+    "session": {
+      "revoked": "Session revoked.",
+      "others_revoked": "Signed out of all other devices.",
+      "admin_revoked": "All of the user's sessions have been terminated."
+    },
+    "support": {
+      "ticket_created": "Your support ticket has been created.",
+      "ticket_closed": "Ticket closed.",
+      "message_sent": "Message sent.",
+      "admin_ticket_updated": "Ticket updated.",
+      "admin_ticket_replied": "Reply sent."
+    },
+    "announcement": {
+      "sent": "Announcement sent."
+    },
+    "settings": {
+      "updated": "Settings saved."
+    },
+    "dealership": {
+      "deleted": "Dealership deleted."
+    },
+    "catalog": {
+      "service_deleted": "Service deleted."
+    },
+    "customer": {
+      "deleted": "Customer deleted."
+    },
+    "quote": {
+      "deleted": "Quote deleted."
+    }
+  }
+}

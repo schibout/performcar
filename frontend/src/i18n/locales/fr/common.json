@@ -1,0 +1,53 @@
+{
+  "welcome": "Bienvenue",
+  "greeting": "Bonjour, {{name}} !",
+  "buttons": {
+    "submit": "Valider",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "back": "Retour"
+  },
+  "loading": "Chargement...",
+  "error": "Une erreur est survenue",
+  "success": "Opération réussie",
+  "error_occurred": "Une erreur est survenue",
+  "something_went_wrong": "Un problème est survenu !",
+  "unexpected_error": "Une erreur inattendue est survenue.",
+  "go_home": "Retour à l'accueil",
+  "retry": "Réessayer",
+  "refresh_page": "Actualiser la page",
+  "go_back": "Retour",
+  "page_not_found": "Page introuvable",
+  "lost_in_space": "Vous semblez perdu dans l'espace !",
+  "not_found_description": "La page que vous recherchez n'existe pas ou a été déplacée. Vérifiez l'URL ou revenez à l'accueil.",
+  "ui": {
+    "theme": "Thème",
+    "language": "Langue",
+    "settings": "Paramètres",
+    "lightMode": "Mode clair",
+    "darkMode": "Mode sombre",
+    "light": "Clair",
+    "dark": "Sombre",
+    "toggleMenu": "Afficher/masquer le menu",
+    "toggleTheme": "Changer de thème",
+    "toggleLanguage": "Changer de langue",
+    "userFallback": "Utilisateur",
+    "userMenu": "Menu utilisateur",
+    "close": "Fermer",
+    "drawerDescription": "Menu de navigation pour appareils mobiles. Utilisez la touche Tab pour parcourir les liens."
+  },
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "dashboard": "Tableau de bord",
+    "profile": "Profil",
+    "support": "Assistance",
+    "notifications": "Notifications",
+    "quotes": "Devis",
+    "customers": "Clients",
+    "dealership": "Ma concession"
+  },
+  "app_subtitle": "Vos devis PERFORM'CAR en quelques clics"
+}

@@ -1,0 +1,65 @@
+{
+  "title": "Profile Settings",
+  "subtitle": "Manage your account settings and preferences",
+  "memberSince": "Member since {{date}}",
+  "tabs": {
+    "info": "Profile Information",
+    "security": "Security"
+  },
+  "info": {
+    "title": "Personal Information",
+    "description": "Information about your identity",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "titleLabel": "Title",
+    "email": "Email Address",
+    "emailNotice": "Email cannot be changed",
+    "submit": "Save Changes",
+    "submitting": "Saving..."
+  },
+  "security": {
+    "title": "Update Password",
+    "description": "Ensure your account is using a long, random password to stay secure",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "strengthLabel": "Password strength",
+    "strengthWeak": "Weak",
+    "strengthFair": "Fair",
+    "strengthGood": "Good",
+    "strengthStrong": "Strong",
+    "submit": "Update Password",
+    "submitting": "Updating..."
+  },
+  "sessions": {
+    "title": "Active Sessions",
+    "description": "View and manage the devices signed in to your account",
+    "currentBadge": "This device",
+    "unknownDevice": "Unknown device",
+    "deviceLabel": "{{browser}} — {{os}}",
+    "signedIn": "Signed in: {{date}}",
+    "lastActive": "Last active: {{date}}",
+    "revoke": "Revoke",
+    "revokeOthers": "Sign out all other devices",
+    "loadMore": "Show more",
+    "empty": "No active sessions found",
+    "confirmRevoke": {
+      "title": "Revoke session",
+      "description": "This device will be signed out of your account immediately. Continue?",
+      "confirm": "Revoke Session",
+      "cancel": "Cancel"
+    },
+    "confirmRevokeOthers": {
+      "title": "Sign out other devices",
+      "description": "Every session except this device will be terminated immediately. Continue?",
+      "confirm": "Sign Out All",
+      "cancel": "Cancel"
+    }
+  },
+  "avatar": {
+    "title": "Profile Photo",
+    "description": "Upload a photo to personalize your account",
+    "uploadRestricted": "You can't upload files, so the photo can't be changed."
+  },
+  "restricted": "You can't edit your profile."
+}

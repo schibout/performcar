@@ -1,0 +1,64 @@
+{
+  "title": "System Settings",
+  "subtitle": "Configure site-wide behaviour, branding, and feature toggles.",
+  "save": "Save changes",
+  "saving": "Saving…",
+  "noChanges": "No changes to save",
+  "loading": "Loading settings…",
+  "categories": {
+    "system": "System",
+    "auth": "Authentication",
+    "uploads": "Uploads",
+    "support": "Support",
+    "branding": "Branding"
+  },
+  "logo": {
+    "upload": "Upload logo",
+    "replace": "Replace logo",
+    "empty": "No logo set",
+    "uploading": "Uploading…"
+  },
+  "maintenance": {
+    "title": "We'll be right back",
+    "description": "We're performing scheduled maintenance. Please check back soon."
+  },
+  "locales": {
+    "fr": "French",
+    "en": "English"
+  },
+  "fields": {
+    "maintenance_mode": {
+      "label": "Maintenance mode",
+      "description": "When on, only admins can reach the app; everyone else sees the maintenance screen."
+    },
+    "registration_enabled": {
+      "label": "Registration enabled",
+      "description": "When off, new account registration is rejected."
+    },
+    "max_upload_size_mb": {
+      "label": "Max upload size (MB)",
+      "description": "Maximum allowed file upload size in megabytes."
+    },
+    "support_enabled": {
+      "label": "Support enabled",
+      "description": "When off, users cannot open new support tickets."
+    },
+    "site_name": {
+      "label": "Site name",
+      "description": "Product name shown across the app and emails."
+    },
+    "logo_url": {
+      "uploadRestricted": "You can't upload files, so the logo can't be replaced.",
+      "label": "Logo",
+      "description": "Site logo. Uploaded to storage; the URL is saved here."
+    },
+    "support_email": {
+      "label": "Support email",
+      "description": "Contact email shown to users."
+    },
+    "default_locale": {
+      "label": "Default language",
+      "description": "Default language for new users."
+    }
+  }
+}

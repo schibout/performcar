@@ -1,0 +1,30 @@
+{
+  "title": "Notifications",
+  "page": {
+    "subtitle": "Toutes vos notifications, des plus récentes aux plus anciennes.",
+    "filterAll": "Toutes",
+    "filterUnread": "Non lues"
+  },
+  "bell": "Ouvrir les notifications",
+  "markAllRead": "Tout marquer comme lu",
+  "viewAll": "Tout voir",
+  "empty": "Aucune notification pour le moment.",
+  "types": {
+    "support_ticket_replied": "Votre demande d'assistance « {{subject}} » a reçu une nouvelle réponse.",
+    "support_ticket_status_changed": "Votre demande « {{subject}} » est désormais : {{status}}.",
+    "admin_permissions_changed": "Vos droits d'administration ont été modifiés."
+  },
+  "ticketStatus": {
+    "open": "Ouverte",
+    "pending": "En attente",
+    "answered": "Répondue",
+    "closed": "Fermée"
+  },
+  "actions": {
+    "set_admin_permissions": "Vos droits d'administration ont été mis à jour.",
+    "promoted_to_superadmin": "Vous avez été promu super-administrateur.",
+    "demoted_superadmin_to_admin": "Vous avez été rétrogradé au rôle d'administrateur.",
+    "root_transferred": "Le rôle de super-administrateur principal a été transféré."
+  },
+  "restricted": "Vous n'avez pas accès aux notifications."
+}

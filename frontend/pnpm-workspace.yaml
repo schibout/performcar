@@ -1,0 +1,12 @@
+packages:
+  - "."
+allowBuilds:
+  "@sentry/cli": true
+  msw: true
+  sharp: true
+  unrs-resolver: true
+# Force patched versions of transitive dev/build-time deps that their parents
+# (vitest, next) otherwise pin below the security fix. All are build/test-only.
+overrides:
+  vite: ">=8.0.5"
+  postcss: ">=8.5.10"

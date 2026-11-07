@@ -1,0 +1,18 @@
+.local/
+backend/.env
+frontend/.env.local
+graphify-out/cache/
+*/graphify-out/20*/
+*/graphify-out/graphify-out/
+*/graphify-out/graph.html
+*/graphify-out/cost.json
+*/graphify-out/.graphify_*
+
+# Browser automation artefacts (screenshots, snapshots)
+.playwright-mcp/
+
+# Hermes profile: local Python environment and built archive
+integrations/**/.venv/
+integrations/**/__pycache__/
+integrations/**/.pytest_cache/
+integrations/hermes-performcar/performcar-hermes-profile.tar.gz

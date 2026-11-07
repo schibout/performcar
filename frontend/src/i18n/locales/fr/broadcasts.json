@@ -1,0 +1,60 @@
+{
+  "templates": {
+    "maintenance": {
+      "title": "Maintenance programmée",
+      "body": "Le système sera en maintenance du {{starts_at}} au {{ends_at}} ; de brèves interruptions peuvent survenir."
+    },
+    "welcome": {
+      "title": "Bienvenue",
+      "body": "Bienvenue ! Votre compte est prêt : complétez votre profil quand vous le souhaitez."
+    },
+    "new_feature": {
+      "title": "Nouvelle fonctionnalité",
+      "body": "Une nouvelle fonctionnalité est disponible : {{feature}}. Découvrez-la !"
+    },
+    "security_notice": {
+      "title": "Avis de sécurité",
+      "body": "Pour la sécurité de votre compte, nous vous recommandons de vérifier votre mot de passe et d'en utiliser un robuste."
+    }
+  },
+  "admin": {
+    "title": "Annonces",
+    "subtitle": "Rédigez et envoyez une annonce à vos utilisateurs.",
+    "compose": "Nouvelle annonce",
+    "previewLabel": "Aperçu",
+    "previewEmpty": "Remplissez le formulaire pour afficher un aperçu.",
+    "form": {
+      "modeLabel": "Type",
+      "modeTemplate": "Modèle",
+      "modeCustom": "Personnalisée",
+      "templateLabel": "Modèle",
+      "templatePlaceholder": "Choisissez un modèle",
+      "titleLabel": "Titre",
+      "bodyLabel": "Message",
+      "levelLabel": "Importance",
+      "audienceLabel": "Destinataires",
+      "roleLabel": "Rôle",
+      "showBanner": "Afficher aussi en bannière",
+      "sendEmail": "Envoyer aussi par e-mail",
+      "submit": "Envoyer l'annonce",
+      "cancel": "Annuler",
+      "level": { "info": "Information", "warning": "Avertissement", "critical": "Critique" },
+      "audience": { "all": "Tous les utilisateurs", "active": "Utilisateurs actifs", "role": "Par rôle" }
+    },
+    "vars": {
+      "starts_at": "Début",
+      "ends_at": "Fin",
+      "feature": "Nom de la fonctionnalité"
+    },
+    "history": {
+      "title": "Annonces envoyées",
+      "empty": "Aucune annonce envoyée pour le moment.",
+      "sentBy": "par {{name}}",
+      "emailed": "Envoyée par e-mail"
+    }
+  },
+  "banner": {
+    "details": "Détails",
+    "dismiss": "Masquer"
+  }
+}

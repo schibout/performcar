@@ -1,0 +1,78 @@
+import uuid
+from datetime import datetime
+from typing import TYPE_CHECKING
+
+from sqlalchemy import DateTime, ForeignKey, Integer, String
+from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy.dialects.postgresql import UUID as PG_UUID
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+if TYPE_CHECKING:
+    from app.models.user import User
+
+from app.core.db import Base
+from app.schemas.common import ActivityDetails
+from app.schemas.user_activity import ActivityStatus
+from app.utils import utc_now
+
+# Length caps for client-supplied audit fields, enforced at write time by the
+# logger (see ``app/use_cases/log_activity.py``). ``ip_address`` fits the
+# longest IPv6 textual form; ``user_agent`` is attacker-controlled so it is
+# bounded to stop oversized headers from bloating the audit log. Kept as a
+# write-time cap rather than a DB constraint to avoid a heavy column rewrite.
+IP_ADDRESS_MAX_LENGTH = 45
+USER_AGENT_MAX_LENGTH = 500
+
+
+class UserActivity(Base):
+    """
+    Model to track user activities and audit logs.
+    """
+
+    __tablename__ = "user_activity"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    # Nullable: the row outlives its account (FK SET NULL) so the audit trail
+    # survives deletion, and unknown-email login attempts have no account.
+    user_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("user.id", ondelete="SET NULL"),
+        index=True,
+        nullable=True,
+    )
+    # HMAC of the actor (user id once deleted, email for unknown logins), so
+    # rows stay correlatable without storing any plain identifier.
+    actor_ref: Mapped[str | None] = mapped_column(String(64), default=None, index=True)
+    # Set when the owning account was deleted; starts the retention clock.
+    user_deleted_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), default=None, index=True
+    )
+
+    # Enums stored as strings
+    activity_type: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    resource_type: Mapped[str] = mapped_column(String, nullable=False, index=True)
+
+    resource_id: Mapped[uuid.UUID | None] = mapped_column(
+        PG_UUID(as_uuid=True), default=None, index=True
+    )
+
+    details: Mapped[ActivityDetails] = mapped_column(JSON, default=dict, nullable=False)
+
+    status: Mapped[str] = mapped_column(
+        String, default=ActivityStatus.SUCCESS.value, nullable=False
+    )
+
+    # HTTP status code recorded for the activity (200 on success, the raised
+    # error code on failure). Nullable so historical rows stay valid.
+    status_code: Mapped[int | None] = mapped_column(Integer, default=None)
+
+    ip_address: Mapped[str | None] = mapped_column(String, default=None)
+    user_agent: Mapped[str | None] = mapped_column(String, default=None)
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utc_now, nullable=False, index=True
+    )
+
+    # Relationships
+    user: Mapped["User | None"] = relationship("User", back_populates="activities")

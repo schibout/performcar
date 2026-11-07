@@ -1,0 +1,15 @@
+{
+  "upload": "Téléverser",
+  "replace": "Remplacer",
+  "remove": "Supprimer",
+  "preview": "Aperçu",
+  "save": "Enregistrer",
+  "discard": "Annuler",
+  "selectedHint": "Le fichier sera téléversé lors de votre confirmation.",
+  "imageHint": "JPG, PNG, WebP ou GIF · jusqu'à {{size}}",
+  "errors": {
+    "invalid_type": "Type de fichier non pris en charge. Utilisez JPG, PNG, WebP ou GIF.",
+    "too_large": "Le fichier est trop volumineux. Taille maximale : {{size}}."
+  },
+  "restricted": "Vous ne pouvez pas téléverser de fichiers."
+}

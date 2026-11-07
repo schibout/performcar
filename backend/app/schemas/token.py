@@ -1,0 +1,46 @@
+from pydantic import BaseModel
+
+from app.schemas.user import UserMe
+
+
+# JSON payload containing access token
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    message: str | None = None
+
+
+class AuthTokens(Token):
+    refresh_token: str
+    user: UserMe
+    message: str | None = None
+
+
+class RefreshedTokens(Token):
+    """Rotated credentials returned by the refresh flow: new access + refresh."""
+
+    refresh_token: str
+
+
+class CookieLoginResponse(BaseModel):
+    """Login response without access_token in body (token is in HttpOnly cookie)."""
+
+    token_type: str = "bearer"
+    user: UserMe
+    message: str | None = None
+
+
+class CookieRefreshResponse(BaseModel):
+    """Refresh response without access_token in body (token is in HttpOnly cookie)."""
+
+    token_type: str = "bearer"
+    message: str | None = None
+
+
+# Contents of JWT token
+class TokenPayload(BaseModel):
+    sub: str | None = None
+    # Session binding (UserSession id) — present on tokens minted via login.
+    sid: str | None = None
+    # Unique token id; the refresh flow matches it against the session row.
+    jti: str | None = None

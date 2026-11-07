@@ -1,0 +1,158 @@
+{
+  "home": {
+    "title": "Devis professionnels de protection automobile",
+    "description": "La plateforme de devis PERFORM'CAR pour les concessions : protection PPF XPEL, traitement céramique et vitres teintées."
+  },
+  "about": {
+    "title": "À propos",
+    "description": "Qui nous sommes, pourquoi cette plateforme existe et les valeurs qui nous guident."
+  },
+  "login": {
+    "title": "Connexion",
+    "description": "Connectez-vous à votre espace PERFORM'CAR pour accéder à vos devis et à votre tableau de bord."
+  },
+  "register": {
+    "title": "Créer un compte",
+    "description": "Créez votre compte professionnel PERFORM'CAR pour établir vos devis en quelques minutes."
+  },
+  "forgotPassword": {
+    "title": "Mot de passe oublié",
+    "description": "Saisissez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe."
+  },
+  "resetPassword": {
+    "title": "Réinitialiser le mot de passe",
+    "description": "Définissez un nouveau mot de passe sécurisé pour votre compte PERFORM'CAR."
+  },
+  "verifyEmail": {
+    "title": "Vérification de l'e-mail",
+    "description": "Vérifiez votre adresse e-mail pour finaliser votre inscription."
+  },
+  "verifyEmailNotice": {
+    "title": "Consultez votre messagerie",
+    "description": "Nous vous avons envoyé un lien de vérification. Vérifiez votre boîte de réception et vos courriers indésirables."
+  },
+  "accountSuspended": {
+    "title": "Compte suspendu",
+    "description": "Ce compte a été suspendu par un administrateur."
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "description": "Suivez l'activité de votre concession et vos devis depuis votre tableau de bord."
+  },
+  "profile": {
+    "title": "Profil",
+    "description": "Consultez et modifiez votre profil, vos préférences et les paramètres de votre compte."
+  },
+  "support": {
+    "title": "Assistance",
+    "description": "Ouvrez une demande d'assistance et échangez avec notre équipe."
+  },
+  "notifications": {
+    "title": "Notifications",
+    "description": "Consultez toutes vos notifications et gérez leur statut de lecture."
+  },
+  "adminLogin": {
+    "title": "Connexion administrateur",
+    "description": "Connectez-vous à l'espace d'administration pour gérer les utilisateurs et suivre l'activité."
+  },
+  "adminDashboard": {
+    "title": "Tableau de bord d'administration",
+    "description": "Vue d'ensemble des utilisateurs, de l'activité et de l'état du système."
+  },
+  "adminUsers": {
+    "title": "Gestion des utilisateurs",
+    "description": "Recherchez, filtrez, modifiez et désactivez les comptes utilisateurs."
+  },
+  "adminUserDetail": {
+    "title": "Détails de l'utilisateur",
+    "description": "Modifiez un utilisateur, gérez son statut et consultez son journal d'activité."
+  },
+  "adminAdmins": {
+    "title": "Gestion des administrateurs",
+    "description": "Nommez des administrateurs, attribuez des autorisations et révoquez l'accès administrateur."
+  },
+  "adminRoles": {
+    "title": "Rôles",
+    "description": "Créez des rôles à partir d'ensembles d'autorisations et consultez ce que chacun accorde."
+  },
+  "adminPermissionSets": {
+    "title": "Ensembles d'autorisations",
+    "description": "Regroupez les autorisations en ensembles attribuables aux rôles et aux comptes."
+  },
+  "adminFiles": {
+    "title": "Gestion des fichiers",
+    "description": "Consultez, filtrez et supprimez les fichiers téléversés sur la plateforme."
+  },
+  "adminActivities": {
+    "title": "Journal d'activité",
+    "description": "Parcourez les événements d'audit de tous les utilisateurs."
+  },
+  "adminSupport": {
+    "title": "File d'assistance",
+    "description": "Consultez les demandes d'assistance des utilisateurs et répondez-y."
+  },
+  "adminNotifications": {
+    "title": "Notifications",
+    "description": "Consultez toutes vos notifications et gérez leur statut de lecture."
+  },
+  "adminBroadcasts": {
+    "title": "Annonces",
+    "description": "Rédigez et envoyez des annonces à vos utilisateurs."
+  },
+  "adminSystemSettings": {
+    "title": "Paramètres système",
+    "description": "Configurez les paramètres généraux, l'identité visuelle et les fonctionnalités."
+  },
+  "adminTicketDetail": {
+    "title": "Demande d'assistance",
+    "description": "Consultez une demande d'assistance, répondez et mettez à jour son statut."
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "description": "La page que vous recherchez n'existe pas ou a été déplacée."
+  },
+  "error": {
+    "title": "Une erreur est survenue",
+    "description": "Une erreur inattendue est survenue. Veuillez réessayer ou contacter l'assistance."
+  },
+  "quotes": {
+    "title": "Devis",
+    "description": "Tableau de bord des devis de votre concession."
+  },
+  "quotesHistory": {
+    "title": "Historique des devis",
+    "description": "Recherchez et filtrez les devis de votre concession."
+  },
+  "quotesNew": {
+    "title": "Nouveau devis",
+    "description": "Créez un devis véhicule étape par étape."
+  },
+  "quoteDetail": {
+    "title": "Devis",
+    "description": "Détails du devis."
+  },
+  "customers": {
+    "title": "Clients",
+    "description": "Les clients de votre concession."
+  },
+  "dealership": {
+    "title": "Ma concession",
+    "description": "Les informations de votre concession."
+  },
+  "adminQuotes": {
+    "title": "Devis",
+    "description": "Les devis de toutes les concessions."
+  },
+  "adminCustomers": {
+    "title": "Clients",
+    "description": "Les clients de toutes les concessions."
+  },
+  "adminCatalog": {
+    "title": "Catalogue",
+    "description": "Prestations et catalogue de véhicules."
+  },
+  "adminDealerships": {
+    "title": "Concessions",
+    "description": "Gérez les concessions."
+  }
+}

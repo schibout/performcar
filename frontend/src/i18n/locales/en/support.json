@@ -1,0 +1,88 @@
+{
+  "nav": "Support",
+  "list": {
+    "title": "Support",
+    "subtitle": "Your support tickets and conversations.",
+    "newTicket": "New ticket",
+    "searchPlaceholder": "Search by subject…",
+    "empty": "You don't have any tickets yet.",
+    "loading": "Loading tickets…",
+    "notFound": "Ticket not found.",
+    "unread": "{{count}} unread",
+    "columns": {
+      "subject": "Subject",
+      "status": "Status",
+      "updated": "Last activity"
+    }
+  },
+  "new": {
+    "title": "New support ticket",
+    "subjectLabel": "Subject",
+    "subjectPlaceholder": "Brief summary of your issue",
+    "bodyLabel": "Message",
+    "bodyPlaceholder": "Describe your issue in detail…",
+    "attachments": "Attachments",
+    "submit": "Create ticket",
+    "cancel": "Cancel"
+  },
+  "detail": {
+    "back": "Back to tickets",
+    "replyPlaceholder": "Write a reply…",
+    "send": "Send",
+    "close": "Close ticket",
+    "closedNotice": "This ticket is closed.",
+    "adminClosedNotice": "This ticket is closed. Reopen it to reply.",
+    "jumpToLatest": "Jump to latest",
+    "you": "You",
+    "supportTeam": "Support",
+    "attachments": "Attachments",
+    "empty": "No messages yet.",
+    "replyRestricted": "You can't reply to this ticket."
+  },
+  "status": {
+    "open": "Open",
+    "pending": "Pending",
+    "answered": "Answered",
+    "closed": "Closed"
+  },
+  "priority": {
+    "low": "Low",
+    "normal": "Normal",
+    "high": "High"
+  },
+  "admin": {
+    "title": "Support queue",
+    "subtitle": "All support tickets across users.",
+    "searchPlaceholder": "Search subject or user…",
+    "filters": {
+      "status": "Status",
+      "priority": "Priority",
+      "all": "All",
+      "reset": "Reset"
+    },
+    "columns": {
+      "subject": "Subject",
+      "requester": "Opened by",
+      "status": "Status",
+      "priority": "Priority",
+      "assignee": "Assignee",
+      "updated": "Last activity"
+    },
+    "loading": "Loading tickets…",
+    "empty": "No tickets match the current filters.",
+    "controls": {
+      "title": "Manage ticket",
+      "status": "Status",
+      "priority": "Priority",
+      "save": "Save changes"
+    },
+    "assignee": "Assignee",
+    "unassigned": "Unassigned",
+    "assignToMe": "Assign to me",
+    "owner": "Opened by",
+    "reply": "Reply",
+    "updateStatus": "Status",
+    "updatePriority": "Priority"
+  },
+  "restricted": "You don't have access to your support tickets."
+}

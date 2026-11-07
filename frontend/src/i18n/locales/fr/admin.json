@@ -1,0 +1,536 @@
+{
+  "login": {
+    "title": "Connexion administrateur",
+    "subtitle": "Espace réservé. Administrateurs uniquement.",
+    "cardTitle": "Connexion administrateur",
+    "cardDescription": "Saisissez vos identifiants administrateur pour continuer.",
+    "emailLabel": "E-mail professionnel",
+    "passwordLabel": "Mot de passe",
+    "submitButton": "Se connecter",
+    "submitting": "Connexion...",
+    "backToApp": "Retour à l'application"
+  },
+  "permissionDenied": {
+    "title": "Permission requise",
+    "description": "Vous n'avez pas la permission d'afficher cette section. Demandez l'accès à un superadmin."
+  },
+  "admins": {
+    "title": "Gestion des administrateurs",
+    "subtitle": "Créez des administrateurs, attribuez des permissions et gérez le niveau superadmin.",
+    "superadminBadge": "Superadmin · accès complet",
+    "rootBadge": "Root",
+    "savePermissions": "Enregistrer les permissions",
+    "managePermissions": "Gérer les permissions",
+    "permissionCount": "Permissions : {{count}}",
+    "empty": "Aucun administrateur pour le moment.",
+    "loading": "Chargement des administrateurs...",
+    "columns": {
+      "admin": "Administrateur",
+      "role": "Rôle",
+      "permissions": "Permissions directes",
+      "created": "Créé le",
+      "actions": "Actions"
+    },
+    "rowActions": {
+      "menu": "Actions de la ligne"
+    },
+    "modal": {
+      "title": "Permissions · {{email}}",
+      "cancel": "Annuler"
+    },
+    "create": {
+      "action": "Créer un administrateur",
+      "title": "Créer un compte administrateur",
+      "accountSection": "Informations du compte",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "admin@exemple.fr",
+      "firstNameLabel": "Prénom",
+      "lastNameLabel": "Nom",
+      "passwordLabel": "Mot de passe",
+      "passwordPlaceholder": "Au moins 8 caractères",
+      "permissionsLabel": "Permissions",
+      "submit": "Créer l'administrateur",
+      "cancel": "Annuler"
+    },
+    "delete": {
+      "action": "Supprimer le compte",
+      "title": "Supprimer le compte administrateur",
+      "description": "Supprimer définitivement {{email}} et révoquer tous ses accès ? Cette action est irréversible.",
+      "confirm": "Supprimer le compte",
+      "cancel": "Annuler"
+    },
+    "promoteSuperadmin": {
+      "action": "Promouvoir superadmin",
+      "title": "Promouvoir en superadmin",
+      "description": "Accorder à {{email}} un accès superadmin complet ? Ce compte disposera implicitement de toutes les permissions.",
+      "confirm": "Promouvoir superadmin",
+      "cancel": "Annuler"
+    },
+    "demoteToAdmin": {
+      "action": "Rétrograder en administrateur",
+      "title": "Rétrograder en administrateur",
+      "description": "Rétrograder {{email}} au rang d'administrateur simple, sans aucune permission ?",
+      "confirm": "Rétrograder en administrateur",
+      "cancel": "Annuler"
+    },
+    "transferRoot": {
+      "action": "Transférer le statut root",
+      "title": "Transférer le superadmin root",
+      "description": "Transférez votre statut root à un autre superadmin. Un code de vérification sera envoyé à votre adresse e-mail.",
+      "targetLabel": "Nouveau root (superadmin)",
+      "targetPlaceholder": "Sélectionnez un superadmin",
+      "send": "Envoyer le code",
+      "sentNote": "Un code a été envoyé à votre adresse e-mail. Saisissez-le ci-dessous dans les 3 minutes.",
+      "codeLabel": "Code de vérification",
+      "codePlaceholder": "Code à 6 chiffres",
+      "confirm": "Confirmer le transfert",
+      "cancel": "Annuler"
+    },
+    "directPermissionsHint": "Attributions directes uniquement. Les permissions accordées via des rôles et des ensembles de permissions ne sont pas comptées : ouvrez le panneau des accès pour les consulter.",
+    "viewAccess": "Voir les accès"
+  },
+  "permissions": {
+    "selectAll": "Tout",
+    "searchPlaceholder": "Rechercher une section...",
+    "noResults": "Aucune section ne correspond à votre recherche.",
+    "restricted": "Vous n'avez pas la permission requise : cet élément est masqué et aucune requête n'est envoyée.",
+    "resource": {
+      "users": "Utilisateurs",
+      "files": "Fichiers",
+      "support": "Support",
+      "activities": "Activités",
+      "stats": "Statistiques",
+      "roles": "Rôles",
+      "permission_sets": "Ensembles de permissions",
+      "admins": "Administrateurs",
+      "broadcast": "Annonces",
+      "system_settings": "Paramètres système",
+      "self": {
+        "profile": "Mon profil",
+        "files": "Mes fichiers",
+        "notifications": "Mes notifications",
+        "support": "Mes demandes de support",
+        "quotes": "Devis de ma concession",
+        "customers": "Clients de ma concession",
+        "catalog": "Catalogue des devis",
+        "dealership": "Ma concession"
+      },
+      "quotes": "Devis",
+      "customers": "Clients",
+      "catalog": "Catalogue",
+      "dealerships": "Concessions"
+    },
+    "action": {
+      "read": "Consulter",
+      "write": "Modifier",
+      "delete": "Supprimer",
+      "suspend": "Suspendre",
+      "password_reset": "Réinitialiser le mot de passe",
+      "sessions": "Gérer les sessions",
+      "unlock": "Déverrouiller les comptes",
+      "mfa_reset": "Réinitialiser la MFA",
+      "update": "Attribuer",
+      "upload": "Importer",
+      "create": "Créer",
+      "reply": "Répondre",
+      "close": "Clôturer"
+    }
+  },
+  "shell": {
+    "title": "Administration",
+    "brandSubtitle": "Espace d'administration",
+    "toggleSidebar": "Afficher/masquer la barre latérale",
+    "breadcrumb": "Fil d'Ariane",
+    "section": {
+      "overview": "Vue d'ensemble",
+      "management": "Gestion",
+      "monitoring": "Supervision",
+      "account": "Compte",
+      "accessControl": "Contrôle d'accès",
+      "dealerNetwork": "Réseau de concessions"
+    },
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "users": "Utilisateurs",
+      "admins": "Administrateurs",
+      "files": "Fichiers",
+      "activities": "Journal d'activité",
+      "support": "Support",
+      "notifications": "Notifications",
+      "broadcasts": "Annonces",
+      "system-settings": "Paramètres système",
+      "profile": "Profil",
+      "roles": "Rôles",
+      "permission-sets": "Ensembles de permissions",
+      "quotes": "Devis",
+      "customers": "Clients",
+      "catalog": "Catalogue",
+      "dealerships": "Concessions"
+    },
+    "signedInAs": "Connecté en tant que",
+    "exit": "Quitter l'administration",
+    "forbiddenTitle": "Réservé aux administrateurs",
+    "forbiddenDescription": "Vous êtes connecté, mais cet espace nécessite un rôle d'administrateur.",
+    "forbiddenCta": "Retour au tableau de bord"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "subtitle": "Vue d'ensemble des utilisateurs et de l'activité récente.",
+    "stats": {
+      "totalUsers": "Utilisateurs au total",
+      "activeUsers": "Utilisateurs actifs",
+      "admins": "Administrateurs",
+      "activitiesToday": "Activités"
+    },
+    "recentActivity": "Activité récente",
+    "viewAllActivity": "Voir toute l'activité",
+    "viewAllUsers": "Voir tous les utilisateurs"
+  },
+  "users": {
+    "title": "Utilisateurs",
+    "subtitle": "Recherchez, filtrez et gérez tous les comptes.",
+    "filters": {
+      "searchPlaceholder": "Rechercher par e-mail ou par nom",
+      "role": "Rôle",
+      "roleAny": "Tous les rôles",
+      "status": "Statut",
+      "statusAny": "Tous les statuts",
+      "statusActive": "Actif",
+      "statusInactive": "Inactif",
+      "verified": "Vérifié",
+      "verifiedAny": "Tous",
+      "verifiedYes": "Vérifié",
+      "verifiedNo": "Non vérifié",
+      "reset": "Effacer les filtres"
+    },
+    "columns": {
+      "user": "Utilisateur",
+      "email": "E-mail",
+      "role": "Rôle",
+      "status": "Statut",
+      "verified": "Vérifié",
+      "created": "Créé le",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Actif",
+      "inactive": "Inactif",
+      "pendingDeletion": "Suppression en attente",
+      "suspended": "Suspendu"
+    },
+    "role": {
+      "superadmin": "Superadmin",
+      "admin": "Administrateur",
+      "user": "Utilisateur"
+    },
+    "empty": "Aucun utilisateur ne correspond aux filtres actuels.",
+    "loading": "Chargement des utilisateurs...",
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "pageOf": "sur {{total}}",
+      "goToPage": "Aller à la page",
+      "showing": "{{from}}–{{to}} sur {{total}}",
+      "rowsPerPage": "Lignes par page"
+    },
+    "rowActions": {
+      "open": "Voir le détail",
+      "menu": "Actions de la ligne",
+      "suspend": "Suspendre",
+      "unsuspend": "Lever la suspension",
+      "unlock": "Déverrouiller le compte",
+      "changePassword": "Forcer la réinitialisation du mot de passe",
+      "delete": "Supprimer l'utilisateur"
+    }
+  },
+  "userDetail": {
+    "backToUsers": "Retour aux utilisateurs",
+    "avatarTitle": "Photo de profil",
+    "avatarDescription": "Importez, remplacez ou supprimez l'avatar de cet utilisateur.",
+    "avatarUploadRestricted": "Vous ne pouvez pas importer de fichiers : la photo ne peut donc pas être remplacée.",
+    "removeAvatarTitle": "Supprimer cet avatar ?",
+    "removeAvatarDescription": "La photo sera définitivement supprimée du stockage et l'avatar de l'utilisateur sera retiré. Cette action est irréversible.",
+    "removeAvatarConfirm": "Supprimer l'avatar",
+    "overviewTitle": "Aperçu du compte",
+    "overviewDescription": "Informations de base et statut de cet utilisateur.",
+    "overview": {
+      "id": "ID",
+      "created": "Créé le",
+      "updated": "Mis à jour le",
+      "deactivated": "Désactivé le",
+      "scheduledDeletion": "Suppression prévue le",
+      "suspended": "Suspendu le"
+    },
+    "editTitle": "Modifier l'utilisateur",
+    "editDescription": "Mettez à jour le profil et les accès.",
+    "activityTitle": "Activité récente",
+    "activityDescription": "Événements d'audit enregistrés pour cet utilisateur.",
+    "activityEmpty": "Aucune activité récente.",
+    "activityLoadMore": "Afficher plus",
+    "dangerTitle": "Zone de danger",
+    "dangerDescription": "Ces actions sont journalisées et ne peuvent pas être annulées par l'utilisateur concerné.",
+    "sessions": {
+      "title": "Sessions actives",
+      "description": "Appareils actuellement connectés à ce compte.",
+      "deviceLabel": "{{browser}} — {{os}}",
+      "unknownDevice": "Appareil inconnu",
+      "lastActive": "Dernière activité : {{date}}",
+      "revokeAll": "Fermer toutes les sessions",
+      "loadMore": "Afficher plus",
+      "empty": "Aucune session active.",
+      "confirm": {
+        "title": "Fermer toutes les sessions ?",
+        "description": "L'utilisateur sera immédiatement déconnecté de tous ses appareils et devra se reconnecter. Cette action est journalisée.",
+        "confirm": "Tout fermer",
+        "cancel": "Annuler"
+      }
+    },
+    "fields": {
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "title": "Fonction",
+      "role": "Rôle",
+      "active": "Actif",
+      "verified": "E-mail vérifié"
+    },
+    "save": "Enregistrer les modifications",
+    "saving": "Enregistrement...",
+    "cancel": "Annuler",
+    "changePassword": "Forcer la réinitialisation du mot de passe",
+    "suspend": "Suspendre le compte",
+    "unsuspend": "Lever la suspension",
+    "unlock": "Déverrouiller le compte",
+    "delete": "Supprimer l'utilisateur",
+    "deleting": "Suppression...",
+    "adminTargetRestricted": "La modification d'un compte administrateur nécessite la permission admins:write : cet élément est donc masqué et aucune requête n'est envoyée."
+  },
+  "confirm": {
+    "deleteTitle": "Supprimer cet utilisateur ?",
+    "deleteDescription": "L'utilisateur sera définitivement supprimé. Cette action est irréversible.",
+    "deleteConfirm": "Supprimer l'utilisateur",
+    "suspendTitle": "Suspendre cet utilisateur ?",
+    "suspendDescription": "L'utilisateur perd immédiatement l'accès et le compte reste suspendu jusqu'à ce qu'un administrateur lève la suspension.",
+    "suspendConfirm": "Suspendre",
+    "unsuspendTitle": "Lever cette suspension ?",
+    "unsuspendDescription": "Le compte sera réactivé et l'utilisateur retrouvera son accès.",
+    "unsuspendConfirm": "Lever la suspension",
+    "unlockTitle": "Déverrouiller ce compte ?",
+    "unlockDescription": "Le compteur d'échecs de connexion et tout verrouillage temporaire seront réinitialisés : l'utilisateur pourra se reconnecter immédiatement.",
+    "unlockConfirm": "Déverrouiller",
+    "changePasswordTitle": "Forcer la réinitialisation du mot de passe ?",
+    "changePasswordDescription": "Le mot de passe de l'utilisateur sera remplacé par une valeur inconnue. Il devra utiliser le lien « Mot de passe oublié » de la page de connexion pour retrouver l'accès. Vous ne verrez jamais le nouveau mot de passe.",
+    "changePasswordConfirm": "Forcer la réinitialisation",
+    "cancel": "Annuler"
+  },
+  "files": {
+    "title": "Fichiers",
+    "subtitle": "Consultez, filtrez et supprimez les fichiers importés.",
+    "filters": {
+      "uploaderPlaceholder": "Rechercher par nom ou e-mail de l'auteur de l'import",
+      "type": "Type",
+      "typeAny": "Tous les types",
+      "reset": "Effacer les filtres"
+    },
+    "columns": {
+      "file": "Fichier",
+      "type": "Type",
+      "size": "Taille",
+      "uploadedBy": "Importé par",
+      "created": "Créé le",
+      "actions": "Actions"
+    },
+    "rowActions": {
+      "preview": "Aperçu",
+      "delete": "Supprimer le fichier"
+    },
+    "unnamed": "Sans titre",
+    "empty": "Aucun fichier ne correspond aux filtres actuels.",
+    "loading": "Chargement des fichiers...",
+    "confirmDelete": {
+      "title": "Supprimer ce fichier ?",
+      "description": "Le fichier sera définitivement supprimé du stockage. S'il s'agit de l'avatar d'un utilisateur, cet avatar sera retiré. Cette action est irréversible.",
+      "confirm": "Supprimer le fichier",
+      "cancel": "Annuler"
+    }
+  },
+  "activities": {
+    "title": "Journal d'activité",
+    "subtitle": "Tous les événements audités sur la plateforme.",
+    "refresh": "Actualiser",
+    "filters": {
+      "type": "Type",
+      "typeAny": "Tous les types",
+      "resource": "Ressource",
+      "resourceAny": "Toutes les ressources",
+      "status": "Statut",
+      "statusAny": "Tous les statuts",
+      "statusCode": "Code de statut",
+      "statusCodeAny": "Tous les codes",
+      "user": "Utilisateur",
+      "userSearch": "Rechercher par nom ou e-mail…",
+      "reset": "Effacer les filtres"
+    },
+    "columns": {
+      "when": "Date",
+      "user": "Utilisateur",
+      "type": "Type",
+      "resource": "Ressource",
+      "status": "Statut",
+      "statusCode": "Code",
+      "details": "Détails"
+    },
+    "status": {
+      "success": "Réussite",
+      "failure": "Échec"
+    },
+    "type": {
+      "create": "Création",
+      "read": "Lecture",
+      "update": "Modification",
+      "delete": "Suppression",
+      "execute": "Exécution",
+      "login": "Connexion",
+      "logout": "Déconnexion",
+      "export": "Export",
+      "invite": "Invitation"
+    },
+    "resource": {
+      "user": "Utilisateur",
+      "auth": "Authentification",
+      "file": "Fichier",
+      "support_ticket": "Demande de support",
+      "system_settings": "Paramètres système",
+      "role": "Rôle",
+      "permission_set": "Ensemble de permissions",
+      "announcement": "Annonce",
+      "dealership": "Concession",
+      "service": "Prestation",
+      "customer": "Client",
+      "quote": "Devis"
+    },
+    "deletedAccount": "Compte supprimé",
+    "unknownAccount": "Compte inconnu",
+    "empty": "Aucune activité ne correspond aux filtres actuels.",
+    "loading": "Chargement de l'activité..."
+  },
+  "rbac": {
+    "audience": {
+      "label": "Public",
+      "user": "Utilisateurs",
+      "admin": "Administrateurs"
+    },
+    "audienceHint": {
+      "user": "Pour les comptes standards : permissions en libre-service uniquement.",
+      "admin": "Pour les comptes de l'espace d'administration : toute permission."
+    },
+    "system": "Système",
+    "systemReadOnly": "Les éléments système ne peuvent être ni modifiés ni supprimés.",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement...",
+    "create": "Créer",
+    "close": "Fermer",
+    "edit": "Modifier",
+    "view": "Consulter",
+    "delete": "Supprimer",
+    "rowActions": "Actions de la ligne",
+    "fields": {
+      "key": "Clé",
+      "keyHint": "Lettres minuscules, chiffres et tirets bas ; les points séparent les parties. Non modifiable après création.",
+      "name": "Nom",
+      "description": "Description"
+    },
+    "validation": {
+      "keyInvalid": "Utilisez des lettres minuscules, des chiffres et des tirets bas, en commençant par une lettre.",
+      "nameRequired": "Le nom est obligatoire."
+    },
+    "roles": {
+      "title": "Rôles",
+      "subtitle": "Un rôle regroupe des ensembles de permissions et s'attribue aux comptes.",
+      "create": "Créer un rôle",
+      "createTitle": "Créer un rôle",
+      "editTitle": "Modifier le rôle · {{name}}",
+      "viewTitle": "Rôle · {{name}}",
+      "loading": "Chargement des rôles...",
+      "empty": "Aucun rôle pour le moment.",
+      "columns": {
+        "role": "Rôle",
+        "audience": "Public",
+        "sets": "Ensembles de permissions",
+        "actions": "Actions"
+      },
+      "setsLabel": "Ensembles de permissions",
+      "noSets": "Aucun",
+      "noSetsAvailable": "Aucun ensemble de permissions n'existe encore pour ce public.",
+      "delete": {
+        "title": "Supprimer le rôle",
+        "description": "Supprimer le rôle {{name}} ? Cette action est irréversible.",
+        "confirm": "Supprimer le rôle"
+      }
+    },
+    "sets": {
+      "title": "Ensembles de permissions",
+      "subtitle": "Un ensemble de permissions est un groupe nommé de permissions inclus dans les rôles.",
+      "create": "Créer un ensemble de permissions",
+      "createTitle": "Créer un ensemble de permissions",
+      "editTitle": "Modifier l'ensemble de permissions · {{name}}",
+      "viewTitle": "Ensemble de permissions · {{name}}",
+      "loading": "Chargement des ensembles de permissions...",
+      "empty": "Aucun ensemble de permissions pour le moment.",
+      "columns": {
+        "set": "Ensemble de permissions",
+        "audience": "Public",
+        "permissions": "Permissions",
+        "actions": "Actions"
+      },
+      "permissionsLabel": "Permissions",
+      "permissionCount": "{{count}} permissions",
+      "delete": {
+        "title": "Supprimer l'ensemble de permissions",
+        "description": "Supprimer l'ensemble de permissions {{name}} ? Cette action est irréversible.",
+        "confirm": "Supprimer l'ensemble de permissions"
+      }
+    },
+    "access": {
+      "title": "Accès",
+      "description": "Les rôles, ensembles de permissions et permissions détenus par ce compte, ainsi que leur provenance.",
+      "loading": "Chargement des accès...",
+      "roles": "Rôles",
+      "permissionSets": "Ensembles de permissions",
+      "directPermissions": "Permissions directes",
+      "directHint": "Les permissions directes se modifient dans la gestion des administrateurs.",
+      "openAdmins": "Ouvrir la gestion des administrateurs",
+      "none": "Aucun",
+      "expires": "Expire le {{date}}",
+      "expired": "Expiré",
+      "effective": "Permissions effectives",
+      "effectiveEmpty": "Ce compte ne détient aucune permission.",
+      "source": {
+        "role": "Rôle",
+        "permission_set": "Ensemble de permissions",
+        "direct": "Attribution directe",
+        "superadmin": "Niveau superadmin"
+      },
+      "manageRoles": "Gérer les rôles",
+      "manageSets": "Gérer les ensembles de permissions",
+      "superadminNote": "Un superadmin détient toutes les permissions grâce à son niveau. Aucun rôle ni ensemble de permissions ne peut lui être attribué.",
+      "selfNote": "Vous ne pouvez pas modifier vos propres accès.",
+      "forbiddenNote": "La consultation des accès d'un compte administrateur nécessite la permission admins:read.",
+      "assign": {
+        "rolesTitle": "Rôles · {{email}}",
+        "setsTitle": "Ensembles de permissions · {{email}}",
+        "expiresLabel": "Expire le",
+        "expiresHint": "Laissez vide pour une durée illimitée.",
+        "noOptions": "Aucun élément à attribuer.",
+        "promoteWarning": "L'attribution d'un rôle ou d'un ensemble de permissions administrateur donne à ce compte l'accès à l'espace d'administration.",
+        "listError": "La liste n'a pas pu être chargée : les attributions ne peuvent pas être modifiées pour le moment.",
+        "demoteWarning": "Sans rôle administrateur, ensemble de permissions ou permission directe, ce compte perd l'accès à l'espace d'administration et redevient un utilisateur standard.",
+        "userRoleRequired": "Conservez au moins un rôle utilisateur permanent.",
+        "save": "Enregistrer les attributions",
+        "expiredBadge": "Expiré"
+      }
+    },
+    "genericError": "La requête a échoué. Vérifiez les valeurs et réessayez.",
+    "catalogError": "La liste des permissions n'a pas pu être chargée : les permissions ne peuvent pas être modifiées pour le moment."
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "badge": "Centre certifié XPEL · Paris Saclay",
+  "title": "Vos devis {{appName}} en quelques clics",
+  "subtitle": "Protection de carrosserie PPF XPEL, traitement céramique, vitres teintées : composez, financez et éditez des devis premium pour vos clients, en un seul parcours.",
+  "cta": {
+    "login": "Se connecter",
+    "register": "Créer mon compte",
+    "dashboard": "Accéder à mes devis"
+  },
+  "features": {
+    "eyebrow": "Pourquoi EasyDevis",
+    "title": "L'exigence du détail, jusque dans vos devis",
+    "subtitle": "Tout ce qu'il faut pour établir un devis juste et professionnel, sans ressaisie.",
+    "item1": "Un devis en quelques clics",
+    "item1Desc": "Véhicule, prestations, financement, client : un parcours guidé en cinq étapes, avec un récapitulatif prêt à imprimer.",
+    "item2": "Des prix maîtrisés",
+    "item2Desc": "Les tarifs viennent du catalogue PERFORM'CAR et restent figés sur chaque devis émis.",
+    "item3": "Financement intégré",
+    "item3Desc": "Comptant, crédit, LOA ou LLD : la mensualité est calculée automatiquement.",
+    "item4": "Suivi et historique",
+    "item4Desc": "Retrouvez vos devis et vos clients, suivez leur statut et votre taux de conversion depuis le tableau de bord."
+  },
+  "mock": {
+    "window": "Nouveau devis",
+    "vehicle": "Véhicule",
+    "vehicleDesc": "Marque, modèle, version, couleur et état",
+    "services": "Prestations",
+    "servicesDesc": "PPF XPEL, céramique, vitrage, garanties",
+    "financing": "Financement",
+    "financingDesc": "Comptant, crédit, LOA ou LLD",
+    "customer": "Client",
+    "customerDesc": "Coordonnées et date souhaitée",
+    "summary": "Récapitulatif",
+    "summaryDesc": "Contrôle, enregistrement et impression"
+  },
+  "marquee": {
+    "tag1": "PPF XPEL",
+    "tag2": "XPEL STEALTH",
+    "tag3": "XPEL COLORS",
+    "tag4": "Traitement céramique SYSTEMX",
+    "tag5": "Vitres teintées XPEL XR PRIME",
+    "tag6": "Pare-brise XPEL WPF",
+    "tag7": "Reprogrammation moteur",
+    "tag8": "Garantie 10 ans"
+  },
+  "showcase": {
+    "eyebrow": "Nos prestations",
+    "title": "Le savoir-faire PERFORM'CAR",
+    "subtitle": "Les prestations que vous pouvez proposer à vos clients, du film de protection à la performance.",
+    "card1Title": "Film de protection PPF XPEL",
+    "card1Desc": "Une protection invisible de la carrosserie contre les gravillons et les rayures, posée par un centre certifié XPEL.",
+    "card1Tag": "Garantie 10 ans",
+    "card2Title": "XPEL STEALTH",
+    "card2Desc": "La même protection avec une finition satinée, pour transformer l'aspect d'une peinture brillante.",
+    "card2Tag": "Film PPF",
+    "card3Title": "XPEL COLORS",
+    "card3Desc": "Changez la teinte de votre véhicule tout en le protégeant, avec 16 couleurs exclusives.",
+    "card3Tag": "Film PPF",
+    "card4Title": "Packs PPF",
+    "card4Desc": "Du Pack Avant au Pack Complet, une protection adaptée à chaque usage et à chaque budget.",
+    "card4Tag": "4 packs",
+    "card5Title": "Traitement céramique SYSTEMX",
+    "card5Desc": "Une brillance durable et un entretien facilité, appliqués par un centre accrédité SYSTEMX.",
+    "card5Tag": "Céramique",
+    "card6Title": "Vitres teintées XPEL XR PRIME",
+    "card6Desc": "Confort thermique, intimité et protection contre les UV.",
+    "card6Tag": "Vitrage",
+    "card7Title": "Protection pare-brise XPEL WPF",
+    "card7Desc": "Un film dédié au pare-brise pour limiter les impacts et les éclats.",
+    "card7Tag": "Vitrage",
+    "card8Title": "Reprogrammation & performance",
+    "card8Desc": "Reprogrammation moteur et équipements de nos partenaires : Armytrix, Akrapovic, KW.",
+    "card8Tag": "Performance"
+  },
+  "stats": {
+    "eyebrow": "En chiffres",
+    "title": "La confiance de nos clients",
+    "vehicles": "Véhicules d'exception protégés",
+    "warranty": "Ans de garantie XPEL",
+    "satisfaction": "De clients satisfaits"
+  },
+  "steps": {
+    "eyebrow": "Comment ça marche",
+    "title": "Trois étapes vers un devis",
+    "step1Title": "Configurez le véhicule",
+    "step1Desc": "Choisissez la marque, le modèle, la version et la couleur dans le catalogue.",
+    "step2Title": "Ajoutez prestations et financement",
+    "step2Desc": "Sélectionnez les prestations, puis le mode de financement : le total et la mensualité se calculent seuls.",
+    "step3Title": "Éditez et suivez le devis",
+    "step3Desc": "Enregistrez, imprimez et suivez son statut jusqu'à la réalisation."
+  },
+  "ctaBand": {
+    "title": "Prêt à établir votre premier devis ?",
+    "desc": "Protégez la passion de vos clients avec excellence et précision.",
+    "button": "Commencer maintenant"
+  },
+  "footer": {
+    "tagline": "PERFORM'CAR — L'exigence du détail, la signature de l'excellence.",
+    "exploreTitle": "Explorer",
+    "accountTitle": "Compte",
+    "rights": "Tous droits réservés.",
+    "backToTop": "Retour en haut"
+  }
+}

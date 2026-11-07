@@ -1,0 +1,118 @@
+{
+  "fillAllFields": "Veuillez remplir tous les champs.",
+  "loginFailed": "Échec de la connexion. Veuillez vérifier vos identifiants.",
+  "genericError": "Une erreur est survenue lors de la connexion.",
+  "registrationFailed": "Échec de l'inscription. Veuillez réessayer.",
+  "VALIDATION_ERROR": "Erreur de validation",
+  "INTERNAL_SERVER_ERROR": "Erreur interne du serveur",
+  "RESOURCE_NOT_FOUND": "Ressource introuvable",
+  "INVALID_TOKEN": "Jeton invalide ou expiré",
+  "INSUFFICIENT_PERMISSIONS": "Permissions insuffisantes",
+  "RESOURCE_CONFLICT": "Conflit de ressource",
+  "RATE_LIMIT_EXCEEDED": "Limite de requêtes dépassée",
+  "error": {
+    "user": {
+      "role_invalid": "Le rôle indiqué est invalide.",
+      "not_found": "Utilisateur introuvable.",
+      "email_exists": "Cette adresse e-mail est déjà utilisée.",
+      "invalid_credentials": "E-mail ou mot de passe incorrect.",
+      "invalid_password": "Mot de passe incorrect.",
+      "user_inactive": "Ce compte utilisateur est inactif.",
+      "email_not_verified": "L'adresse e-mail n'a pas été vérifiée.",
+      "invalid_verification_token": "Le jeton de vérification est invalide.",
+      "invalid_email_domain": "Ce domaine de messagerie ne peut pas recevoir d'e-mails.",
+      "disposable_email_not_allowed": "Les adresses e-mail jetables ne sont pas autorisées.",
+      "password_weak": "Le mot de passe doit contenir une majuscule, une minuscule, un chiffre et un caractère spécial."
+    },
+    "auth": {
+      "refresh_token_missing": "Le jeton d'actualisation est manquant.",
+      "invalid_current_password": "Le mot de passe actuel est incorrect.",
+      "registration_disabled": "Les inscriptions sont actuellement désactivées."
+    },
+    "account": {
+      "already_deactivated": "La suppression de votre compte est déjà programmée.",
+      "not_deactivated": "Votre compte est actif : il n'y a rien à annuler.",
+      "deletion_expired": "Le délai de grâce de ce compte a expiré.",
+      "suspended": "Votre compte a été suspendu par un administrateur.",
+      "already_suspended": "Cet utilisateur est déjà suspendu.",
+      "not_suspended": "Cet utilisateur n'est pas suspendu.",
+      "locked": "Trop de tentatives de connexion échouées. Votre compte est temporairement verrouillé. Veuillez réessayer plus tard."
+    },
+    "admin": {
+      "cannot_modify_self": "Les administrateurs ne peuvent pas modifier leur propre compte depuis cet espace.",
+      "cannot_delete_self": "Les administrateurs ne peuvent pas supprimer leur propre compte.",
+      "cannot_demote_last_admin": "Vous ne pouvez pas rétrograder le dernier administrateur actif.",
+      "cannot_delete_last_admin": "Vous ne pouvez pas supprimer le dernier administrateur actif.",
+      "cannot_modify_superadmin": "Seul un superadmin peut modifier un compte superadmin.",
+      "cannot_delete_last_superadmin": "Vous ne pouvez pas retirer le dernier superadmin actif.",
+      "only_superadmin": "Cette action est réservée aux superadmins.",
+      "only_root_superadmin": "Cette action est réservée au superadmin root.",
+      "not_an_admin": "Cet utilisateur n'est pas administrateur.",
+      "not_a_superadmin": "Cet utilisateur n'est pas superadmin.",
+      "cannot_transfer_to_self": "Vous ne pouvez pas vous transférer le statut root à vous-même.",
+      "superadmin_role_immutable": "Le rôle d'un superadmin ne peut pas être modifié."
+    },
+    "rbac": {
+      "role_not_found": "Rôle introuvable.",
+      "permission_set_not_found": "Ensemble de permissions introuvable.",
+      "key_already_exists": "Un rôle ou un ensemble de permissions utilise déjà cette clé.",
+      "system_element": "Les rôles et ensembles de permissions système ne peuvent être ni modifiés ni supprimés.",
+      "role_in_use": "Ce rôle est encore attribué à des comptes. Retirez-le avant de le supprimer.",
+      "permission_set_in_use": "Cet ensemble de permissions est encore utilisé par un rôle ou un compte. Retirez-le avant de le supprimer.",
+      "permission_audience_mismatch": "Un ensemble de permissions destiné aux utilisateurs ne peut contenir que des permissions en libre-service.",
+      "set_audience_mismatch": "Un rôle ne peut inclure que des ensembles de permissions de son propre public.",
+      "user_role_required": "Un compte doit conserver au moins un rôle utilisateur permanent.",
+      "superadmin_target": "Un superadmin détient toutes les permissions : aucun rôle ni ensemble de permissions ne peut lui être attribué.",
+      "admin_assignment_forbidden": "L'attribution d'un rôle ou d'un ensemble de permissions administrateur à un utilisateur nécessite la permission admins:write.",
+      "duplicate_assignment": "Le même rôle ou ensemble de permissions apparaît plusieurs fois.",
+      "expiry_in_past": "La date d'expiration doit être dans le futur.",
+      "self_permission_roles_only": "Les permissions en libre-service ne peuvent être accordées que via des rôles.",
+      "privilege_escalation": "Vous ne pouvez accorder ou retirer que les permissions que vous détenez de façon permanente. Les permissions temporaires ne peuvent pas être transmises."
+    },
+    "notification": {
+      "not_found": "Notification introuvable.",
+      "access_denied": "Vous n'avez pas accès à cette notification."
+    },
+    "session": {
+      "not_found": "Session introuvable."
+    },
+    "support": {
+      "ticket_not_found": "Demande introuvable.",
+      "ticket_access_denied": "Vous n'avez pas accès à cette demande.",
+      "ticket_already_closed": "Cette demande est clôturée et ne peut plus recevoir de réponses.",
+      "attachment_not_found": "Un fichier joint est introuvable.",
+      "attachment_not_owned": "Vous ne pouvez joindre que des fichiers que vous avez vous-même importés.",
+      "attachment_wrong_category": "Ce fichier ne peut pas être utilisé comme pièce jointe de support.",
+      "invalid_assigned_admin": "Les demandes ne peuvent être attribuées qu'à un administrateur.",
+      "disabled": "Le support est temporairement indisponible."
+    },
+    "system": {
+      "maintenance": "Le système est en maintenance. Veuillez revenir un peu plus tard."
+    },
+    "settings": {
+      "not_found": "Paramètre introuvable.",
+      "invalid_value": "Valeur invalide pour ce paramètre."
+    },
+    "quote": {
+      "no_dealership": "Votre compte n'est rattaché à aucune concession.",
+      "not_found": "Devis introuvable.",
+      "down_payment_too_high": "L'apport ne peut pas dépasser le montant total du devis.",
+      "financing_incomplete": "Choisissez une durée de financement.",
+      "reference_conflict": "Deux devis ont été créés au même moment. Veuillez réessayer."
+    },
+    "dealership": {
+      "not_found": "Concession introuvable.",
+      "in_use": "Une concession comportant des devis ne peut pas être supprimée."
+    },
+    "catalog": {
+      "service_not_found": "Prestation introuvable.",
+      "service_in_use": "Cette prestation est utilisée dans des devis et ne peut pas être supprimée. Désactivez-la plutôt.",
+      "category_not_found": "Catégorie de prestations introuvable.",
+      "service_unavailable": "Une prestation sélectionnée n'est plus disponible."
+    },
+    "customer": {
+      "not_found": "Client introuvable.",
+      "has_quotes": "Ce client possède des devis et ne peut pas être supprimé."
+    }
+  }
+}

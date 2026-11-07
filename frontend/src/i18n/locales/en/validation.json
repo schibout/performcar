@@ -1,0 +1,19 @@
+{
+  "emailRequired": "Email is required",
+  "emailInvalid": "Enter a valid email address",
+  "passwordMin": "Password must be at least {{count}} characters",
+  "passwordUppercase": "Password must contain at least one uppercase letter",
+  "passwordLowercase": "Password must contain at least one lowercase letter",
+  "passwordNumber": "Password must contain at least one number",
+  "passwordSpecial": "Password must contain at least one special character",
+  "passwordRequired": "Password is required",
+  "confirmPasswordRequired": "Please confirm your password",
+  "nameMin": "Name must be at least {{count}} characters",
+  "confirmPasswordMismatch": "Passwords do not match",
+  "deactivateAcknowledgeRequired": "You must confirm that you understand the consequence.",
+  "subjectMin": "Subject must be at least {{count}} characters",
+  "bodyMin": "Message must be at least {{count}} characters",
+  "messageRequired": "Message cannot be empty",
+  "titleRequired": "Title is required",
+  "required": "This field is required"
+}

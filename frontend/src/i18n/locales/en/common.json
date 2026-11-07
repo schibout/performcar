@@ -1,0 +1,53 @@
+{
+  "welcome": "Welcome",
+  "greeting": "Hello, {{name}}!",
+  "buttons": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back"
+  },
+  "loading": "Loading...",
+  "error": "An error occurred",
+  "success": "Operation successful",
+  "error_occurred": "An error occurred",
+  "something_went_wrong": "Something went wrong!",
+  "unexpected_error": "An unexpected error occurred.",
+  "go_home": "Go back home",
+  "retry": "Try again",
+  "refresh_page": "Refresh page",
+  "go_back": "Go back",
+  "page_not_found": "Page not found",
+  "lost_in_space": "You seem lost in space!",
+  "not_found_description": "The page you're looking for doesn't exist or has been moved. Please check the URL or return to home.",
+  "ui": {
+    "theme": "Theme",
+    "language": "Language",
+    "settings": "Settings",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "light": "Light",
+    "dark": "Dark",
+    "toggleMenu": "Toggle Menu",
+    "toggleTheme": "Toggle Theme",
+    "toggleLanguage": "Toggle Language",
+    "userFallback": "User",
+    "userMenu": "User menu",
+    "close": "Close",
+    "drawerDescription": "Navigation menu for mobile devices. Use tab key to navigate through links."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "support": "Support",
+    "notifications": "Notifications",
+    "quotes": "Quotes",
+    "customers": "Customers",
+    "dealership": "My dealership"
+  },
+  "app_subtitle": "Your PERFORM'CAR quotes in a few clicks"
+}

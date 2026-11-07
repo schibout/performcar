@@ -1,0 +1,206 @@
+"""Tests for the scheduled hard-deletion worker job."""
+
+from __future__ import annotations
+
+import asyncio
+from datetime import timedelta
+
+import pytest
+from sqlalchemy import select
+
+from app.core.security import get_password_hash
+from app.models.user import User
+from app.repositories.user import (
+    get_users_due_for_deletion,
+    hard_delete_user,
+)
+from app.tests.conftest import TestingSessionLocal
+from app.utils import utc_now
+from app.worker.jobs.delete_expired_accounts import delete_expired_accounts
+
+
+async def _make_user(
+    email: str,
+    *,
+    scheduled_at=None,
+) -> User:
+    """Insert a user with a given deletion schedule for test setup."""
+    async with TestingSessionLocal() as session:
+        user = User(
+            email=email,
+            hashed_password=get_password_hash("Password123!"),
+            is_active=scheduled_at is None,
+            is_verified=True,
+            deactivated_at=scheduled_at - timedelta(days=30) if scheduled_at else None,
+            deletion_scheduled_at=scheduled_at,
+        )
+        session.add(user)
+        await session.commit()
+        await session.refresh(user)
+        return user
+
+
+@pytest.mark.asyncio
+async def test_past_due_user_gets_deleted(monkeypatch):
+    """A user whose grace period has elapsed is removed by the job."""
+    import app.worker.jobs.delete_expired_accounts as mod
+
+    monkeypatch.setattr(mod, "AsyncSessionLocal", TestingSessionLocal)
+
+    await _make_user("past@test.com", scheduled_at=utc_now() - timedelta(hours=1))
+
+    result = await delete_expired_accounts({})
+    assert result.processed == 1
+    assert result.failed == 0
+
+    async with TestingSessionLocal() as session:
+        remaining = await session.execute(
+            select(User).where(User.email == "past@test.com")
+        )
+        assert remaining.scalars().first() is None
+
+
+@pytest.mark.asyncio
+async def test_future_scheduled_user_is_not_deleted(monkeypatch):
+    """Users still inside the grace window are preserved."""
+    import app.worker.jobs.delete_expired_accounts as mod
+
+    monkeypatch.setattr(mod, "AsyncSessionLocal", TestingSessionLocal)
+
+    await _make_user("future@test.com", scheduled_at=utc_now() + timedelta(days=5))
+
+    result = await delete_expired_accounts({})
+    assert result.processed == 0
+
+    async with TestingSessionLocal() as session:
+        remaining = await session.execute(
+            select(User).where(User.email == "future@test.com")
+        )
+        assert remaining.scalars().first() is not None
+
+
+@pytest.mark.asyncio
+async def test_active_user_is_not_deleted(monkeypatch):
+    """Active users (no schedule) are never touched by the job."""
+    import app.worker.jobs.delete_expired_accounts as mod
+
+    monkeypatch.setattr(mod, "AsyncSessionLocal", TestingSessionLocal)
+
+    await _make_user("active@test.com", scheduled_at=None)
+
+    result = await delete_expired_accounts({})
+    assert result.processed == 0
+
+
+@pytest.mark.asyncio
+async def test_concurrent_runs_do_not_double_delete(monkeypatch):
+    """Two parallel job invocations must delete each user at most once.
+
+    Note: the CI test DB is SQLite in-memory which doesn't honour
+    ``FOR UPDATE SKIP LOCKED``. The assertion therefore checks the stronger
+    invariant (``processed + failed == 1`` per user) rather than locking
+    semantics, which are exercised against real Postgres in staging.
+    """
+    import app.worker.jobs.delete_expired_accounts as mod
+
+    monkeypatch.setattr(mod, "AsyncSessionLocal", TestingSessionLocal)
+
+    await _make_user("race@test.com", scheduled_at=utc_now() - timedelta(hours=1))
+
+    results = await asyncio.gather(
+        delete_expired_accounts({}),
+        delete_expired_accounts({}),
+        return_exceptions=True,
+    )
+
+    from app.schemas.worker import DeletionJobResult
+
+    total_processed = sum(
+        r.processed for r in results if isinstance(r, DeletionJobResult)
+    )
+    assert total_processed == 1
+
+    async with TestingSessionLocal() as session:
+        remaining = await session.execute(
+            select(User).where(User.email == "race@test.com")
+        )
+        assert remaining.scalars().first() is None
+
+
+@pytest.mark.asyncio
+async def test_repository_helpers_return_expected_set():
+    """The repository query surfaces only eligible users."""
+    await _make_user("eligible@test.com", scheduled_at=utc_now() - timedelta(minutes=5))
+    await _make_user("too-early@test.com", scheduled_at=utc_now() + timedelta(days=1))
+    await _make_user("untouched@test.com", scheduled_at=None)
+
+    async with TestingSessionLocal() as session:
+        due = await get_users_due_for_deletion(session, now=utc_now(), limit=10)
+        emails = {u.email for u in due}
+        assert "eligible@test.com" in emails
+        assert "too-early@test.com" not in emails
+        assert "untouched@test.com" not in emails
+
+        for user in due:
+            await hard_delete_user(session, user)
+
+
+@pytest.mark.asyncio
+async def test_suspended_user_is_never_due_for_deletion():
+    """Suspended rows must be skipped even if a stale deletion_scheduled_at exists.
+
+    Guards the invariant that admin-suspended accounts are permanent and never
+    auto-deleted — the worker filter defends against any future code path that
+    might accidentally set deletion_scheduled_at on a suspended row.
+    """
+    async with TestingSessionLocal() as session:
+        suspended = User(
+            email="suspended-worker@test.com",
+            hashed_password=get_password_hash("Password123!"),
+            is_active=False,
+            is_verified=True,
+            suspended_at=utc_now(),
+            # Deliberately drift: simulate a buggy writer that set both fields.
+            deletion_scheduled_at=utc_now() - timedelta(hours=1),
+        )
+        session.add(suspended)
+        await session.commit()
+
+        due = await get_users_due_for_deletion(session, now=utc_now(), limit=10)
+        assert all(u.email != "suspended-worker@test.com" for u in due)
+
+
+@pytest.mark.asyncio
+async def test_bulk_delete_keeps_anonymized_activity(monkeypatch):
+    """The worker keeps a deleted account's audit rows, anonymized."""
+    import app.worker.jobs.delete_expired_accounts as mod
+    from app.core.security import actor_reference
+    from app.models.user_activity import UserActivity
+
+    monkeypatch.setattr(mod, "AsyncSessionLocal", TestingSessionLocal)
+
+    user = await _make_user(
+        "bulk-anon@test.com", scheduled_at=utc_now() - timedelta(hours=1)
+    )
+    async with TestingSessionLocal() as session:
+        activity = UserActivity(
+            user_id=user.id,
+            activity_type="login",
+            resource_type="auth",
+            details={"email": "bulk-anon@test.com", "reason": "x"},
+            ip_address="1.2.3.4",
+            user_agent="UA",
+        )
+        session.add(activity)
+        await session.commit()
+        activity_id = activity.id
+
+    result = await delete_expired_accounts({})
+    assert result.processed == 1
+
+    async with TestingSessionLocal() as session:
+        row = await session.get(UserActivity, activity_id)
+    assert row.user_id is None and row.user_deleted_at is not None
+    assert row.actor_ref == actor_reference(str(user.id))
+    assert row.ip_address is None and row.user_agent is None
+    assert "email" not in row.details

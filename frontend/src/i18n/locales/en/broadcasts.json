@@ -1,0 +1,60 @@
+{
+  "templates": {
+    "maintenance": {
+      "title": "Scheduled Maintenance",
+      "body": "The system will be under maintenance from {{starts_at}} to {{ends_at}}; brief interruptions may occur."
+    },
+    "welcome": {
+      "title": "Welcome",
+      "body": "Welcome aboard! Your account is ready — complete your profile whenever you like."
+    },
+    "new_feature": {
+      "title": "New Feature",
+      "body": "A new feature is now live: {{feature}}. Check it out!"
+    },
+    "security_notice": {
+      "title": "Security Notice",
+      "body": "For your account's safety, we recommend reviewing your password and using a strong one."
+    }
+  },
+  "admin": {
+    "title": "Announcements",
+    "subtitle": "Compose and send an announcement to your users.",
+    "compose": "New announcement",
+    "previewLabel": "Preview",
+    "previewEmpty": "Fill in the form to see a preview.",
+    "form": {
+      "modeLabel": "Type",
+      "modeTemplate": "Template",
+      "modeCustom": "Custom",
+      "templateLabel": "Template",
+      "templatePlaceholder": "Choose a template",
+      "titleLabel": "Title",
+      "bodyLabel": "Message",
+      "levelLabel": "Importance",
+      "audienceLabel": "Audience",
+      "roleLabel": "Role",
+      "showBanner": "Also show as a top banner",
+      "sendEmail": "Also send as email",
+      "submit": "Send announcement",
+      "cancel": "Cancel",
+      "level": { "info": "Info", "warning": "Warning", "critical": "Critical" },
+      "audience": { "all": "All users", "active": "Active users", "role": "By role" }
+    },
+    "vars": {
+      "starts_at": "Starts at",
+      "ends_at": "Ends at",
+      "feature": "Feature name"
+    },
+    "history": {
+      "title": "Sent announcements",
+      "empty": "No announcements sent yet.",
+      "sentBy": "by {{name}}",
+      "emailed": "Emailed"
+    }
+  },
+  "banner": {
+    "details": "Details",
+    "dismiss": "Dismiss"
+  }
+}

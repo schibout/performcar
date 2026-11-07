@@ -1,0 +1,88 @@
+{
+  "nav": "Assistance",
+  "list": {
+    "title": "Assistance",
+    "subtitle": "Vos demandes d'assistance et vos échanges.",
+    "newTicket": "Nouvelle demande",
+    "searchPlaceholder": "Rechercher par objet…",
+    "empty": "Vous n'avez encore aucune demande.",
+    "loading": "Chargement des demandes…",
+    "notFound": "Demande introuvable.",
+    "unread": "{{count}} non lu(s)",
+    "columns": {
+      "subject": "Objet",
+      "status": "Statut",
+      "updated": "Dernière activité"
+    }
+  },
+  "new": {
+    "title": "Nouvelle demande d'assistance",
+    "subjectLabel": "Objet",
+    "subjectPlaceholder": "Résumé de votre problème",
+    "bodyLabel": "Message",
+    "bodyPlaceholder": "Décrivez votre problème en détail…",
+    "attachments": "Pièces jointes",
+    "submit": "Créer la demande",
+    "cancel": "Annuler"
+  },
+  "detail": {
+    "back": "Retour aux demandes",
+    "replyPlaceholder": "Rédigez une réponse…",
+    "send": "Envoyer",
+    "close": "Fermer la demande",
+    "closedNotice": "Cette demande est fermée.",
+    "adminClosedNotice": "Cette demande est fermée. Rouvrez-la pour répondre.",
+    "jumpToLatest": "Aller au plus récent",
+    "you": "Vous",
+    "supportTeam": "Assistance",
+    "attachments": "Pièces jointes",
+    "empty": "Aucun message pour le moment.",
+    "replyRestricted": "Vous ne pouvez pas répondre à cette demande."
+  },
+  "status": {
+    "open": "Ouverte",
+    "pending": "En attente",
+    "answered": "Répondue",
+    "closed": "Fermée"
+  },
+  "priority": {
+    "low": "Basse",
+    "normal": "Normale",
+    "high": "Haute"
+  },
+  "admin": {
+    "title": "File d'assistance",
+    "subtitle": "Toutes les demandes d'assistance des utilisateurs.",
+    "searchPlaceholder": "Rechercher par objet ou utilisateur…",
+    "filters": {
+      "status": "Statut",
+      "priority": "Priorité",
+      "all": "Toutes",
+      "reset": "Réinitialiser"
+    },
+    "columns": {
+      "subject": "Objet",
+      "requester": "Ouverte par",
+      "status": "Statut",
+      "priority": "Priorité",
+      "assignee": "Responsable",
+      "updated": "Dernière activité"
+    },
+    "loading": "Chargement des demandes…",
+    "empty": "Aucune demande ne correspond aux filtres actuels.",
+    "controls": {
+      "title": "Gérer la demande",
+      "status": "Statut",
+      "priority": "Priorité",
+      "save": "Enregistrer les modifications"
+    },
+    "assignee": "Responsable",
+    "unassigned": "Non assignée",
+    "assignToMe": "M'assigner",
+    "owner": "Ouverte par",
+    "reply": "Répondre",
+    "updateStatus": "Statut",
+    "updatePriority": "Priorité"
+  },
+  "restricted": "Vous n'avez pas accès à vos demandes d'assistance."
+}

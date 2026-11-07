@@ -1,0 +1,127 @@
+services:
+  db:
+    image: postgres:17
+    restart: always
+    # Uses Postgres' default max_connections (100), which fits the single-worker
+    # API (pool DB_POOL_SIZE + DB_MAX_OVERFLOW) plus the arq worker with headroom.
+    #
+    # NOTE: when scaling the API (more --workers or replicas), raise the ceiling
+    # so (DB_POOL_SIZE + DB_MAX_OVERFLOW) × workers × replicas + the arq worker
+    # stays under max_connections, e.g.:
+    #   command:
+    #     ["postgres", "-c", "max_connections=250", "-c", "shared_buffers=256MB"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    volumes:
+      - app-db-data:/var/lib/postgresql/data/pgdata
+    env_file:
+      - .env
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_DB=${POSTGRES_DB?Variable not set}
+    ports:
+      # Bind address is configurable; defaults to loopback so the database is
+      # not exposed on the host's network interfaces. Inter-container access
+      # uses the compose network regardless of this binding.
+      - "${DOCKER_BIND_HOST:-127.0.0.1}:5432:5432"
+
+  backend:
+    build:
+      context: .
+    restart: always
+    # Uses the Dockerfile's default CMD: a single uvicorn worker.
+    #
+    # NOTE: to scale across CPU cores, add a command with more --workers
+    # (e.g. --workers 4). With more than one worker, /metrics needs Prometheus
+    # multiprocess mode, otherwise it returns only the responding worker's
+    # slice. In that case run via a shell that prepares a shared metrics dir:
+    #   command:
+    #     - sh
+    #     - -c
+    #     - >
+    #       export PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus_multiproc &&
+    #       mkdir -p "$$PROMETHEUS_MULTIPROC_DIR" &&
+    #       rm -f "$$PROMETHEUS_MULTIPROC_DIR"/* &&
+    #       exec uv run uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
+    # app/core/metrics.py already aggregates across workers when that env var is set.
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/api/v1/health/live"]
+      interval: 10m
+      timeout: 3s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./app:/app/app # Mount source code for live reloading
+      - ./alembic.ini:/app/alembic.ini # Mount alembic configuration
+    env_file:
+      - .env
+    environment: &backend-env
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      - BACKEND_CORS_ORIGINS=${BACKEND_CORS_ORIGINS:-http://localhost:3000,http://localhost:8000}
+      - SECRET_KEY=${SECRET_KEY?Variable not set}
+      - FIRST_SUPERUSER=${FIRST_SUPERUSER?Variable not set}
+      - FIRST_SUPERUSER_PASSWORD=${FIRST_SUPERUSER_PASSWORD?Variable not set}
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - EMAILS_FROM_EMAIL=${EMAILS_FROM_EMAIL:-}
+      # Container-internal hostnames override any localhost values in .env
+      - POSTGRES_SERVER=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER?Variable not set}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD?Variable not set}
+      - SENTRY_DSN=${SENTRY_DSN:-}
+      - REDIS_URL=redis://redis:6379/0
+      - ACCOUNT_DELETION_GRACE_DAYS=${ACCOUNT_DELETION_GRACE_DAYS:-30}
+      - DELETION_JOB_BATCH_SIZE=${DELETION_JOB_BATCH_SIZE:-100}
+      - DELETION_JOB_CRON_HOUR=${DELETION_JOB_CRON_HOUR:-3}
+      - DELETION_JOB_CRON_MINUTE=${DELETION_JOB_CRON_MINUTE:-0}
+
+  worker:
+    build:
+      context: .
+    restart: always
+    command: ["uv", "run", "arq", "app.worker.settings.WorkerSettings"]
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./app:/app/app
+    env_file:
+      - .env
+    environment: *backend-env
+
+  redis:
+    image: redis:7
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      # Same configurable loopback default as the database (see DOCKER_BIND_HOST).
+      - "${DOCKER_BIND_HOST:-127.0.0.1}:6379:6379"
+    volumes:
+      - app-redis-data:/data
+
+volumes:
+  app-db-data:
+  app-redis-data:

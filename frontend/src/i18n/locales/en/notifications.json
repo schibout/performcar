@@ -1,0 +1,30 @@
+{
+  "title": "Notifications",
+  "page": {
+    "subtitle": "All your notifications, newest first.",
+    "filterAll": "All",
+    "filterUnread": "Unread"
+  },
+  "bell": "Open notifications",
+  "markAllRead": "Mark all as read",
+  "viewAll": "View all",
+  "empty": "No notifications yet.",
+  "types": {
+    "support_ticket_replied": "Your support ticket \"{{subject}}\" has a new reply.",
+    "support_ticket_status_changed": "Your ticket \"{{subject}}\" is now: {{status}}.",
+    "admin_permissions_changed": "Your admin permissions have changed."
+  },
+  "ticketStatus": {
+    "open": "Open",
+    "pending": "Pending",
+    "answered": "Answered",
+    "closed": "Closed"
+  },
+  "actions": {
+    "set_admin_permissions": "Your admin permissions were updated.",
+    "promoted_to_superadmin": "You have been promoted to superadmin.",
+    "demoted_superadmin_to_admin": "You have been demoted to admin.",
+    "root_transferred": "The root superadmin role has been transferred."
+  },
+  "restricted": "You don't have access to notifications."
+}

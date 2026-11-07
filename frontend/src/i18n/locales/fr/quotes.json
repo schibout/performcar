@@ -1,0 +1,310 @@
+{
+  "restricted": "Vous n'avez pas l'autorisation nécessaire : cet élément est masqué et aucune requête n'est envoyée.",
+  "noDealership": "Votre compte n'est encore rattaché à aucune concession. Demandez à un administrateur de le rattacher.",
+  "common": {
+    "cancel": "Annuler",
+    "save": "Enregistrer"
+  },
+  "status": {
+    "pending": "En attente",
+    "confirmed": "Confirmé",
+    "completed": "Terminé"
+  },
+  "condition": {
+    "new": "Neuf",
+    "used": "Occasion"
+  },
+  "financing": {
+    "cash": "Comptant",
+    "credit": "Crédit",
+    "leasing_loa": "Location avec option d'achat (LOA)",
+    "leasing_lld": "Location longue durée (LLD)"
+  },
+  "errors": {
+    "loadStats": "Impossible de charger les indicateurs du tableau de bord.",
+    "loadQuotes": "Impossible de charger les devis."
+  },
+  "dashboard": {
+    "title": "Tableau de bord des devis",
+    "subtitle": "Activité des devis de votre concession.",
+    "newQuote": "Nouveau devis",
+    "history": "Historique des devis"
+  },
+  "stats": {
+    "pending": "Devis en attente",
+    "pendingHint": "En attente de confirmation",
+    "confirmed": "Devis confirmés",
+    "confirmedHint": "En attente de réalisation",
+    "completed": "Devis terminés",
+    "completedHint": "Prestations réalisées",
+    "revenue": "Chiffre d'affaires",
+    "revenueHint": "Issu des devis terminés",
+    "average": "Panier moyen",
+    "averageHint": "Montant moyen par devis",
+    "conversion": "Taux de conversion",
+    "conversionHint": "Devis terminés / total",
+    "thisMonth": "Ce mois-ci",
+    "thisMonthHint": "Nouveaux devis créés",
+    "trend": "{{value}} % par rapport au mois dernier",
+    "distribution": "Répartition des devis",
+    "distributionHint": "Par statut",
+    "monthly": "Évolution mensuelle",
+    "monthlyHint": "Devis créés au cours des 6 derniers mois",
+    "monthBar": "{{month}} : {{count}} devis",
+    "noData": "Aucune donnée à afficher",
+    "recent": "Devis récents",
+    "recentHint": "Les 3 derniers devis créés",
+    "noQuotes": "Aucun devis créé pour le moment",
+    "viewAll": "Voir tous les devis"
+  },
+  "history": {
+    "title": "Historique des devis",
+    "subtitle": "Recherchez, filtrez et consultez les devis de votre concession.",
+    "searchPlaceholder": "Rechercher une référence, un véhicule ou un client…",
+    "allStatuses": "Tous les statuts",
+    "period": "Période",
+    "periods": {
+      "all": "Toutes les dates",
+      "today": "Aujourd'hui",
+      "week": "7 derniers jours",
+      "month": "30 derniers jours"
+    },
+    "refresh": "Actualiser",
+    "loading": "Chargement des devis...",
+    "empty": "Aucun devis créé pour le moment.",
+    "noMatch": "Aucun devis ne correspond à votre recherche.",
+    "view": "Voir le devis",
+    "print": "Imprimer ou enregistrer en PDF",
+    "columns": {
+      "date": "Date",
+      "reference": "Référence",
+      "vehicle": "Véhicule",
+      "customer": "Client",
+      "dealership": "Concession",
+      "price": "Prix",
+      "status": "Statut",
+      "actions": "Actions"
+    }
+  },
+  "wizard": {
+    "newTitle": "Nouveau devis",
+    "newSubtitle": "Créez un devis en suivant les étapes ci-dessous.",
+    "editTitle": "Modifier le devis",
+    "stepOf": "Étape {{current}} sur {{total}}",
+    "steps": {
+      "vehicle": "Véhicule",
+      "services": "Prestations",
+      "financing": "Financement",
+      "customer": "Client",
+      "summary": "Récapitulatif"
+    },
+    "previous": "Précédent",
+    "next": "Suivant",
+    "save": "Enregistrer le devis",
+    "saveChanges": "Enregistrer les modifications",
+    "total": "Total",
+    "incomplete": "Certaines informations sont manquantes ou invalides.",
+    "created": "Devis {{reference}} créé.",
+    "updated": "Devis {{reference}} mis à jour.",
+    "issues": {
+      "vehicle": "Choisissez la marque et le modèle du véhicule.",
+      "color": "Choisissez la couleur du véhicule.",
+      "year": "L'année doit être comprise entre 2000 et l'année prochaine.",
+      "downPayment": "L'apport ne peut pas dépasser le total.",
+      "name": "Saisissez le prénom et le nom du client (lettres uniquement, 2 minimum).",
+      "phone": "Saisissez un numéro de téléphone français valide.",
+      "email": "Saisissez une adresse e-mail valide.",
+      "date": "La date souhaitée ne peut pas être dans le passé."
+    },
+    "vehicle": {
+      "title": "Informations sur le véhicule",
+      "brand": "Marque",
+      "brandPlaceholder": "Sélectionnez une marque",
+      "model": "Modèle",
+      "modelPlaceholder": "Sélectionnez un modèle",
+      "noModel": "Aucun modèle pour cette marque",
+      "version": "Version",
+      "versionPlaceholder": "Sélectionnez une version",
+      "noVersion": "Aucune version pour ce modèle",
+      "year": "Année",
+      "color": "Couleur",
+      "colorPlaceholder": "Sélectionnez une couleur",
+      "condition": "État"
+    },
+    "services": {
+      "title": "Prestations",
+      "empty": "Aucune prestation n'est proposée pour le moment."
+    },
+    "financing": {
+      "title": "Options de financement",
+      "type": "Type de financement",
+      "downPayment": "Apport",
+      "duration": "Durée",
+      "months_one": "{{count}} mois",
+      "months_other": "{{count}} mois",
+      "monthly": "Mensualité estimée",
+      "totalCost": "Coût total",
+      "financed": "Montant financé",
+      "note": "Il s'agit d'une estimation simplifiée. Les taux et conditions réels dépendent de l'organisme de financement."
+    },
+    "customer": {
+      "title": "Informations client",
+      "existing": "Client existant",
+      "existingPlaceholder": "Rechercher un client de la concession…",
+      "updatesExisting": "Les coordonnées du client seront mises à jour avec les valeurs ci-dessous.",
+      "createsNew": "Un nouveau client sera créé avec les valeurs ci-dessous.",
+      "requestedDate": "Date souhaitée de la prestation",
+      "privacy": "Ces informations servent uniquement au traitement du devis et ne sont pas communiquées à des tiers."
+    },
+    "summary": {
+      "title": "Récapitulatif du devis"
+    }
+  },
+  "detail": {
+    "back": "Retour aux devis",
+    "title": "Devis {{reference}}",
+    "createdOn": "Créé le {{date}}",
+    "notFound": "Ce devis n'existe pas ou n'appartient pas à votre concession.",
+    "changeStatus": "Changer le statut",
+    "status": "Statut",
+    "print": "Imprimer / PDF",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "deleteTitle": "Supprimer ce devis ?",
+    "deleteDescription": "Le devis {{reference}} et ses prestations seront définitivement supprimés. Le client est conservé.",
+    "dealership": "Concession",
+    "customer": "Client",
+    "vehicle": "Véhicule",
+    "services": "Prestations",
+    "service": "Prestation",
+    "category": "Catégorie",
+    "price": "Prix",
+    "total": "Total",
+    "noServices": "Aucune prestation sélectionnée",
+    "financing": "Financement",
+    "noFinancing": "Non précisé",
+    "requestedDate": "Date souhaitée",
+    "notSpecified": "Non précisée",
+    "validity": "Ce devis est valable 30 jours à compter de sa date d'émission. Pour toute question, contactez votre conseiller."
+  },
+  "document": {
+    "title": "Devis n° {{reference}}",
+    "date": "Date : {{date}}",
+    "totalIncl": "Total TTC"
+  },
+  "print": {
+    "back": "Retour au devis",
+    "action": "Imprimer / enregistrer en PDF",
+    "hint": "Choisissez « Enregistrer au format PDF » dans la fenêtre d'impression pour obtenir un fichier PDF."
+  },
+  "customers": {
+    "title": "Clients",
+    "subtitle": "Les clients de votre concession.",
+    "adminSubtitle": "Les clients de toutes les concessions.",
+    "searchPlaceholder": "Rechercher un nom, un e-mail ou un téléphone…",
+    "create": "Nouveau client",
+    "createTitle": "Nouveau client",
+    "editTitle": "Modifier le client",
+    "edit": "Modifier le client",
+    "delete": "Supprimer le client",
+    "deleteTitle": "Supprimer ce client ?",
+    "deleteDescription": "{{name}} sera définitivement supprimé.",
+    "hasQuotes": "Un client ayant des devis ne peut pas être supprimé.",
+    "created": "Client créé.",
+    "updated": "Client mis à jour.",
+    "loading": "Chargement des clients...",
+    "empty": "Aucun client trouvé.",
+    "columns": {
+      "name": "Nom",
+      "contact": "Contact",
+      "quotes": "Devis",
+      "created": "Créé le"
+    },
+    "fields": {
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "email": "E-mail",
+      "phone": "Téléphone"
+    },
+    "validation": {
+      "nameRequired": "Ce champ est obligatoire.",
+      "nameLength": "Entre 2 et 100 caractères.",
+      "nameChars": "Lettres, espaces, traits d'union et apostrophes uniquement.",
+      "email": "Saisissez une adresse e-mail valide.",
+      "phone": "Saisissez un numéro de téléphone français valide (ex. 06 12 34 56 78)."
+    }
+  },
+  "dealership": {
+    "title": "Ma concession",
+    "subtitle": "Les informations imprimées sur vos devis.",
+    "adminTitle": "Concessions",
+    "adminSubtitle": "Les concessions, leurs utilisateurs et leurs devis.",
+    "readOnly": "Vous pouvez consulter ces informations, mais pas les modifier.",
+    "saved": "Concession enregistrée.",
+    "create": "Nouvelle concession",
+    "createTitle": "Nouvelle concession",
+    "editTitle": "Modifier la concession",
+    "edit": "Modifier la concession",
+    "delete": "Supprimer la concession",
+    "deleteTitle": "Supprimer cette concession ?",
+    "deleteDescription": "{{name}} sera supprimée ; ses utilisateurs et clients en seront détachés.",
+    "hasQuotes": "Une concession ayant des devis ne peut pas être supprimée.",
+    "loading": "Chargement des concessions...",
+    "empty": "Aucune concession pour le moment.",
+    "none": "Aucune concession",
+    "userField": "Concession",
+    "userFieldHint": "Le concessionnaire n'accède qu'aux devis et aux clients de cette concession.",
+    "columns": {
+      "contact": "Contact",
+      "users": "Utilisateurs",
+      "quotes": "Devis"
+    },
+    "fields": {
+      "name": "Nom de la concession",
+      "logo_url": "URL du logo",
+      "address": "Adresse",
+      "phone": "Téléphone",
+      "email": "E-mail"
+    },
+    "validation": {
+      "name": "Entre 2 et 100 caractères.",
+      "url": "Saisissez une URL valide."
+    }
+  },
+  "admin": {
+    "title": "Devis",
+    "subtitle": "Les devis de toutes les concessions.",
+    "allDealerships": "Toutes les concessions"
+  },
+  "catalog": {
+    "title": "Catalogue",
+    "subtitle": "Les prestations proposées dans les devis et le catalogue de véhicules.",
+    "services": "Prestations",
+    "vehicles": "Véhicules et couleurs",
+    "noModels": "Aucun modèle",
+    "create": "Nouvelle prestation",
+    "createTitle": "Nouvelle prestation",
+    "editTitle": "Modifier la prestation",
+    "edit": "Modifier la prestation",
+    "delete": "Supprimer la prestation",
+    "deleteTitle": "Supprimer cette prestation ?",
+    "deleteDescription": "{{name}} sera retirée du catalogue. Une prestation utilisée dans un devis ne peut pas être supprimée : désactivez-la plutôt.",
+    "saved": "Prestation enregistrée.",
+    "loading": "Chargement des prestations...",
+    "empty": "Aucune prestation pour le moment.",
+    "active": "Active",
+    "inactive": "Inactive",
+    "description": "Description",
+    "columns": {
+      "name": "Nom",
+      "category": "Catégorie",
+      "price": "Prix",
+      "status": "Active"
+    },
+    "validation": {
+      "name": "Entre 2 et 100 caractères.",
+      "category": "Choisissez une catégorie.",
+      "price": "Saisissez un prix."
+    }
+  }
+}

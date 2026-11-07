@@ -1,0 +1,19 @@
+{
+  "emailRequired": "L'adresse e-mail est obligatoire",
+  "emailInvalid": "Saisissez une adresse e-mail valide",
+  "passwordMin": "Le mot de passe doit contenir au moins {{count}} caractères",
+  "passwordUppercase": "Le mot de passe doit contenir au moins une lettre majuscule",
+  "passwordLowercase": "Le mot de passe doit contenir au moins une lettre minuscule",
+  "passwordNumber": "Le mot de passe doit contenir au moins un chiffre",
+  "passwordSpecial": "Le mot de passe doit contenir au moins un caractère spécial",
+  "passwordRequired": "Le mot de passe est obligatoire",
+  "confirmPasswordRequired": "Veuillez confirmer votre mot de passe",
+  "nameMin": "Le nom doit contenir au moins {{count}} caractères",
+  "confirmPasswordMismatch": "Les mots de passe ne correspondent pas",
+  "deactivateAcknowledgeRequired": "Vous devez confirmer avoir compris les conséquences.",
+  "subjectMin": "L'objet doit contenir au moins {{count}} caractères",
+  "bodyMin": "Le message doit contenir au moins {{count}} caractères",
+  "messageRequired": "Le message ne peut pas être vide",
+  "titleRequired": "Le titre est obligatoire",
+  "required": "Ce champ est obligatoire"
+}

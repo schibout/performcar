@@ -1,0 +1,65 @@
+{
+  "title": "Paramètres du profil",
+  "subtitle": "Gérez les paramètres et préférences de votre compte",
+  "memberSince": "Membre depuis le {{date}}",
+  "tabs": {
+    "info": "Informations du profil",
+    "security": "Sécurité"
+  },
+  "info": {
+    "title": "Informations personnelles",
+    "description": "Informations relatives à votre identité",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "titleLabel": "Civilité",
+    "email": "Adresse e-mail",
+    "emailNotice": "L'adresse e-mail ne peut pas être modifiée",
+    "submit": "Enregistrer les modifications",
+    "submitting": "Enregistrement..."
+  },
+  "security": {
+    "title": "Modifier le mot de passe",
+    "description": "Utilisez un mot de passe long et aléatoire pour sécuriser votre compte",
+    "currentPassword": "Mot de passe actuel",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le nouveau mot de passe",
+    "strengthLabel": "Robustesse du mot de passe",
+    "strengthWeak": "Faible",
+    "strengthFair": "Moyen",
+    "strengthGood": "Bon",
+    "strengthStrong": "Robuste",
+    "submit": "Modifier le mot de passe",
+    "submitting": "Modification..."
+  },
+  "sessions": {
+    "title": "Sessions actives",
+    "description": "Consultez et gérez les appareils connectés à votre compte",
+    "currentBadge": "Cet appareil",
+    "unknownDevice": "Appareil inconnu",
+    "deviceLabel": "{{browser}} — {{os}}",
+    "signedIn": "Connexion : {{date}}",
+    "lastActive": "Dernière activité : {{date}}",
+    "revoke": "Révoquer",
+    "revokeOthers": "Déconnecter tous les autres appareils",
+    "loadMore": "Afficher plus",
+    "empty": "Aucune session active",
+    "confirmRevoke": {
+      "title": "Révoquer la session",
+      "description": "Cet appareil sera immédiatement déconnecté de votre compte. Continuer ?",
+      "confirm": "Révoquer la session",
+      "cancel": "Annuler"
+    },
+    "confirmRevokeOthers": {
+      "title": "Déconnecter les autres appareils",
+      "description": "Toutes les sessions, à l'exception de cet appareil, seront immédiatement fermées. Continuer ?",
+      "confirm": "Tout déconnecter",
+      "cancel": "Annuler"
+    }
+  },
+  "avatar": {
+    "title": "Photo de profil",
+    "description": "Ajoutez une photo pour personnaliser votre compte",
+    "uploadRestricted": "Vous ne pouvez pas téléverser de fichiers : la photo ne peut donc pas être modifiée."
+  },
+  "restricted": "Vous ne pouvez pas modifier votre profil."
+}

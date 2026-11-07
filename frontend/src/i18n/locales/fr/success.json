@@ -1,0 +1,76 @@
+{
+  "success": {
+    "user": {
+      "deleted": "Utilisateur supprimé.",
+      "created": "Utilisateur créé.",
+      "updated": "Utilisateur mis à jour.",
+      "email_verified": "Adresse e-mail vérifiée.",
+      "verification_email_sent": "E-mail de vérification envoyé."
+    },
+    "auth": {
+      "login": "Connexion réussie.",
+      "password_reset_sent": "Lien de réinitialisation du mot de passe envoyé.",
+      "password_reset_success": "Mot de passe réinitialisé.",
+      "password_change_success": "Mot de passe modifié. Veuillez vous reconnecter.",
+      "logout_success": "Déconnexion réussie.",
+      "register_success": "Inscription réussie. Veuillez vérifier votre adresse e-mail."
+    },
+    "account": {
+      "deactivated": "Compte désactivé. Il sera supprimé dans 30 jours si vous ne le réactivez pas.",
+      "reactivated": "Bon retour parmi nous ! Votre compte est de nouveau actif."
+    },
+    "admin": {
+      "user_updated": "Utilisateur mis à jour.",
+      "user_suspended": "Utilisateur suspendu. Il ne pourra plus se connecter tant qu'un administrateur n'aura pas levé la suspension.",
+      "user_unsuspended": "Suspension levée. L'utilisateur peut de nouveau se connecter.",
+      "user_unlocked": "Compte déverrouillé. L'utilisateur peut de nouveau se connecter.",
+      "user_deleted": "Utilisateur définitivement supprimé.",
+      "password_changed": "Le mot de passe de l'utilisateur a été réinitialisé. Il sera prévenu par e-mail et devra utiliser la procédure « Mot de passe oublié » pour retrouver l'accès.",
+      "created": "Compte administrateur créé.",
+      "account_deleted": "Compte administrateur supprimé.",
+      "superadmin_promoted": "Administrateur promu superadmin.",
+      "superadmin_demoted": "Superadmin rétrogradé en administrateur.",
+      "permissions_updated": "Permissions mises à jour.",
+      "root_transfer_initiated": "Code de vérification envoyé à votre adresse e-mail.",
+      "root_transferred": "Statut de superadmin root transféré."
+    },
+    "rbac": {
+      "role_deleted": "Rôle supprimé.",
+      "permission_set_deleted": "Ensemble de permissions supprimé."
+    },
+    "notification": {
+      "read": "Notification marquée comme lue.",
+      "all_read": "Toutes les notifications ont été marquées comme lues."
+    },
+    "session": {
+      "revoked": "Session révoquée.",
+      "others_revoked": "Déconnecté de tous les autres appareils.",
+      "admin_revoked": "Toutes les sessions de l'utilisateur ont été fermées."
+    },
+    "support": {
+      "ticket_created": "Votre demande de support a été créée.",
+      "ticket_closed": "Demande clôturée.",
+      "message_sent": "Message envoyé.",
+      "admin_ticket_updated": "Demande mise à jour.",
+      "admin_ticket_replied": "Réponse envoyée."
+    },
+    "announcement": {
+      "sent": "Annonce envoyée."
+    },
+    "settings": {
+      "updated": "Paramètres enregistrés."
+    },
+    "dealership": {
+      "deleted": "Concession supprimée."
+    },
+    "catalog": {
+      "service_deleted": "Prestation supprimée."
+    },
+    "customer": {
+      "deleted": "Client supprimé."
+    },
+    "quote": {
+      "deleted": "Devis supprimé."
+    }
+  }
+}

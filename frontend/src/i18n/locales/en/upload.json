@@ -1,0 +1,15 @@
+{
+  "upload": "Upload",
+  "replace": "Replace",
+  "remove": "Remove",
+  "preview": "Preview",
+  "save": "Save",
+  "discard": "Discard",
+  "selectedHint": "Will be uploaded when you confirm.",
+  "imageHint": "JPG, PNG, WebP or GIF · up to {{size}}",
+  "errors": {
+    "invalid_type": "Unsupported file type. Use JPG, PNG, WebP or GIF.",
+    "too_large": "File is too large. Maximum size is {{size}}."
+  },
+  "restricted": "You can't upload files."
+}

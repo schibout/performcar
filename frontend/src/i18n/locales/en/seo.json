@@ -1,0 +1,158 @@
+{
+  "home": {
+    "title": "Professional automotive protection quotes",
+    "description": "The PERFORM'CAR quote platform for dealerships: XPEL PPF protection, ceramic coating and tinted windows."
+  },
+  "about": {
+    "title": "About Us",
+    "description": "Who we are, why this platform exists and the values that guide us."
+  },
+  "login": {
+    "title": "Login",
+    "description": "Sign in to your PerformCar EasyDevis account to access your quotes."
+  },
+  "register": {
+    "title": "Create Account",
+    "description": "Create your PerformCar EasyDevis account and start building quotes for your customers."
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "description": "Enter your email address and we will send you a link to reset your password."
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "description": "Set a new and secure password for your PerformCar EasyDevis account."
+  },
+  "verifyEmail": {
+    "title": "Verify Email",
+    "description": "Please verify your email address to complete your registration."
+  },
+  "verifyEmailNotice": {
+    "title": "Check Your Email",
+    "description": "We have sent you a verification link. Please check your inbox and spam folder."
+  },
+  "accountSuspended": {
+    "title": "Account Suspended",
+    "description": "This account has been suspended by an administrator."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Follow your quotes, revenue and conversion rate from your dashboard."
+  },
+  "profile": {
+    "title": "Profile",
+    "description": "View and edit your personal profile, preferences, and account settings."
+  },
+  "support": {
+    "title": "Support",
+    "description": "Open a support ticket and chat with our team about any issue."
+  },
+  "notifications": {
+    "title": "Notifications",
+    "description": "View all your notifications and manage their read status."
+  },
+  "adminLogin": {
+    "title": "Admin Sign In",
+    "description": "Sign in to the administration area to manage users and view activity."
+  },
+  "adminDashboard": {
+    "title": "Admin Dashboard",
+    "description": "Administrative overview of users, activity, and system health."
+  },
+  "adminUsers": {
+    "title": "User Management",
+    "description": "Search, filter, update, and deactivate user accounts."
+  },
+  "adminUserDetail": {
+    "title": "User Details",
+    "description": "Edit a user, manage their status, and review their activity log."
+  },
+  "adminAdmins": {
+    "title": "Admin Management",
+    "description": "Promote admins, assign permissions, and revoke admin access."
+  },
+  "adminRoles": {
+    "title": "Roles",
+    "description": "Create roles from permission sets and review what each one gives."
+  },
+  "adminPermissionSets": {
+    "title": "Permission Sets",
+    "description": "Group permissions into sets that roles and accounts can hold."
+  },
+  "adminFiles": {
+    "title": "File Management",
+    "description": "Review, filter, and delete uploaded files across the platform."
+  },
+  "adminActivities": {
+    "title": "Activity Log",
+    "description": "Browse audit events across all users."
+  },
+  "adminSupport": {
+    "title": "Support Queue",
+    "description": "Review and respond to user support tickets."
+  },
+  "adminNotifications": {
+    "title": "Notifications",
+    "description": "View all your notifications and manage their read status."
+  },
+  "adminBroadcasts": {
+    "title": "Announcements",
+    "description": "Compose and send announcements to your users."
+  },
+  "adminSystemSettings": {
+    "title": "System Settings",
+    "description": "Configure site-wide settings, branding, and feature toggles."
+  },
+  "adminTicketDetail": {
+    "title": "Ticket",
+    "description": "View a support ticket, reply, and update its status."
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist or may have been moved."
+  },
+  "error": {
+    "title": "An Error Occurred",
+    "description": "An unexpected error occurred. Please try again or contact support."
+  },
+  "quotes": {
+    "title": "Quotes",
+    "description": "Dashboard of your dealership's quotes."
+  },
+  "quotesHistory": {
+    "title": "Quote history",
+    "description": "Search and filter your dealership's quotes."
+  },
+  "quotesNew": {
+    "title": "New quote",
+    "description": "Create a vehicle quote step by step."
+  },
+  "quoteDetail": {
+    "title": "Quote",
+    "description": "Quote details."
+  },
+  "customers": {
+    "title": "Customers",
+    "description": "Your dealership's customers."
+  },
+  "dealership": {
+    "title": "My dealership",
+    "description": "Your dealership's details."
+  },
+  "adminQuotes": {
+    "title": "Quotes",
+    "description": "The quotes of every dealership."
+  },
+  "adminCustomers": {
+    "title": "Customers",
+    "description": "The customers of every dealership."
+  },
+  "adminCatalog": {
+    "title": "Catalog",
+    "description": "Services and vehicle catalog."
+  },
+  "adminDealerships": {
+    "title": "Dealerships",
+    "description": "Manage dealerships."
+  }
+}

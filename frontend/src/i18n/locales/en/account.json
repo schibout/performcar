@@ -1,0 +1,33 @@
+{
+  "deactivate": {
+    "title": "Danger zone",
+    "description": "Deactivate your account. You have 30 days to change your mind before it is permanently deleted.",
+    "cta": "Deactivate account",
+    "dialog": {
+      "title": "Deactivate your account?",
+      "description": "Your account will be disabled immediately and permanently deleted in 30 days. You can cancel the deletion by signing back in within the grace window.",
+      "passwordLabel": "Enter your password to confirm",
+      "acknowledgeLabel": "I understand my account will be deleted after the grace period.",
+      "cancel": "Cancel",
+      "confirm": "Deactivate",
+      "submitting": "Deactivating..."
+    }
+  },
+  "deactivated": {
+    "title": "Your account is deactivated",
+    "subtitle": "All features are paused while your account is scheduled for deletion.",
+    "daysRemaining_one": "{{count}} day remaining before permanent deletion",
+    "daysRemaining_other": "{{count}} days remaining before permanent deletion",
+    "scheduledAt": "Deletion scheduled for {{date}}",
+    "reactivatePrompt": "Changed your mind? Restore your account with one click.",
+    "reactivate": "Keep my account",
+    "reactivating": "Restoring...",
+    "logout": "Log out"
+  },
+  "suspended": {
+    "title": "Your account has been suspended",
+    "subtitle": "An administrator has suspended this account. Access to all features is blocked until the suspension is lifted.",
+    "contactSupport": "If you believe this is a mistake, please contact support.",
+    "logout": "Log out"
+  }
+}

@@ -1,0 +1,536 @@
+{
+  "login": {
+    "title": "Admin Sign In",
+    "subtitle": "Restricted area. Administrators only.",
+    "cardTitle": "Administrator sign in",
+    "cardDescription": "Enter your admin credentials to continue.",
+    "emailLabel": "Work email",
+    "passwordLabel": "Password",
+    "submitButton": "Sign in",
+    "submitting": "Signing in...",
+    "backToApp": "Back to the main app"
+  },
+  "permissionDenied": {
+    "title": "Permission required",
+    "description": "You don't have permission to view this section. Ask a superadmin to grant access."
+  },
+  "admins": {
+    "title": "Admin management",
+    "subtitle": "Create admins, assign permissions, and manage the superadmin tier.",
+    "superadminBadge": "Superadmin · full access",
+    "rootBadge": "Root",
+    "savePermissions": "Save permissions",
+    "managePermissions": "Manage permissions",
+    "permissionCount": "Permissions: {{count}}",
+    "empty": "No admins yet.",
+    "loading": "Loading admins...",
+    "columns": {
+      "admin": "Admin",
+      "role": "Role",
+      "permissions": "Direct permissions",
+      "created": "Created",
+      "actions": "Actions"
+    },
+    "rowActions": {
+      "menu": "Row actions"
+    },
+    "modal": {
+      "title": "Permissions · {{email}}",
+      "cancel": "Cancel"
+    },
+    "create": {
+      "action": "Create admin",
+      "title": "Create an admin account",
+      "accountSection": "Account details",
+      "emailLabel": "Email",
+      "emailPlaceholder": "admin@example.com",
+      "firstNameLabel": "First name",
+      "lastNameLabel": "Last name",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "At least 8 characters",
+      "permissionsLabel": "Permissions",
+      "submit": "Create admin",
+      "cancel": "Cancel"
+    },
+    "delete": {
+      "action": "Delete account",
+      "title": "Delete admin account",
+      "description": "Permanently delete {{email}} and revoke all access? This cannot be undone.",
+      "confirm": "Delete account",
+      "cancel": "Cancel"
+    },
+    "promoteSuperadmin": {
+      "action": "Make superadmin",
+      "title": "Promote to superadmin",
+      "description": "Grant {{email}} full superadmin access? They will implicitly hold every permission.",
+      "confirm": "Make superadmin",
+      "cancel": "Cancel"
+    },
+    "demoteToAdmin": {
+      "action": "Demote to admin",
+      "title": "Demote to admin",
+      "description": "Demote {{email}} back to a plain admin with no permissions?",
+      "confirm": "Demote to admin",
+      "cancel": "Cancel"
+    },
+    "transferRoot": {
+      "action": "Transfer root",
+      "title": "Transfer root superadmin",
+      "description": "Hand your root status to another superadmin. A verification code will be emailed to your address.",
+      "targetLabel": "New root (superadmin)",
+      "targetPlaceholder": "Select a superadmin",
+      "send": "Send code",
+      "sentNote": "We emailed a code to your address. Enter it below within 3 minutes.",
+      "codeLabel": "Verification code",
+      "codePlaceholder": "6-digit code",
+      "confirm": "Confirm transfer",
+      "cancel": "Cancel"
+    },
+    "directPermissionsHint": "Direct grants only. Permissions given through roles and permission sets are not counted: open the access panel to see them.",
+    "viewAccess": "View access"
+  },
+  "permissions": {
+    "selectAll": "All",
+    "searchPlaceholder": "Search sections...",
+    "noResults": "No sections match your search.",
+    "restricted": "You don't have permission for this, so it's hidden and no request is sent.",
+    "resource": {
+      "users": "Users",
+      "files": "Files",
+      "support": "Support",
+      "activities": "Activities",
+      "stats": "Stats",
+      "roles": "Roles",
+      "permission_sets": "Permission sets",
+      "admins": "Admins",
+      "broadcast": "Announcements",
+      "system_settings": "System settings",
+      "self": {
+        "profile": "My profile",
+        "files": "My files",
+        "notifications": "My notifications",
+        "support": "My support tickets",
+        "quotes": "My dealership's quotes",
+        "customers": "My dealership's customers",
+        "catalog": "Quote catalog",
+        "dealership": "My dealership"
+      },
+      "quotes": "Quotes",
+      "customers": "Customers",
+      "catalog": "Catalog",
+      "dealerships": "Dealerships"
+    },
+    "action": {
+      "read": "View",
+      "write": "Edit",
+      "delete": "Delete",
+      "suspend": "Suspend",
+      "password_reset": "Reset password",
+      "sessions": "Manage sessions",
+      "unlock": "Unlock accounts",
+      "mfa_reset": "Reset MFA",
+      "update": "Assign",
+      "upload": "Upload",
+      "create": "Create",
+      "reply": "Reply",
+      "close": "Close"
+    }
+  },
+  "shell": {
+    "title": "Administration",
+    "brandSubtitle": "Admin Panel",
+    "toggleSidebar": "Toggle sidebar",
+    "breadcrumb": "Breadcrumb",
+    "section": {
+      "overview": "Overview",
+      "management": "Management",
+      "monitoring": "Monitoring",
+      "account": "Account",
+      "accessControl": "Access control",
+      "dealerNetwork": "Dealer network"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "admins": "Admins",
+      "files": "Files",
+      "activities": "Activity log",
+      "support": "Support",
+      "notifications": "Notifications",
+      "broadcasts": "Announcements",
+      "system-settings": "System Settings",
+      "profile": "Profile",
+      "roles": "Roles",
+      "permission-sets": "Permission sets",
+      "quotes": "Quotes",
+      "customers": "Customers",
+      "catalog": "Catalog",
+      "dealerships": "Dealerships"
+    },
+    "signedInAs": "Signed in as",
+    "exit": "Exit admin",
+    "forbiddenTitle": "Admins only",
+    "forbiddenDescription": "You are signed in, but this area requires an administrator role.",
+    "forbiddenCta": "Back to dashboard"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "High-level view of users and recent activity.",
+    "stats": {
+      "totalUsers": "Total users",
+      "activeUsers": "Active users",
+      "admins": "Administrators",
+      "activitiesToday": "Activities"
+    },
+    "recentActivity": "Recent activity",
+    "viewAllActivity": "View all activity",
+    "viewAllUsers": "View all users"
+  },
+  "users": {
+    "title": "Users",
+    "subtitle": "Search, filter, and manage every account.",
+    "filters": {
+      "searchPlaceholder": "Search by email or name",
+      "role": "Role",
+      "roleAny": "Any role",
+      "status": "Status",
+      "statusAny": "Any status",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "verified": "Verified",
+      "verifiedAny": "Any",
+      "verifiedYes": "Verified",
+      "verifiedNo": "Not verified",
+      "reset": "Clear filters"
+    },
+    "columns": {
+      "user": "User",
+      "email": "Email",
+      "role": "Role",
+      "status": "Status",
+      "verified": "Verified",
+      "created": "Created",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pendingDeletion": "Pending deletion",
+      "suspended": "Suspended"
+    },
+    "role": {
+      "superadmin": "Superadmin",
+      "admin": "Admin",
+      "user": "User"
+    },
+    "empty": "No users match the current filters.",
+    "loading": "Loading users...",
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "pageOf": "of {{total}}",
+      "goToPage": "Go to page",
+      "showing": "{{from}}–{{to}} of {{total}}",
+      "rowsPerPage": "Rows per page"
+    },
+    "rowActions": {
+      "open": "Open details",
+      "menu": "Row actions",
+      "suspend": "Suspend",
+      "unsuspend": "Lift suspension",
+      "unlock": "Unlock account",
+      "changePassword": "Force password reset",
+      "delete": "Delete user"
+    }
+  },
+  "userDetail": {
+    "backToUsers": "Back to users",
+    "avatarTitle": "Profile photo",
+    "avatarDescription": "Upload, replace, or remove this user's avatar.",
+    "avatarUploadRestricted": "You can't upload files, so the photo can't be replaced.",
+    "removeAvatarTitle": "Remove this avatar?",
+    "removeAvatarDescription": "This permanently deletes the photo from storage and clears the user's avatar. This cannot be undone.",
+    "removeAvatarConfirm": "Remove avatar",
+    "overviewTitle": "Account overview",
+    "overviewDescription": "Basic information and status for this user.",
+    "overview": {
+      "id": "ID",
+      "created": "Created",
+      "updated": "Updated",
+      "deactivated": "Deactivated",
+      "scheduledDeletion": "Scheduled deletion",
+      "suspended": "Suspended"
+    },
+    "editTitle": "Edit user",
+    "editDescription": "Update profile and access.",
+    "activityTitle": "Recent activity",
+    "activityDescription": "Audit events recorded for this user.",
+    "activityEmpty": "No recent activity.",
+    "activityLoadMore": "Show more",
+    "dangerTitle": "Danger zone",
+    "dangerDescription": "These actions are audited and can't be undone by the target user.",
+    "sessions": {
+      "title": "Active sessions",
+      "description": "Devices currently signed in to this account.",
+      "deviceLabel": "{{browser}} — {{os}}",
+      "unknownDevice": "Unknown device",
+      "lastActive": "Last active: {{date}}",
+      "revokeAll": "Terminate all sessions",
+      "loadMore": "Show more",
+      "empty": "No active sessions.",
+      "confirm": {
+        "title": "Terminate all sessions?",
+        "description": "The user will be signed out of every device immediately and will need to log in again. This action is audited.",
+        "confirm": "Terminate All",
+        "cancel": "Cancel"
+      }
+    },
+    "fields": {
+      "firstName": "First name",
+      "lastName": "Last name",
+      "title": "Title",
+      "role": "Role",
+      "active": "Active",
+      "verified": "Email verified"
+    },
+    "save": "Save changes",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "changePassword": "Force password reset",
+    "suspend": "Suspend account",
+    "unsuspend": "Lift suspension",
+    "unlock": "Unlock account",
+    "delete": "Delete user",
+    "deleting": "Deleting...",
+    "adminTargetRestricted": "Changing an admin account requires the admins:write permission, so this is hidden and no request is sent."
+  },
+  "confirm": {
+    "deleteTitle": "Delete this user?",
+    "deleteDescription": "This permanently removes the user and cannot be undone.",
+    "deleteConfirm": "Delete user",
+    "suspendTitle": "Suspend this user?",
+    "suspendDescription": "The user loses access immediately and the account stays suspended until an admin lifts it.",
+    "suspendConfirm": "Suspend",
+    "unsuspendTitle": "Lift this suspension?",
+    "unsuspendDescription": "This re-enables the account and restores the user's access.",
+    "unsuspendConfirm": "Lift suspension",
+    "unlockTitle": "Unlock this account?",
+    "unlockDescription": "This clears the failed sign-in counter and any temporary lock, so the user can sign in again right away.",
+    "unlockConfirm": "Unlock",
+    "changePasswordTitle": "Force a password reset?",
+    "changePasswordDescription": "The user's password will be rotated to an unknown value. They must use the 'Forgot Password' link on the login page to regain access. You never see the new password.",
+    "changePasswordConfirm": "Force reset",
+    "cancel": "Cancel"
+  },
+  "files": {
+    "title": "Files",
+    "subtitle": "Review, filter, and remove uploaded files.",
+    "filters": {
+      "uploaderPlaceholder": "Search by uploader name or email",
+      "type": "Type",
+      "typeAny": "Any type",
+      "reset": "Clear filters"
+    },
+    "columns": {
+      "file": "File",
+      "type": "Type",
+      "size": "Size",
+      "uploadedBy": "Uploaded by",
+      "created": "Created",
+      "actions": "Actions"
+    },
+    "rowActions": {
+      "preview": "Preview",
+      "delete": "Delete file"
+    },
+    "unnamed": "Untitled",
+    "empty": "No files match the current filters.",
+    "loading": "Loading files...",
+    "confirmDelete": {
+      "title": "Delete this file?",
+      "description": "This permanently removes the file from storage. If it is a user's avatar, that avatar will be cleared. This cannot be undone.",
+      "confirm": "Delete file",
+      "cancel": "Cancel"
+    }
+  },
+  "activities": {
+    "title": "Activity log",
+    "subtitle": "Every audited event across the platform.",
+    "refresh": "Refresh",
+    "filters": {
+      "type": "Type",
+      "typeAny": "Any type",
+      "resource": "Resource",
+      "resourceAny": "Any resource",
+      "status": "Status",
+      "statusAny": "Any status",
+      "statusCode": "Status code",
+      "statusCodeAny": "Any code",
+      "user": "User",
+      "userSearch": "Search by name or email…",
+      "reset": "Clear filters"
+    },
+    "columns": {
+      "when": "When",
+      "user": "User",
+      "type": "Type",
+      "resource": "Resource",
+      "status": "Status",
+      "statusCode": "Code",
+      "details": "Details"
+    },
+    "status": {
+      "success": "Success",
+      "failure": "Failure"
+    },
+    "type": {
+      "create": "Create",
+      "read": "Read",
+      "update": "Update",
+      "delete": "Delete",
+      "execute": "Execute",
+      "login": "Login",
+      "logout": "Logout",
+      "export": "Export",
+      "invite": "Invite"
+    },
+    "resource": {
+      "user": "User",
+      "auth": "Auth",
+      "file": "File",
+      "support_ticket": "Support ticket",
+      "system_settings": "System settings",
+      "role": "Role",
+      "permission_set": "Permission set",
+      "announcement": "Announcement",
+      "dealership": "Dealership",
+      "service": "Service",
+      "customer": "Customer",
+      "quote": "Quote"
+    },
+    "deletedAccount": "Deleted account",
+    "unknownAccount": "Unknown account",
+    "empty": "No activity matches the current filters.",
+    "loading": "Loading activity..."
+  },
+  "rbac": {
+    "audience": {
+      "label": "Audience",
+      "user": "Users",
+      "admin": "Admins"
+    },
+    "audienceHint": {
+      "user": "For regular accounts: self-service permissions only.",
+      "admin": "For admin panel accounts: any permission."
+    },
+    "system": "System",
+    "systemReadOnly": "System elements cannot be changed or deleted.",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving...",
+    "create": "Create",
+    "close": "Close",
+    "edit": "Edit",
+    "view": "View",
+    "delete": "Delete",
+    "rowActions": "Row actions",
+    "fields": {
+      "key": "Key",
+      "keyHint": "Lowercase letters, digits and underscores; dots separate parts. Fixed once created.",
+      "name": "Name",
+      "description": "Description"
+    },
+    "validation": {
+      "keyInvalid": "Use lowercase letters, digits and underscores, starting with a letter.",
+      "nameRequired": "A name is required."
+    },
+    "roles": {
+      "title": "Roles",
+      "subtitle": "A role bundles permission sets and is assigned to accounts.",
+      "create": "Create role",
+      "createTitle": "Create a role",
+      "editTitle": "Edit role · {{name}}",
+      "viewTitle": "Role · {{name}}",
+      "loading": "Loading roles...",
+      "empty": "No roles yet.",
+      "columns": {
+        "role": "Role",
+        "audience": "Audience",
+        "sets": "Permission sets",
+        "actions": "Actions"
+      },
+      "setsLabel": "Permission sets",
+      "noSets": "None",
+      "noSetsAvailable": "No permission set exists for this audience yet.",
+      "delete": {
+        "title": "Delete role",
+        "description": "Delete the role {{name}}? This cannot be undone.",
+        "confirm": "Delete role"
+      }
+    },
+    "sets": {
+      "title": "Permission sets",
+      "subtitle": "A permission set is a named group of permissions that roles include.",
+      "create": "Create permission set",
+      "createTitle": "Create a permission set",
+      "editTitle": "Edit permission set · {{name}}",
+      "viewTitle": "Permission set · {{name}}",
+      "loading": "Loading permission sets...",
+      "empty": "No permission sets yet.",
+      "columns": {
+        "set": "Permission set",
+        "audience": "Audience",
+        "permissions": "Permissions",
+        "actions": "Actions"
+      },
+      "permissionsLabel": "Permissions",
+      "permissionCount": "{{count}} permissions",
+      "delete": {
+        "title": "Delete permission set",
+        "description": "Delete the permission set {{name}}? This cannot be undone.",
+        "confirm": "Delete permission set"
+      }
+    },
+    "access": {
+      "title": "Access",
+      "description": "The roles, permission sets and permissions this account holds, and where each one comes from.",
+      "loading": "Loading access...",
+      "roles": "Roles",
+      "permissionSets": "Permission sets",
+      "directPermissions": "Direct permissions",
+      "directHint": "Direct permissions are edited in Admin management.",
+      "openAdmins": "Open admin management",
+      "none": "None",
+      "expires": "Expires {{date}}",
+      "expired": "Expired",
+      "effective": "Effective permissions",
+      "effectiveEmpty": "This account holds no permission.",
+      "source": {
+        "role": "Role",
+        "permission_set": "Permission set",
+        "direct": "Direct grant",
+        "superadmin": "Superadmin tier"
+      },
+      "manageRoles": "Manage roles",
+      "manageSets": "Manage permission sets",
+      "superadminNote": "A superadmin holds every permission through its tier. Roles and permission sets cannot be assigned to it.",
+      "selfNote": "You cannot change your own access.",
+      "forbiddenNote": "Viewing the access of an admin account requires the admins:read permission.",
+      "assign": {
+        "rolesTitle": "Roles · {{email}}",
+        "setsTitle": "Permission sets · {{email}}",
+        "expiresLabel": "Expires at",
+        "expiresHint": "Leave empty for no expiry.",
+        "noOptions": "There is nothing to assign.",
+        "promoteWarning": "Assigning an admin role or permission set gives this account access to the admin panel.",
+        "listError": "The list could not be loaded, so assignments cannot be changed now.",
+        "demoteWarning": "With no admin role, permission set or direct permission left, this account loses access to the admin panel and becomes a regular user.",
+        "userRoleRequired": "Keep at least one permanent user role.",
+        "save": "Save assignments",
+        "expiredBadge": "Expired"
+      }
+    },
+    "genericError": "The request failed. Check the values and try again.",
+    "catalogError": "The permission list could not be loaded, so permissions cannot be edited now."
+  }
+}

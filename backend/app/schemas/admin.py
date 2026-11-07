@@ -1,0 +1,273 @@
+import uuid
+from datetime import datetime
+
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
+
+from app.core.messages.error_message import ErrorMessages
+from app.schemas.admin_permission import Permission, is_self_permission
+from app.schemas.common import ActivityDetails
+from app.schemas.file import FileCategory, FilePublic
+from app.schemas.user import SystemRole
+from app.schemas.user_activity import ActivityStatus, ActivityType, ResourceType
+
+
+class AdminUserUpdate(BaseModel):
+    """Fields an admin may change on another user's account.
+
+    Email is intentionally NOT in this schema: an admin must never be able to
+    rewrite a user's identity (login + recovery channel). With ``extra=forbid``
+    a stray ``email`` key in the request body returns 422 — defence in depth
+    on top of the FE form which doesn't expose the field at all.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    first_name: str | None = Field(default=None, max_length=100)
+    last_name: str | None = Field(default=None, max_length=100)
+    title: str | None = Field(default=None, max_length=100)
+    is_active: bool | None = None
+    is_verified: bool | None = None
+    avatar_file_id: uuid.UUID | None = Field(default=None)
+    # Dealership the account works for; `null` detaches it.
+    dealership_id: uuid.UUID | None = Field(default=None)
+
+
+class AdminUserListItem(BaseModel):
+    """Row shape returned by the admin user listing endpoint."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    email: EmailStr
+    first_name: str | None = None
+    last_name: str | None = None
+    title: str | None = None
+    role: SystemRole
+    is_active: bool
+    is_verified: bool
+    created_at: datetime
+    updated_at: datetime
+    deactivated_at: datetime | None = None
+    deletion_scheduled_at: datetime | None = None
+    suspended_at: datetime | None = None
+    avatar_file: FilePublic | None = None
+    dealership_id: uuid.UUID | None = None
+
+
+class AdminUserListResponse(BaseModel):
+    """Paginated admin user listing payload."""
+
+    data: list[AdminUserListItem]
+    total: int
+    skip: int
+    limit: int
+
+
+class AdminUserUpdateResponse(BaseModel):
+    """Standard response returned after mutating a user via the admin API."""
+
+    user: AdminUserListItem
+    message: str
+
+
+class AdminFileUploader(BaseModel):
+    """Minimal uploader identity embedded in admin file rows."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    email: EmailStr
+    first_name: str | None = None
+    last_name: str | None = None
+
+
+class AdminFileListItem(BaseModel):
+    """Row shape returned by the admin file listing endpoint.
+
+    Exposes internal fields (``public_id``, ``uploaded_by_id``) that the public
+    ``FilePublic`` hides, since admins manage and audit raw uploads. Also embeds
+    the resolved uploader (``uploaded_by``) so the UI can show who uploaded each
+    file and search by name/email.
+    """
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    url: str
+    public_id: str
+    content_type: str
+    size: int
+    filename: str | None = None
+    category: FileCategory = FileCategory.GENERAL
+    uploaded_by_id: uuid.UUID | None = None
+    uploaded_by: AdminFileUploader | None = None
+    created_at: datetime
+
+
+class AdminFileListResponse(BaseModel):
+    """Paginated admin file listing payload."""
+
+    data: list[AdminFileListItem]
+    total: int
+    skip: int
+    limit: int
+
+
+class AdminActorRef(BaseModel):
+    """Minimal identity of the user who performed an activity."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    email: EmailStr
+    first_name: str | None = None
+    last_name: str | None = None
+
+
+class AdminActivityItem(BaseModel):
+    """Row shape returned by the admin activity log endpoint."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
+    user_id: uuid.UUID | None = None
+    actor_ref: str | None = None
+    user_deleted_at: datetime | None = None
+    user: AdminActorRef | None = None
+    activity_type: ActivityType
+    resource_type: ResourceType
+    resource_id: uuid.UUID | None = None
+    details: ActivityDetails
+    status: ActivityStatus
+    status_code: int | None = None
+    ip_address: str | None = None
+    user_agent: str | None = None
+    created_at: datetime
+
+
+class AdminActivityListResponse(BaseModel):
+    """Paginated activity log payload."""
+
+    data: list[AdminActivityItem]
+    total: int
+    skip: int
+    limit: int
+
+
+class AdminActivityFilter(BaseModel):
+    """Filter + pagination body for the global activity-log search (POST)."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    skip: int = Field(default=0, ge=0)
+    limit: int = Field(default=50, ge=1, le=200)
+    user_id: uuid.UUID | None = None
+    user_search: str | None = Field(default=None, max_length=100)
+    activity_type: ActivityType | None = None
+    resource_type: ResourceType | None = None
+    status: ActivityStatus | None = None
+    status_code: int | None = Field(default=None, ge=100, le=599)
+    date_from: datetime | None = None
+    date_to: datetime | None = None
+
+
+class AdminStats(BaseModel):
+    """Aggregate counts powering the admin dashboard overview."""
+
+    users_total: int
+    users_active: int
+    users_verified: int
+    users_admins: int
+    activities_total: int
+    activities_today: int
+
+
+# --- Admin / RBAC management ------------------------------------------------
+
+
+class AdminListItem(BaseModel):
+    """An admin- or superadmin-tier account with the permissions it holds.
+
+    Built explicitly by the service (not via ``from_attributes``) so it never
+    touches the lazy ``User.permissions`` relationship. Superadmins are reported
+    as holding every permission for display, mirroring their implicit access.
+    """
+
+    id: uuid.UUID
+    email: EmailStr
+    first_name: str | None = None
+    last_name: str | None = None
+    role: SystemRole
+    is_active: bool
+    is_root_superadmin: bool = False
+    permissions: list[Permission] = Field(default_factory=list)
+    created_at: datetime
+
+
+class AdminListResponse(BaseModel):
+    """Paginated listing of admin-tier accounts."""
+
+    data: list[AdminListItem]
+    total: int
+    skip: int
+    limit: int
+
+
+def _reject_self_permissions(permissions: list[Permission]) -> list[Permission]:
+    """Reject ``self.*`` keys, which are reserved for roles."""
+    if any(is_self_permission(perm) for perm in permissions):
+        raise ValueError(ErrorMessages.RBAC_SELF_PERMISSION_ROLES_ONLY)
+    return permissions
+
+
+class AdminCreate(BaseModel):
+    """Create a brand-new admin account with an initial permission set."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    email: EmailStr = Field(max_length=255)
+    first_name: str | None = Field(default=None, max_length=100)
+    last_name: str | None = Field(default=None, max_length=100)
+    password: str = Field(min_length=8, max_length=40)
+    permissions: list[Permission] = Field(default_factory=list)
+
+    _no_self_permissions = field_validator("permissions")(_reject_self_permissions)
+
+
+class RootTransferRequest(BaseModel):
+    """Initiate transfer of the root superadmin status to another superadmin."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    user_id: uuid.UUID
+
+
+class RootTransferConfirm(BaseModel):
+    """Confirm a root-superadmin transfer with the emailed one-time passcode."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    code: str = Field(min_length=4, max_length=12)
+
+
+class AdminPermissionsUpdate(BaseModel):
+    """Replace an admin's permission grants with exactly this set."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    permissions: list[Permission]
+
+    _no_self_permissions = field_validator("permissions")(_reject_self_permissions)
+
+
+class AdminMutationResponse(BaseModel):
+    """Standard response after creating or updating an admin."""
+
+    admin: AdminListItem
+    message: str
+
+
+class PermissionCatalogResponse(BaseModel):
+    """Every assignable RBAC permission key, for building the grant UI."""
+
+    permissions: list[Permission]

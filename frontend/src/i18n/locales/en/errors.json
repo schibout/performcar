@@ -1,0 +1,118 @@
+{
+  "fillAllFields": "Please fill in all fields.",
+  "loginFailed": "Login failed. Please check your credentials.",
+  "genericError": "An error occurred while logging in.",
+  "registrationFailed": "Registration failed. Please try again.",
+  "VALIDATION_ERROR": "Validation Error",
+  "INTERNAL_SERVER_ERROR": "Internal Server Error",
+  "RESOURCE_NOT_FOUND": "Resource Not Found",
+  "INVALID_TOKEN": "Invalid or expired token",
+  "INSUFFICIENT_PERMISSIONS": "Insufficient Permissions",
+  "RESOURCE_CONFLICT": "Resource Conflict",
+  "RATE_LIMIT_EXCEEDED": "Rate Limit Exceeded",
+  "error": {
+    "user": {
+      "role_invalid": "Invalid role specified.",
+      "not_found": "User not found.",
+      "email_exists": "Email already exists.",
+      "invalid_credentials": "Invalid email or password.",
+      "invalid_password": "Invalid password.",
+      "user_inactive": "User is inactive.",
+      "email_not_verified": "Email address is not verified.",
+      "invalid_verification_token": "Invalid verification token.",
+      "invalid_email_domain": "This email domain cannot receive mail.",
+      "disposable_email_not_allowed": "Disposable email addresses are not allowed.",
+      "password_weak": "Password must include an uppercase and a lowercase letter, a number, and a special character."
+    },
+    "auth": {
+      "refresh_token_missing": "Refresh token is missing.",
+      "invalid_current_password": "Current password is incorrect.",
+      "registration_disabled": "Registration is currently disabled."
+    },
+    "account": {
+      "already_deactivated": "Your account is already scheduled for deletion.",
+      "not_deactivated": "Your account is active — nothing to cancel.",
+      "deletion_expired": "This account's grace window has expired.",
+      "suspended": "Your account has been suspended by an administrator.",
+      "already_suspended": "This user is already suspended.",
+      "not_suspended": "This user is not suspended.",
+      "locked": "Too many failed login attempts. Your account is temporarily locked. Please try again later."
+    },
+    "admin": {
+      "cannot_modify_self": "Administrators cannot modify their own account from this panel.",
+      "cannot_delete_self": "Administrators cannot delete themselves.",
+      "cannot_demote_last_admin": "You cannot demote the last active administrator.",
+      "cannot_delete_last_admin": "You cannot delete the last active administrator.",
+      "cannot_modify_superadmin": "Only a superadmin can modify a superadmin account.",
+      "cannot_delete_last_superadmin": "You cannot remove the last active superadmin.",
+      "only_superadmin": "This action is restricted to superadmins.",
+      "only_root_superadmin": "This action is restricted to the root superadmin.",
+      "not_an_admin": "This user is not an admin.",
+      "not_a_superadmin": "This user is not a superadmin.",
+      "cannot_transfer_to_self": "You cannot transfer root status to yourself.",
+      "superadmin_role_immutable": "A superadmin's role cannot be changed."
+    },
+    "rbac": {
+      "role_not_found": "Role not found.",
+      "permission_set_not_found": "Permission set not found.",
+      "key_already_exists": "A role or permission set with this key already exists.",
+      "system_element": "System roles and permission sets cannot be changed or deleted.",
+      "role_in_use": "This role is still assigned to accounts. Withdraw it before deleting it.",
+      "permission_set_in_use": "This permission set is still used by a role or an account. Withdraw it before deleting it.",
+      "permission_audience_mismatch": "A permission set for users can only contain self-service permissions.",
+      "set_audience_mismatch": "A role can only include permission sets of its own audience.",
+      "user_role_required": "An account must keep at least one permanent user role.",
+      "superadmin_target": "A superadmin holds every permission: roles and permission sets cannot be assigned to it.",
+      "admin_assignment_forbidden": "Assigning an admin role or permission set to a user requires the admins:write permission.",
+      "duplicate_assignment": "The same role or permission set appears more than once.",
+      "expiry_in_past": "The expiry date must be in the future.",
+      "self_permission_roles_only": "Self-service permissions can only be granted through roles.",
+      "privilege_escalation": "You can only grant or withdraw permissions you hold permanently. Temporary permissions cannot be passed on."
+    },
+    "notification": {
+      "not_found": "Notification not found.",
+      "access_denied": "You don't have access to this notification."
+    },
+    "session": {
+      "not_found": "Session not found."
+    },
+    "support": {
+      "ticket_not_found": "Ticket not found.",
+      "ticket_access_denied": "You don't have access to this ticket.",
+      "ticket_already_closed": "This ticket is closed and can't receive new replies.",
+      "attachment_not_found": "An attached file could not be found.",
+      "attachment_not_owned": "You can only attach files you uploaded yourself.",
+      "attachment_wrong_category": "That file can't be used as a support attachment.",
+      "invalid_assigned_admin": "Tickets can only be assigned to an administrator.",
+      "disabled": "Support is temporarily unavailable."
+    },
+    "system": {
+      "maintenance": "The system is under maintenance. Please check back soon."
+    },
+    "settings": {
+      "not_found": "Setting not found.",
+      "invalid_value": "Invalid value for this setting."
+    },
+    "quote": {
+      "no_dealership": "Your account is not attached to a dealership.",
+      "not_found": "Quote not found.",
+      "down_payment_too_high": "The down payment cannot exceed the quote total.",
+      "financing_incomplete": "Choose a financing duration.",
+      "reference_conflict": "Two quotes were created at the same time. Please try again."
+    },
+    "dealership": {
+      "not_found": "Dealership not found.",
+      "in_use": "A dealership with quotes cannot be deleted."
+    },
+    "catalog": {
+      "service_not_found": "Service not found.",
+      "service_in_use": "This service is used in quotes and cannot be deleted. Deactivate it instead.",
+      "category_not_found": "Service category not found.",
+      "service_unavailable": "A selected service is no longer available."
+    },
+    "customer": {
+      "not_found": "Customer not found.",
+      "has_quotes": "This customer has quotes and cannot be deleted."
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "badge": "À propos",
+  "title": "PERFORM'CAR, expert PPF XPEL",
+  "subtitle": "Le spécialiste de la protection automobile haut de gamme, centre certifié XPEL à Marcoussis, Paris Saclay.",
+  "story": {
+    "eyebrow": "Notre histoire",
+    "title": "Fondé par des passionnés d'automobile",
+    "p1": "PERFORM'CAR est un centre agréé XPEL situé à Marcoussis, dans l'Essonne. Devenus centre certifié PPF XPEL, la marque de référence mondiale en matière de films de protection automobile, nous avons protégé plus d'un millier de véhicules d'exception.",
+    "p2": "PerformCar EasyDevis prolonge cette exigence : un outil pour établir, financer et suivre des devis justes et professionnels, au service de nos concessions partenaires."
+  },
+  "values": {
+    "eyebrow": "Nos valeurs",
+    "title": "Notre mission : protéger votre passion avec excellence et précision",
+    "item1": "Passion automobile",
+    "item1Desc": "Supercars, véhicules haut de gamme, motos : chaque véhicule est traité avec le même soin.",
+    "item2": "Confiance",
+    "item2Desc": "Des produits XPEL garantis 10 ans et un savoir-faire reconnu par nos partenaires.",
+    "item3": "Exigence du détail",
+    "item3Desc": "L'exigence du détail, la signature de l'excellence, de la pose du film jusqu'au devis.",
+    "item4": "Transparence",
+    "item4Desc": "Des prix issus du catalogue, figés sur chaque devis, sans surprise pour le client."
+  }
+}

@@ -1,0 +1,5 @@
+-- Executer sur la base administrative postgres, hors transaction.
+-- psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -v db_name=app -v db_owner=app_user -f database/00_create_database.psql
+-- Le role db_owner doit deja exister. Les identifiants sont quotes par psql.
+\set ON_ERROR_STOP on
+CREATE DATABASE :"db_name" OWNER :"db_owner" ENCODING 'UTF8' TEMPLATE template0;

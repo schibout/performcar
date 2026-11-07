@@ -1,0 +1,310 @@
+{
+  "restricted": "You don't have permission for this, so it's hidden and no request is sent.",
+  "noDealership": "Your account is not attached to a dealership yet. Ask an administrator to attach it.",
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "status": {
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "completed": "Completed"
+  },
+  "condition": {
+    "new": "New",
+    "used": "Used"
+  },
+  "financing": {
+    "cash": "Cash",
+    "credit": "Credit",
+    "leasing_loa": "Lease with purchase option (LOA)",
+    "leasing_lld": "Long-term lease (LLD)"
+  },
+  "errors": {
+    "loadStats": "The dashboard figures could not be loaded.",
+    "loadQuotes": "The quotes could not be loaded."
+  },
+  "dashboard": {
+    "title": "Quotes dashboard",
+    "subtitle": "Activity of your dealership's quotes.",
+    "newQuote": "New quote",
+    "history": "Quote history"
+  },
+  "stats": {
+    "pending": "Pending quotes",
+    "pendingHint": "Awaiting confirmation",
+    "confirmed": "Confirmed quotes",
+    "confirmedHint": "Awaiting completion",
+    "completed": "Completed quotes",
+    "completedHint": "Services delivered",
+    "revenue": "Revenue",
+    "revenueHint": "From completed quotes",
+    "average": "Average basket",
+    "averageHint": "Average value per quote",
+    "conversion": "Conversion rate",
+    "conversionHint": "Completed quotes / total",
+    "thisMonth": "This month",
+    "thisMonthHint": "New quotes created",
+    "trend": "{{value}}% vs last month",
+    "distribution": "Quote breakdown",
+    "distributionHint": "By status",
+    "monthly": "Monthly evolution",
+    "monthlyHint": "Quotes created over the last 6 months",
+    "monthBar": "{{month}}: {{count}} quotes",
+    "noData": "No data to display",
+    "recent": "Recent quotes",
+    "recentHint": "The last 3 quotes created",
+    "noQuotes": "No quote created yet",
+    "viewAll": "View all quotes"
+  },
+  "history": {
+    "title": "Quote history",
+    "subtitle": "Search, filter and open your dealership's quotes.",
+    "searchPlaceholder": "Search a reference, vehicle or customer…",
+    "allStatuses": "All statuses",
+    "period": "Period",
+    "periods": {
+      "all": "All dates",
+      "today": "Today",
+      "week": "Last 7 days",
+      "month": "Last 30 days"
+    },
+    "refresh": "Refresh",
+    "loading": "Loading quotes...",
+    "empty": "No quote created yet.",
+    "noMatch": "No quote matches your search.",
+    "view": "View quote",
+    "print": "Print or save as PDF",
+    "columns": {
+      "date": "Date",
+      "reference": "Reference",
+      "vehicle": "Vehicle",
+      "customer": "Customer",
+      "dealership": "Dealership",
+      "price": "Price",
+      "status": "Status",
+      "actions": "Actions"
+    }
+  },
+  "wizard": {
+    "newTitle": "New quote",
+    "newSubtitle": "Create a quote by following the steps below.",
+    "editTitle": "Edit quote",
+    "stepOf": "Step {{current}} of {{total}}",
+    "steps": {
+      "vehicle": "Vehicle",
+      "services": "Services",
+      "financing": "Financing",
+      "customer": "Customer",
+      "summary": "Summary"
+    },
+    "previous": "Previous",
+    "next": "Next",
+    "save": "Save the quote",
+    "saveChanges": "Save changes",
+    "total": "Total",
+    "incomplete": "Some information is missing or invalid.",
+    "created": "Quote {{reference}} created.",
+    "updated": "Quote {{reference}} updated.",
+    "issues": {
+      "vehicle": "Choose the vehicle brand and model.",
+      "color": "Choose the vehicle color.",
+      "year": "The year must be between 2000 and next year.",
+      "downPayment": "The down payment cannot exceed the total.",
+      "name": "Enter the customer's first and last names (letters only, at least 2).",
+      "phone": "Enter a valid French phone number.",
+      "email": "Enter a valid email address.",
+      "date": "The requested date cannot be in the past."
+    },
+    "vehicle": {
+      "title": "Vehicle information",
+      "brand": "Brand",
+      "brandPlaceholder": "Select a brand",
+      "model": "Model",
+      "modelPlaceholder": "Select a model",
+      "noModel": "No model for this brand",
+      "version": "Version",
+      "versionPlaceholder": "Select a version",
+      "noVersion": "No version for this model",
+      "year": "Year",
+      "color": "Color",
+      "colorPlaceholder": "Select a color",
+      "condition": "Condition"
+    },
+    "services": {
+      "title": "Services",
+      "empty": "No service is offered at the moment."
+    },
+    "financing": {
+      "title": "Financing options",
+      "type": "Financing type",
+      "downPayment": "Down payment",
+      "duration": "Duration",
+      "months_one": "{{count}} month",
+      "months_other": "{{count}} months",
+      "monthly": "Estimated monthly payment",
+      "totalCost": "Total cost",
+      "financed": "Financed amount",
+      "note": "This is a simplified estimate. Actual interest rates and terms depend on the lender."
+    },
+    "customer": {
+      "title": "Customer information",
+      "existing": "Existing customer",
+      "existingPlaceholder": "Search a customer of the dealership…",
+      "updatesExisting": "The customer's details will be updated with the values below.",
+      "createsNew": "A new customer will be created with the values below.",
+      "requestedDate": "Requested service date",
+      "privacy": "This information is only used to process the quote and is not shared with third parties."
+    },
+    "summary": {
+      "title": "Quote summary"
+    }
+  },
+  "detail": {
+    "back": "Back to quotes",
+    "title": "Quote {{reference}}",
+    "createdOn": "Created on {{date}}",
+    "notFound": "This quote does not exist or is outside your dealership.",
+    "changeStatus": "Change status",
+    "status": "Status",
+    "print": "Print / PDF",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteTitle": "Delete this quote?",
+    "deleteDescription": "Quote {{reference}} and its services will be permanently deleted. The customer is kept.",
+    "dealership": "Dealership",
+    "customer": "Customer",
+    "vehicle": "Vehicle",
+    "services": "Services",
+    "service": "Service",
+    "category": "Category",
+    "price": "Price",
+    "total": "Total",
+    "noServices": "No service selected",
+    "financing": "Financing",
+    "noFinancing": "Not specified",
+    "requestedDate": "Requested date",
+    "notSpecified": "Not specified",
+    "validity": "This quote is valid for 30 days from its issue date. For any question, please contact your advisor."
+  },
+  "document": {
+    "title": "Quote No. {{reference}}",
+    "date": "Date: {{date}}",
+    "totalIncl": "Total incl. VAT"
+  },
+  "print": {
+    "back": "Back to the quote",
+    "action": "Print / save as PDF",
+    "hint": "Choose \"Save as PDF\" in the print dialog to get a PDF file."
+  },
+  "customers": {
+    "title": "Customers",
+    "subtitle": "The customers of your dealership.",
+    "adminSubtitle": "The customers of every dealership.",
+    "searchPlaceholder": "Search a name, email or phone…",
+    "create": "New customer",
+    "createTitle": "New customer",
+    "editTitle": "Edit customer",
+    "edit": "Edit customer",
+    "delete": "Delete customer",
+    "deleteTitle": "Delete this customer?",
+    "deleteDescription": "{{name}} will be permanently deleted.",
+    "hasQuotes": "A customer with quotes cannot be deleted.",
+    "created": "Customer created.",
+    "updated": "Customer updated.",
+    "loading": "Loading customers...",
+    "empty": "No customer found.",
+    "columns": {
+      "name": "Name",
+      "contact": "Contact",
+      "quotes": "Quotes",
+      "created": "Created"
+    },
+    "fields": {
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "validation": {
+      "nameRequired": "This field is required.",
+      "nameLength": "Between 2 and 100 characters.",
+      "nameChars": "Letters, spaces, hyphens and apostrophes only.",
+      "email": "Enter a valid email address.",
+      "phone": "Enter a valid French phone number (e.g. 06 12 34 56 78)."
+    }
+  },
+  "dealership": {
+    "title": "My dealership",
+    "subtitle": "The details printed on your quotes.",
+    "adminTitle": "Dealerships",
+    "adminSubtitle": "Dealerships, their users and quotes.",
+    "readOnly": "You can view these details but not change them.",
+    "saved": "Dealership saved.",
+    "create": "New dealership",
+    "createTitle": "New dealership",
+    "editTitle": "Edit dealership",
+    "edit": "Edit dealership",
+    "delete": "Delete dealership",
+    "deleteTitle": "Delete this dealership?",
+    "deleteDescription": "{{name}} will be deleted; its users and customers are detached from it.",
+    "hasQuotes": "A dealership with quotes cannot be deleted.",
+    "loading": "Loading dealerships...",
+    "empty": "No dealership yet.",
+    "none": "No dealership",
+    "userField": "Dealership",
+    "userFieldHint": "The dealer only reaches the quotes and customers of this dealership.",
+    "columns": {
+      "contact": "Contact",
+      "users": "Users",
+      "quotes": "Quotes"
+    },
+    "fields": {
+      "name": "Dealership name",
+      "logo_url": "Logo URL",
+      "address": "Address",
+      "phone": "Phone",
+      "email": "Email"
+    },
+    "validation": {
+      "name": "Between 2 and 100 characters.",
+      "url": "Enter a valid URL."
+    }
+  },
+  "admin": {
+    "title": "Quotes",
+    "subtitle": "The quotes of every dealership.",
+    "allDealerships": "All dealerships"
+  },
+  "catalog": {
+    "title": "Catalog",
+    "subtitle": "The services offered in quotes and the vehicle catalog.",
+    "services": "Services",
+    "vehicles": "Vehicles and colors",
+    "noModels": "No model",
+    "create": "New service",
+    "createTitle": "New service",
+    "editTitle": "Edit service",
+    "edit": "Edit service",
+    "delete": "Delete service",
+    "deleteTitle": "Delete this service?",
+    "deleteDescription": "{{name}} will be removed from the catalog. A service used in a quote cannot be deleted: deactivate it instead.",
+    "saved": "Service saved.",
+    "loading": "Loading services...",
+    "empty": "No service yet.",
+    "active": "Active",
+    "inactive": "Inactive",
+    "description": "Description",
+    "columns": {
+      "name": "Name",
+      "category": "Category",
+      "price": "Price",
+      "status": "Active"
+    },
+    "validation": {
+      "name": "Between 2 and 100 characters.",
+      "category": "Choose a category.",
+      "price": "Enter a price."
+    }
+  }
+}

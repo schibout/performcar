@@ -1,0 +1,104 @@
+{
+  "badge": "XPEL certified center · Paris Saclay",
+  "title": "Your {{appName}} quotes in a few clicks",
+  "subtitle": "XPEL PPF paint protection, ceramic coating, tinted windows: build, finance and issue premium quotes for your customers in a single journey.",
+  "cta": {
+    "login": "Sign in",
+    "register": "Create my account",
+    "dashboard": "Go to my quotes"
+  },
+  "features": {
+    "eyebrow": "Why EasyDevis",
+    "title": "Attention to detail, right down to your quotes",
+    "subtitle": "Everything you need to issue an accurate, professional quote, with no re-typing.",
+    "item1": "A quote in a few clicks",
+    "item1Desc": "Vehicle, services, financing, customer: a guided five-step journey with a print-ready summary.",
+    "item2": "Controlled prices",
+    "item2Desc": "Prices come from the PERFORM'CAR catalog and stay frozen on every issued quote.",
+    "item3": "Built-in financing",
+    "item3Desc": "Cash, credit, lease with purchase option or long-term lease: the monthly payment is calculated automatically.",
+    "item4": "Tracking and history",
+    "item4Desc": "Find your quotes and customers, follow their status and your conversion rate from the dashboard."
+  },
+  "mock": {
+    "window": "New quote",
+    "vehicle": "Vehicle",
+    "vehicleDesc": "Brand, model, version, color and condition",
+    "services": "Services",
+    "servicesDesc": "XPEL PPF, ceramic, glazing, warranties",
+    "financing": "Financing",
+    "financingDesc": "Cash, credit, LOA or LLD",
+    "customer": "Customer",
+    "customerDesc": "Contact details and requested date",
+    "summary": "Summary",
+    "summaryDesc": "Review, save and print"
+  },
+  "marquee": {
+    "tag1": "XPEL PPF",
+    "tag2": "XPEL STEALTH",
+    "tag3": "XPEL COLORS",
+    "tag4": "SYSTEMX ceramic coating",
+    "tag5": "XPEL XR PRIME window tint",
+    "tag6": "XPEL WPF windshield",
+    "tag7": "Engine remapping",
+    "tag8": "10-year warranty"
+  },
+  "showcase": {
+    "eyebrow": "Our services",
+    "title": "PERFORM'CAR expertise",
+    "subtitle": "The services you can offer your customers, from protection film to performance.",
+    "card1Title": "XPEL PPF protection film",
+    "card1Desc": "Invisible paint protection against stone chips and scratches, installed by an XPEL certified center.",
+    "card1Tag": "10-year warranty",
+    "card2Title": "XPEL STEALTH",
+    "card2Desc": "The same protection with a satin finish, transforming the look of a gloss paint.",
+    "card2Tag": "PPF film",
+    "card3Title": "XPEL COLORS",
+    "card3Desc": "Change your vehicle's color while protecting it, with 16 exclusive colors.",
+    "card3Tag": "PPF film",
+    "card4Title": "PPF packs",
+    "card4Desc": "From the Front Pack to the Full Pack, protection suited to every use and budget.",
+    "card4Tag": "4 packs",
+    "card5Title": "SYSTEMX ceramic coating",
+    "card5Desc": "Long-lasting gloss and easier care, applied by a SYSTEMX accredited center.",
+    "card5Tag": "Ceramic",
+    "card6Title": "XPEL XR PRIME window tint",
+    "card6Desc": "Thermal comfort, privacy and UV protection.",
+    "card6Tag": "Glazing",
+    "card7Title": "XPEL WPF windshield protection",
+    "card7Desc": "A dedicated windshield film to limit impacts and chips.",
+    "card7Tag": "Glazing",
+    "card8Title": "Remapping & performance",
+    "card8Desc": "Engine remapping and parts from our partners: Armytrix, Akrapovic, KW.",
+    "card8Tag": "Performance"
+  },
+  "stats": {
+    "eyebrow": "In numbers",
+    "title": "Trusted by our customers",
+    "vehicles": "Exceptional vehicles protected",
+    "warranty": "Years of XPEL warranty",
+    "satisfaction": "Satisfied customers"
+  },
+  "steps": {
+    "eyebrow": "How it works",
+    "title": "Three steps to a quote",
+    "step1Title": "Configure the vehicle",
+    "step1Desc": "Pick the brand, model, version and color from the catalog.",
+    "step2Title": "Add services and financing",
+    "step2Desc": "Select the services, then the financing: total and monthly payment are calculated for you.",
+    "step3Title": "Issue and track the quote",
+    "step3Desc": "Save it, print it and follow its status through to completion."
+  },
+  "ctaBand": {
+    "title": "Ready to issue your first quote?",
+    "desc": "Protect your customers' passion with excellence and precision.",
+    "button": "Get started now"
+  },
+  "footer": {
+    "tagline": "PERFORM'CAR — Attention to detail, the signature of excellence.",
+    "exploreTitle": "Explore",
+    "accountTitle": "Account",
+    "rights": "All rights reserved.",
+    "backToTop": "Back to top"
+  }
+}

@@ -1,0 +1,236 @@
+import uuid
+from collections.abc import Sequence
+from datetime import datetime, timedelta
+
+from sqlalchemy import Select, delete, func, select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.models.user import User
+from app.repositories.rbac import assign_default_role
+from app.repositories.user_activity import anonymize_user_activities
+from app.schemas.announcement import AnnouncementAudience
+from app.schemas.user import SystemRole
+from app.utils import utc_now
+
+
+async def get_user_by_id(session: AsyncSession, user_id: uuid.UUID) -> User | None:
+    """Get a single user by their UUID."""
+    return await session.get(User, user_id)
+
+
+async def get_user_by_email(session: AsyncSession, email: str) -> User | None:
+    """Get a single user by their email address."""
+    statement = select(User).where(User.email == email)
+    result = await session.execute(statement)
+    return result.scalars().first()
+
+
+async def get_users_with_count(
+    session: AsyncSession, skip: int = 0, limit: int = 100
+) -> tuple[Sequence[User], int]:
+    """Get paginated users and total count."""
+    count_statement = select(func.count()).select_from(User)
+    count_result = await session.execute(count_statement)
+    count = count_result.scalar_one()
+
+    users_statement = select(User).offset(skip).limit(limit)
+    users_result = await session.execute(users_statement)
+    users = users_result.scalars().all()
+    return users, count
+
+
+async def create_user(session: AsyncSession, user: User) -> User:
+    """Create a new user holding the default role, both in one transaction."""
+    session.add(user)
+    await session.flush()
+    await assign_default_role(session, user.id)
+    await session.commit()
+    await session.refresh(user)
+    return user
+
+
+async def update_user(session: AsyncSession, db_user: User, update_data: dict) -> User:
+    """Update an existing user's data."""
+    for key, value in update_data.items():
+        setattr(db_user, key, value)
+    session.add(db_user)
+    await session.commit()
+    await session.refresh(db_user)
+    return db_user
+
+
+async def deactivate_user(session: AsyncSession, user: User, grace_days: int) -> User:
+    """Start the deactivation grace window for a user.
+
+    Sets ``is_active=False`` and schedules hard deletion ``grace_days`` in the
+    future. The row is locked with ``SELECT ... FOR UPDATE`` to guard against
+    concurrent deactivate/reactivate requests on the same account.
+    """
+    locked = await session.execute(
+        select(User).where(User.id == user.id).with_for_update()
+    )
+    db_user = locked.scalars().one()
+
+    now = utc_now()
+    db_user.is_active = False
+    db_user.deactivated_at = now
+    db_user.deletion_scheduled_at = now + timedelta(days=grace_days)
+    session.add(db_user)
+    await session.commit()
+    await session.refresh(db_user)
+    return db_user
+
+
+async def reactivate_user(session: AsyncSession, user: User) -> User:
+    """Cancel a pending deletion and re-enable the account."""
+    locked = await session.execute(
+        select(User).where(User.id == user.id).with_for_update()
+    )
+    db_user = locked.scalars().one()
+
+    db_user.is_active = True
+    db_user.deactivated_at = None
+    db_user.deletion_scheduled_at = None
+    session.add(db_user)
+    await session.commit()
+    await session.refresh(db_user)
+    return db_user
+
+
+async def suspend_user(session: AsyncSession, user: User) -> User:
+    """Admin-initiated permanent suspension.
+
+    Sets ``is_active=False`` and stamps ``suspended_at``. Deliberately does NOT
+    set ``deletion_scheduled_at`` — suspended accounts are never auto-deleted
+    by the cleanup worker and the target user cannot self-reactivate.
+    """
+    locked = await session.execute(
+        select(User).where(User.id == user.id).with_for_update()
+    )
+    db_user = locked.scalars().one()
+
+    db_user.is_active = False
+    db_user.suspended_at = utc_now()
+    session.add(db_user)
+    await session.commit()
+    await session.refresh(db_user)
+    return db_user
+
+
+async def unsuspend_user(session: AsyncSession, user: User) -> User:
+    """Lift an admin suspension and re-enable the account."""
+    locked = await session.execute(
+        select(User).where(User.id == user.id).with_for_update()
+    )
+    db_user = locked.scalars().one()
+
+    db_user.is_active = True
+    db_user.suspended_at = None
+    session.add(db_user)
+    await session.commit()
+    await session.refresh(db_user)
+    return db_user
+
+
+async def get_users_due_for_deletion(
+    session: AsyncSession, now: datetime, limit: int
+) -> Sequence[User]:
+    """Return users whose grace period has elapsed, locked for this worker.
+
+    Uses ``FOR UPDATE SKIP LOCKED`` so multiple workers can run the deletion
+    job in parallel without colliding on the same rows.
+    """
+    statement = (
+        select(User)
+        .where(
+            User.is_active.is_(False),
+            User.deletion_scheduled_at.is_not(None),
+            User.deletion_scheduled_at <= now,
+            # Admin-suspended rows must never be auto-deleted, even if a stale
+            # deletion_scheduled_at is ever present alongside suspended_at.
+            User.suspended_at.is_(None),
+        )
+        .order_by(User.deletion_scheduled_at)
+        .with_for_update(skip_locked=True)
+        .limit(limit)
+    )
+    result = await session.execute(statement)
+    return result.scalars().all()
+
+
+async def hard_delete_user(session: AsyncSession, user: User) -> None:
+    """Permanently remove a user, keeping their audit trail anonymized."""
+    await anonymize_user_activities(session, [user.id], utc_now())
+    await session.delete(user)
+    await session.commit()
+
+
+async def bulk_hard_delete_users(
+    session: AsyncSession, user_ids: Sequence[uuid.UUID]
+) -> int:
+    """Delete many users in a single SQL statement.
+
+    The users' audit rows are anonymized first, in the same transaction; the
+    ``ON DELETE SET NULL`` foreign key from ``user_activity`` then detaches
+    them. Returns the number of rows removed. The caller owns the transaction
+    boundary.
+    """
+    if not user_ids:
+        return 0
+    await anonymize_user_activities(session, user_ids, utc_now())
+    result = await session.execute(delete(User).where(User.id.in_(list(user_ids))))
+    return result.rowcount or 0
+
+
+async def delete_user(session: AsyncSession, db_user: User) -> None:
+    """Hard-delete a user and commit, keeping their audit trail anonymized.
+
+    Caller owns the detach before calling.
+    """
+    await anonymize_user_activities(session, [db_user.id], utc_now())
+    await session.delete(db_user)
+    await session.commit()
+
+
+def _apply_audience(
+    statement: Select, audience: AnnouncementAudience, role: SystemRole | None
+) -> Select:
+    """Apply the audience/role WHERE clause shared by the target resolvers."""
+    if audience == AnnouncementAudience.ACTIVE:
+        return statement.where(User.is_active.is_(True))
+    if audience == AnnouncementAudience.ROLE:
+        return statement.where(User.role == role)
+    return statement
+
+
+async def get_target_user_ids(
+    session: AsyncSession,
+    *,
+    audience: AnnouncementAudience,
+    role: SystemRole | None = None,
+) -> Sequence[uuid.UUID]:
+    """Return the ids of users a broadcast targets for the given audience.
+
+    ``all`` covers every user, ``active`` only active accounts, and ``role``
+    only users holding ``role``. Returns ids only (not full rows) so the caller
+    can fan out notifications cheaply over large audiences.
+    """
+    statement = _apply_audience(select(User.id), audience, role)
+    result = await session.execute(statement)
+    return result.scalars().all()
+
+
+async def get_target_user_emails(
+    session: AsyncSession,
+    *,
+    audience: AnnouncementAudience,
+    role: SystemRole | None = None,
+) -> Sequence[tuple[uuid.UUID, str]]:
+    """Return (id, email) pairs of a broadcast's target users, for email fan-out.
+
+    Same audience filter as ``get_target_user_ids``; the id rides along so the
+    email job can set a per-recipient bounce address.
+    """
+    statement = _apply_audience(select(User.id, User.email), audience, role)
+    result = await session.execute(statement)
+    return [(row[0], row[1]) for row in result.all()]

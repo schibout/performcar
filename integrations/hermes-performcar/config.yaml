@@ -1,0 +1,58 @@
+# Profil Hermes "performcar" — assistant commercial PERFORM'CAR.
+# Les secrets (clés API, identifiants EasyDevis) vont dans .env, jamais ici.
+
+model:
+  # Modèle par défaut : changez-le avec `hermes model` ou `/model` si besoin.
+  provider: anthropic
+  default: claude-sonnet-5-5
+
+agent:
+  # L'assistant n'a besoin ni d'exécuter des commandes ni de naviguer :
+  # il travaille avec ses compétences et l'API EasyDevis (MCP).
+  disabled_toolsets:
+    - terminal
+    - browser
+
+approvals:
+  mode: manual
+  timeout: 300
+  cron_mode: deny
+  mcp_reload_confirm: true
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200
+  user_char_limit: 1375
+
+skills:
+  config:
+    performcar:
+      # Fuseau horaire utilisé pour interpréter les dates souhaitées.
+      timezone: Europe/Paris
+
+mcp_servers:
+  easydevis:
+    # Serveur MCP local (stdio) qui appelle l'API EasyDevis avec le compte
+    # dédié à l'assistant. Les variables ${...} sont lues depuis .env.
+    command: "uv"
+    args: ["run", "--directory", "${EASYDEVIS_MCP_DIR}", "python", "server.py"]
+    env:
+      EASYDEVIS_API_URL: "${EASYDEVIS_API_URL}"
+      EASYDEVIS_EMAIL: "${EASYDEVIS_EMAIL}"
+      EASYDEVIS_PASSWORD: "${EASYDEVIS_PASSWORD}"
+    timeout: 60
+    tools:
+      include:
+        - ma_concession
+        - catalogue_vehicules
+        - lister_prestations
+        - rechercher_clients
+        - simuler_financement
+        - creer_devis
+        - lister_devis
+        - consulter_devis
+        - changer_statut_devis
+        - statistiques_devis
+      prompts: false
+      resources: false

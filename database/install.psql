@@ -1,0 +1,8 @@
+-- Installation atomique sur une base vide deja creee.
+-- psql -X -U app_user -d app -f database/install.psql
+\set ON_ERROR_STOP on
+BEGIN;
+\ir 01_schema.sql
+\ir 02_alembic_version.sql
+COMMIT;
+\echo Installation terminee.

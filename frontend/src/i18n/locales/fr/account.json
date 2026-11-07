@@ -1,0 +1,33 @@
+{
+  "deactivate": {
+    "title": "Zone de danger",
+    "description": "Désactivez votre compte. Vous disposez de 30 jours pour changer d'avis avant sa suppression définitive.",
+    "cta": "Désactiver le compte",
+    "dialog": {
+      "title": "Désactiver votre compte ?",
+      "description": "Votre compte sera désactivé immédiatement et supprimé définitivement dans 30 jours. Vous pouvez annuler la suppression en vous reconnectant pendant ce délai.",
+      "passwordLabel": "Saisissez votre mot de passe pour confirmer",
+      "acknowledgeLabel": "Je comprends que mon compte sera supprimé à l'issue du délai de grâce.",
+      "cancel": "Annuler",
+      "confirm": "Désactiver",
+      "submitting": "Désactivation..."
+    }
+  },
+  "deactivated": {
+    "title": "Votre compte est désactivé",
+    "subtitle": "Toutes les fonctionnalités sont suspendues tant que la suppression de votre compte est programmée.",
+    "daysRemaining_one": "{{count}} jour restant avant la suppression définitive",
+    "daysRemaining_other": "{{count}} jours restants avant la suppression définitive",
+    "scheduledAt": "Suppression programmée le {{date}}",
+    "reactivatePrompt": "Vous avez changé d'avis ? Restaurez votre compte en un clic.",
+    "reactivate": "Conserver mon compte",
+    "reactivating": "Restauration...",
+    "logout": "Se déconnecter"
+  },
+  "suspended": {
+    "title": "Votre compte a été suspendu",
+    "subtitle": "Un administrateur a suspendu ce compte. L'accès à toutes les fonctionnalités est bloqué jusqu'à la levée de la suspension.",
+    "contactSupport": "Si vous pensez qu'il s'agit d'une erreur, veuillez contacter l'assistance.",
+    "logout": "Se déconnecter"
+  }
+}

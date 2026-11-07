@@ -1,0 +1,31 @@
+name: performcar
+version: 1.0.0
+description: >-
+  Assistant commercial PERFORM'CAR : conseil protection automobile (PPF XPEL,
+  céramique SYSTEMX, vitres teintées, pare-brise) et création de devis dans
+  PerformCar EasyDevis via MCP.
+hermes_requires: ">=0.13.0"
+author: PERFORM'CAR
+license: Proprietary
+env_requires:
+  - name: ANTHROPIC_API_KEY
+    description: Clé API du fournisseur du modèle (Anthropic par défaut, voir config.yaml).
+    required: true
+  - name: EASYDEVIS_API_URL
+    description: URL de l'API EasyDevis, préfixe /api/v1 inclus.
+    required: true
+    default: http://127.0.0.1:8000/api/v1
+  - name: EASYDEVIS_EMAIL
+    description: E-mail du compte EasyDevis dédié à l'assistant (rôle dealer, rattaché à une concession).
+    required: true
+  - name: EASYDEVIS_PASSWORD
+    description: Mot de passe de ce compte (jamais commité).
+    required: true
+  - name: EASYDEVIS_MCP_DIR
+    description: Chemin absolu du dossier mcp/easydevis du profil (lancé avec uv).
+    required: true
+distribution_owned:
+  - SOUL.md
+  - config.yaml
+  - skills/
+  - mcp/
