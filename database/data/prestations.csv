@@ -1,0 +1,11 @@
+categorie,nom,prix,description,actif
+ACC,Kit mains libres Bluetooth,299.00,Installation kit mains libres,t
+ACC,Tapis de sol premium,149.00,Jeu complet de tapis sur mesure,t
+ACC,Vitres teintées,380.00,Pose de films teintés réglementaires,t
+ASS,Assurance tous risques,850.00,Couverture complète du véhicule,t
+ASS,Assurance vol/incendie,450.00,Protection contre le vol et l incendie,t
+ENT,Pack entretien 5 ans,890.00,Forfait entretien pour 5 années,t
+FIN,Financement personnalisé,299.00,Montage de dossier de financement sur mesure,t
+FOR,Formation conduite éco,180.00,Formation à la conduite économique,t
+GAR,Garantie étendue 3 ans,1200.00,Extension de garantie constructeur,t
+LIV,Livraison à domicile,250.00,Livraison du véhicule au domicile,t
