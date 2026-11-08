@@ -164,6 +164,14 @@ export interface AdminListParams {
 
 // Create a brand-new admin account (replaces the old promote-an-existing-user
 // flow). Mirrors the backend ``AdminCreate`` schema.
+export interface AdminUserCreatePayload {
+  email: string;
+  first_name?: string | null;
+  last_name?: string | null;
+  password: string;
+  dealership_id?: string | null;
+}
+
 export interface AdminCreatePayload {
   email: string;
   first_name?: string | null;

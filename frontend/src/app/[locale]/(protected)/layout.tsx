@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { AssistantBubble } from "@/components/assistant/AssistantBubble";
 import { AccountEventsBridge } from "@/components/common/AccountEventsBridge";
 import { ROUTES, getLocalizedPath } from "@/lib/config/routes";
 
@@ -29,6 +30,7 @@ export default async function ProtectedLayout({ children, params }: ProtectedLay
     <>
       <AccountEventsBridge />
       {children}
+      <AssistantBubble />
     </>
   );
 }

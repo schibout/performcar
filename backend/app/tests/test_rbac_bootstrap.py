@@ -50,6 +50,7 @@ _EXPECTED_SETS = {
         "self.profile:update",
         "self.files:upload",
         "self.notifications:read",
+        "self.assistant:use",
     },
     "self.support": {
         "self.support:read",

@@ -2,9 +2,11 @@
 # Les secrets (clés API, identifiants EasyDevis) vont dans .env, jamais ici.
 
 model:
-  # Modèle par défaut : changez-le avec `hermes model` ou `/model` si besoin.
-  provider: anthropic
-  default: claude-sonnet-5-5
+  # Même modèle que les autres profils du serveur (abonnement openai-codex).
+  # Changez-le avec `hermes model` ou `/model` si besoin.
+  default: gpt-6-luna
+  provider: openai-codex
+  base_url: https://chatgpt.com/backend-api/codex
 
 agent:
   # L'assistant n'a besoin ni d'exécuter des commandes ni de naviguer :
@@ -33,14 +35,13 @@ skills:
 
 mcp_servers:
   easydevis:
-    # Serveur MCP local (stdio) qui appelle l'API EasyDevis avec le compte
-    # dédié à l'assistant. Les variables ${...} sont lues depuis .env.
+    # Serveur MCP local (stdio) qui appelle l'API EasyDevis au nom de
+    # l'utilisateur connecté (ticket de conversation + clé de service).
+    # Chemin du profil dans le conteneur Docker Hermes (/opt/data = ~/.hermes).
+    # Le serveur lit EASYDEVIS_API_URL et EASYDEVIS_SERVICE_KEY dans le .env du
+    # profil (la passerelle multi-profils ne résout pas toujours les ${...}).
     command: "uv"
-    args: ["run", "--directory", "${EASYDEVIS_MCP_DIR}", "python", "server.py"]
-    env:
-      EASYDEVIS_API_URL: "${EASYDEVIS_API_URL}"
-      EASYDEVIS_EMAIL: "${EASYDEVIS_EMAIL}"
-      EASYDEVIS_PASSWORD: "${EASYDEVIS_PASSWORD}"
+    args: ["run", "--directory", "/opt/data/profiles/performcar/mcp/easydevis", "python", "server.py"]
     timeout: 60
     tools:
       include:

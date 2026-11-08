@@ -8,9 +8,9 @@ metadata:
     category: performcar
     requires_tools: [mcp_easydevis_creer_devis, mcp_easydevis_lister_prestations]
 required_environment_variables:
-  - name: EASYDEVIS_EMAIL
-    prompt: E-mail du compte EasyDevis de l'assistant
-    help: Compte avec le rôle dealer, rattaché à une concession.
+  - name: EASYDEVIS_SERVICE_KEY
+    prompt: Clé de service EasyDevis (ASSISTANT_SERVICE_KEY du backend)
+    help: Les outils agissent au nom de l'utilisateur connecté grâce au ticket de conversation.
     required_for: création et lecture des devis
 ---
 
@@ -47,7 +47,7 @@ en reprenant ce que l'utilisateur a déjà donné.
 ## Pitfalls
 - Ne jamais chiffrer avec les tarifs « à partir de » du site : seul le catalogue fait foi.
 - Erreurs EasyDevis fréquentes (champ `erreur`) :
-  - `error.quote.no_dealership` : le compte de l'assistant n'est rattaché à aucune concession → prévenir l'administrateur.
+  - `error.quote.no_dealership` : l'utilisateur connecté n'est rattaché à aucune concession (cas d'un administrateur) → l'expliquer et l'orienter vers l'administration.
   - `error.quote.down_payment_too_high` : apport supérieur au total.
   - `error.quote.financing_incomplete` : durée manquante hors comptant.
   - `error.catalog.service_unavailable` : prestation désactivée, la retirer.

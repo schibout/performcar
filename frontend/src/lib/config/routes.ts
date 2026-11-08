@@ -22,6 +22,8 @@ export const ROUTES = {
   quotesNew: "/quotes/new",
   customers: "/customers",
   dealership: "/dealership",
+  assistant: "/assistant",
+  assistantCommunication: "/assistant/communication",
   logout: "/logout",
   adminLogin: "/admin/login",
   adminDashboard: "/admin/dashboard",
@@ -40,6 +42,8 @@ export const ROUTES = {
   adminCustomers: "/admin/customers",
   adminCatalog: "/admin/catalog",
   adminDealerships: "/admin/dealerships",
+  adminAssistant: "/admin/assistant",
+  adminAssistantCommunication: "/admin/assistant/communication",
 } as const;
 
 /**
@@ -60,6 +64,7 @@ export const protectedRoutes = [
   ROUTES.quotes,
   ROUTES.customers,
   ROUTES.dealership,
+  ROUTES.assistant,
   ROUTES.adminDashboard,
   ROUTES.adminUsers,
   ROUTES.adminAdmins,
@@ -76,6 +81,7 @@ export const protectedRoutes = [
   ROUTES.adminCustomers,
   ROUTES.adminCatalog,
   ROUTES.adminDealerships,
+  ROUTES.adminAssistant,
   ROUTES.accountSuspended,
 ];
 
@@ -131,6 +137,7 @@ export const adminRoutes = [
   ROUTES.adminCustomers,
   ROUTES.adminCatalog,
   ROUTES.adminDealerships,
+  ROUTES.adminAssistant,
 ];
 
 export const isAdminPath = (path: string) => adminRoutes.some((route) => matchesRoute(path, route));

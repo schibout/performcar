@@ -58,6 +58,7 @@ DEFAULT_ROLE_PERMISSIONS = {
     Permission.SELF_PROFILE_UPDATE,
     Permission.SELF_FILES_UPLOAD,
     Permission.SELF_NOTIFICATIONS_READ,
+    Permission.SELF_ASSISTANT_USE,
     Permission.SELF_SUPPORT_READ,
     Permission.SELF_SUPPORT_CREATE,
     Permission.SELF_SUPPORT_REPLY,

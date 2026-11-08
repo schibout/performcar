@@ -154,5 +154,13 @@
   "adminDealerships": {
     "title": "Dealerships",
     "description": "Manage dealerships."
+  },
+  "assistant": {
+    "title": "AI assistant",
+    "description": "Your EasyDevis assistant."
+  },
+  "assistantCommunication": {
+    "title": "Customer communication",
+    "description": "Draft customer messages with the AI assistant."
   }
 }

@@ -21,13 +21,16 @@ from app.repositories.file import get_file
 from app.repositories.login_attempts import clear_login_attempts
 from app.repositories.quote import get_dealership
 from app.repositories.user import (
+    create_user,
     delete_user,
+    get_user_by_email,
     get_user_by_id,
     suspend_user,
     unsuspend_user,
     update_user,
 )
 from app.schemas.admin import (
+    AdminUserCreate,
     AdminUserListItem,
     AdminUserListResponse,
     AdminUserUpdate,
@@ -470,3 +473,49 @@ async def change_password_admin_service(
     )
 
     return Message(success=True, message=SuccessMessages.ADMIN_PASSWORD_CHANGED)
+
+
+async def create_user_admin_service(
+    request: Request,
+    session: AsyncSession,
+    current_user: User,
+    payload: AdminUserCreate,
+) -> AdminUserListItem:
+    """Create an active, already verified ``user`` account with the default role.
+
+    The admin hands the initial password over, so no verification email is sent.
+    """
+    if await get_user_by_email(session, payload.email) is not None:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=ErrorMessages.EMAIL_ALREADY_EXISTS,
+        )
+    if (
+        payload.dealership_id is not None
+        and await get_dealership(session, payload.dealership_id) is None
+    ):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=ErrorMessages.DEALERSHIP_NOT_FOUND,
+        )
+
+    user = await create_user(
+        session,
+        User(
+            **payload.model_dump(exclude={"password"}),
+            hashed_password=await aget_password_hash(payload.password),
+            role=SystemRole.USER.value,
+            is_active=True,
+            is_verified=True,
+        ),
+    )
+    await log_activity(
+        session=session,
+        user_id=current_user.id,
+        activity_type=ActivityType.CREATE,
+        resource_type=ResourceType.USER,
+        resource_id=user.id,
+        details={"action": "created_user", "email": user.email},
+        request=request,
+    )
+    return AdminUserListItem.model_validate(user)

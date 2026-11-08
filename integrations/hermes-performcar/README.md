@@ -2,7 +2,15 @@
 
 Assistant IA commercial de PERFORM'CAR pour [Hermes Agent](https://hermes-agent.nousresearch.com/docs/).
 Il conseille sur les protections XPEL et les offres PERFORM'CAR, et **crée et suit des devis dans
-PerformCar EasyDevis** par la conversation (terminal, Telegram ou WhatsApp).
+PerformCar EasyDevis** par la conversation, depuis l'assistant intégré à EasyDevis (bulle et menu
+« Intelligence artificielle »), **au nom de l'utilisateur connecté**.
+
+### Identité : ticket de conversation
+À chaque message, le backend EasyDevis crée un ticket opaque lié à l'utilisateur et à sa session
+(Redis, quelques heures, révoqué à la fin du tour) et le place dans les instructions système. Les outils
+le renvoient avec la clé de service `EASYDEVIS_SERVICE_KEY` (= `ASSISTANT_SERVICE_KEY` du backend).
+L'API agit alors avec les droits et la concession de cet utilisateur ; les routes `/admin` refusent
+ces appels. Un ticket seul n'ouvre rien.
 
 ## Contenu
 
@@ -24,8 +32,8 @@ Aucune suppression n'est exposée. L'API applique les permissions du compte et l
 ## Prérequis
 
 1. Hermes Agent installé (`hermes --version`) et [uv](https://docs.astral.sh/uv/) dans le PATH.
-2. Dans EasyDevis (administration) : créer un **compte dédié à l'assistant**, lui attribuer le rôle
-   **dealer** et le **rattacher à une concession** (fiche utilisateur). Sans double authentification.
+2. Dans `backend/.env` d'EasyDevis : `HERMES_API_KEY` (= `API_SERVER_KEY` du profil) et
+   `ASSISTANT_SERVICE_KEY` (= `EASYDEVIS_SERVICE_KEY` du profil). Plus de compte assistant dédié.
 3. Remplir le **catalogue des prestations** EasyDevis avec les prestations réellement vendues :
    l'assistant ne chiffre qu'avec ce catalogue.
 
@@ -40,7 +48,7 @@ hermes profile install C:\Projects\template\apps\integrations\hermes-performcar 
 #     ~/.hermes/profiles/performcar sous macOS/Linux)
 Copy-Item "$env:LOCALAPPDATA\hermes\profiles\performcar\.env.EXAMPLE" "$env:LOCALAPPDATA\hermes\profiles\performcar\.env"
 notepad "$env:LOCALAPPDATA\hermes\profiles\performcar\.env"
-#    EASYDEVIS_MCP_DIR = <dossier du profil>\mcp\easydevis
+#    (le chemin du serveur MCP est fixé dans config.yaml : /opt/data/profiles/performcar/mcp/easydevis)
 
 # 3. Vérifier
 hermes -p performcar mcp            # le serveur easydevis doit apparaître avec ses 10 outils

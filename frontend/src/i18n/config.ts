@@ -7,6 +7,7 @@ import { defaultLocale, locales } from "@/lib/config/routes";
 import enAbout from "./locales/en/about.json";
 import enAccount from "./locales/en/account.json";
 import enAdmin from "./locales/en/admin.json";
+import enAssistant from "./locales/en/assistant.json";
 import enAuth from "./locales/en/auth.json";
 import enBroadcasts from "./locales/en/broadcasts.json";
 import enCommon from "./locales/en/common.json";
@@ -25,6 +26,7 @@ import enValidation from "./locales/en/validation.json";
 import frAbout from "./locales/fr/about.json";
 import frAccount from "./locales/fr/account.json";
 import frAdmin from "./locales/fr/admin.json";
+import frAssistant from "./locales/fr/assistant.json";
 import frAuth from "./locales/fr/auth.json";
 import frBroadcasts from "./locales/fr/broadcasts.json";
 import frCommon from "./locales/fr/common.json";
@@ -61,6 +63,7 @@ const resources = {
     broadcasts: enBroadcasts,
     systemSettings: enSystemSettings,
     quotes: enQuotes,
+    assistant: enAssistant,
   },
   fr: {
     common: frCommon,
@@ -81,6 +84,7 @@ const resources = {
     broadcasts: frBroadcasts,
     systemSettings: frSystemSettings,
     quotes: frQuotes,
+    assistant: frAssistant,
   },
 };
 
@@ -112,6 +116,7 @@ i18n
       "broadcasts",
       "systemSettings",
       "quotes",
+      "assistant",
     ],
 
     interpolation: {

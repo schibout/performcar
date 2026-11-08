@@ -13,62 +13,51 @@ def test_monthly_payment_matches_the_api_rule():
 
 
 def _client(handler) -> EasyDevisClient:
-    return EasyDevisClient(
-        "http://api.test/api/v1", "assistant@test.fr", "secret", httpx.MockTransport(handler)
-    )
+    return EasyDevisClient("http://api.test/api/v1", "service-key", httpx.MockTransport(handler))
 
 
-async def test_logs_in_then_sends_the_bearer_token():
+async def test_sends_the_ticket_and_the_service_key():
     seen = []
 
     def handler(request: httpx.Request) -> httpx.Response:
-        if request.url.path.endswith("/auth/login"):
-            return httpx.Response(200, json={}, headers={"set-cookie": "access_token=tok1; Path=/"})
-        seen.append(request.headers["authorization"])
+        seen.append((request.headers["x-assistant-ticket"], request.headers["x-assistant-key"]))
         return httpx.Response(200, json={"items": []})
 
     api = _client(handler)
-    assert await api.request("GET", "/catalog/services") == {"items": []}
-    assert seen == ["Bearer tok1"]
+    assert await api.request("GET", "/catalog/services", "tkt") == {"items": []}
+    assert seen == [("tkt", "service-key")]
 
 
-async def test_relogs_once_on_expired_token():
-    logins = []
-
+async def test_missing_ticket_is_refused_without_calling_the_api():
     def handler(request: httpx.Request) -> httpx.Response:
-        if request.url.path.endswith("/auth/login"):
-            logins.append(1)
-            return httpx.Response(
-                200, json={}, headers={"set-cookie": f"access_token=tok{len(logins)}; Path=/"}
-            )
-        if request.headers["authorization"] == "Bearer tok1":
-            return httpx.Response(401, json={"success": False, "error": "expired"})
-        return httpx.Response(200, json={"ok": True})
+        raise AssertionError("no call expected")
 
-    api = _client(handler)
-    assert await api.request("GET", "/quotes") == {"ok": True}
-    assert len(logins) == 2
+    with pytest.raises(EasyDevisError) as caught:
+        await _client(handler).request("GET", "/quotes", "")
+    assert caught.value.code == "error.assistant.ticket_missing"
 
 
 async def test_api_errors_carry_the_error_key():
     def handler(request: httpx.Request) -> httpx.Response:
-        if request.url.path.endswith("/auth/login"):
-            return httpx.Response(200, json={}, headers={"set-cookie": "access_token=t; Path=/"})
         return httpx.Response(
             422, json={"success": False, "error": "error.quote.down_payment_too_high"}
         )
 
     api = _client(handler)
     with pytest.raises(EasyDevisError) as caught:
-        await api.request("POST", "/quotes", json={})
+        await api.request("POST", "/quotes", "tkt", json={})
     assert caught.value.status == 422
     assert caught.value.code == "error.quote.down_payment_too_high"
 
 
-async def test_mfa_account_is_refused():
-    def handler(request: httpx.Request) -> httpx.Response:
-        return httpx.Response(200, json={"enrollment_required": False})
+def test_setting_falls_back_to_the_profile_env(tmp_path, monkeypatch):
+    import server
 
-    with pytest.raises(EasyDevisError) as caught:
-        await _client(handler).request("GET", "/quotes")
-    assert caught.value.code == "error.assistant.login_without_token"
+    env = tmp_path / ".env"
+    env.write_text('EASYDEVIS_SERVICE_KEY="from-file"\nOTHER=x\n', encoding="utf-8")
+    monkeypatch.setattr(server, "PROFILE_ENV", env)
+    monkeypatch.setenv("EASYDEVIS_SERVICE_KEY", "${EASYDEVIS_SERVICE_KEY}")
+    assert server.setting("EASYDEVIS_SERVICE_KEY") == "from-file"
+    monkeypatch.setenv("EASYDEVIS_SERVICE_KEY", "from-env")
+    assert server.setting("EASYDEVIS_SERVICE_KEY") == "from-env"
+    assert server.setting("MISSING", "d") == "d"

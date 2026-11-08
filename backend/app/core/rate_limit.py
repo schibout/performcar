@@ -8,12 +8,13 @@ from app.core.config import settings
 def _storage_uri() -> str:
     """Return the slowapi storage backend.
 
-    Uses in-memory storage for local dev (no Redis required) and async-redis
-    for staging/production so limits are shared across API replicas.
+    Uses in-memory storage for local dev (no Redis required) and Redis for
+    staging/production so limits are shared across API replicas. slowapi's
+    limiter is synchronous, so the storage must be too (not ``async+redis``).
     """
     if settings.ENVIRONMENT == "local":
         return "memory://"
-    return f"async+{settings.REDIS_URL}"
+    return settings.REDIS_URL
 
 
 # Initialize rate limiter

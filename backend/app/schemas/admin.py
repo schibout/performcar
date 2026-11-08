@@ -7,7 +7,7 @@ from app.core.messages.error_message import ErrorMessages
 from app.schemas.admin_permission import Permission, is_self_permission
 from app.schemas.common import ActivityDetails
 from app.schemas.file import FileCategory, FilePublic
-from app.schemas.user import SystemRole
+from app.schemas.user import StrongPassword, SystemRole
 from app.schemas.user_activity import ActivityStatus, ActivityType, ResourceType
 
 
@@ -30,6 +30,23 @@ class AdminUserUpdate(BaseModel):
     avatar_file_id: uuid.UUID | None = Field(default=None)
     # Dealership the account works for; `null` detaches it.
     dealership_id: uuid.UUID | None = Field(default=None)
+
+
+class AdminUserCreate(BaseModel):
+    """A user account an admin creates directly: active, verified, plain ``user`` tier.
+
+    Roles (and with them the admin tier) are assigned afterwards through
+    ``PUT /admin/users/{id}/roles`` so every grant goes through the RBAC guards.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    email: EmailStr = Field(max_length=255)
+    first_name: str | None = Field(default=None, max_length=100)
+    last_name: str | None = Field(default=None, max_length=100)
+    title: str | None = Field(default=None, max_length=100)
+    password: StrongPassword
+    dealership_id: uuid.UUID | None = None
 
 
 class AdminUserListItem(BaseModel):

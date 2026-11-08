@@ -54,7 +54,7 @@ router = APIRouter()
 # /change-password — but not on the rest of the API. This path must match for
 # both set_cookie and delete_cookie calls or the cookie cannot be cleared.
 _REFRESH_COOKIE_PATH = f"{settings.API_V1_STR}/auth"
-_COOKIE_SECURE = settings.ENVIRONMENT != "local"
+_COOKIE_SECURE = settings.ENVIRONMENT != "local" and settings.COOKIE_SECURE
 # The challenge cookie only ever needs to reach the MFA endpoints.
 _MFA_COOKIE_PATH = f"{settings.API_V1_STR}/auth/mfa"
 

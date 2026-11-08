@@ -128,3 +128,6 @@ class ErrorMessages:
     QUOTE_DOWN_PAYMENT_TOO_HIGH = "error.quote.down_payment_too_high"
     QUOTE_FINANCING_INCOMPLETE = "error.quote.financing_incomplete"
     QUOTE_REFERENCE_CONFLICT = "error.quote.reference_conflict"
+    ASSISTANT_CONVERSATION_NOT_FOUND = "error.assistant.conversation_not_found"
+    ASSISTANT_NOT_CONFIGURED = "error.assistant.not_configured"
+    ASSISTANT_UNAVAILABLE = "error.assistant.unavailable"

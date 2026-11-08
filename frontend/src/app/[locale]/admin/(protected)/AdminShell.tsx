@@ -125,6 +125,7 @@ export function AdminShell({ children }: AdminShellProps) {
     canReadCustomers: has(Permission.CustomersRead),
     canReadCatalog: has(Permission.CatalogRead),
     canReadDealerships: has(Permission.DealershipsRead),
+    canUseAssistant: has(Permission.SelfAssistantUse),
   });
 
   const closeOnMobile = () => {

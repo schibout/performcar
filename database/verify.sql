@@ -19,13 +19,14 @@ BEGIN
           'support_message_attachment', 'notification', 'announcement', 'system_setting',
           'user_mfa', 'user_mfa_recovery_code', 'rbac_permission_set',
           'rbac_permission_set_item', 'rbac_role', 'rbac_role_permission_set',
-          'rbac_user_role', 'rbac_user_permission_set']);
-    IF n <> 19 THEN RAISE EXCEPTION 'Tables applicatives attendues : 19, trouvees : %', n; END IF;
+          'rbac_user_role', 'rbac_user_permission_set',
+          'assistant_conversation', 'assistant_message']);
+    IF n <> 21 THEN RAISE EXCEPTION 'Tables applicatives attendues : 21, trouvees : %', n; END IF;
     IF NOT EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'pg_trgm') THEN
         RAISE EXCEPTION 'Extension pg_trgm absente';
     END IF;
     IF (SELECT count(*) FROM public.alembic_version) <> 1 OR
-       (SELECT version_num FROM public.alembic_version) <> 'b7c8d9e0f1a2' THEN
+       (SELECT version_num FROM public.alembic_version) <> 'c4e8a1f2b3d7' THEN
         RAISE EXCEPTION 'Revision Alembic incorrecte';
     END IF;
 
@@ -144,7 +145,7 @@ BEGIN
        OR EXISTS (SELECT 1 FROM public.rbac_permission_set_item i WHERE i.set_id = fixture.set_id) THEN
         RAISE EXCEPTION 'Suppression role/jeu : cascade incomplete';
     END IF;
-    RAISE NOTICE 'OK : 19 tables, revision, extension, unicites, CASCADE, RESTRICT et SET NULL';
+    RAISE NOTICE 'OK : 21 tables, revision, extension, unicites, CASCADE, RESTRICT et SET NULL';
 END
 $verify$;
 ROLLBACK;

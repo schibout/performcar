@@ -40,3 +40,16 @@ async def test_rate_limiter_exceed(client: AsyncClient):
         assert "error" in data or "detail" in data
     finally:
         limiter.enabled = original_enabled
+
+
+def test_non_local_storage_builds_a_sync_limiter(monkeypatch):
+    """Staging/production storage must be usable by slowapi's sync limiter."""
+    from slowapi import Limiter
+    from slowapi.util import get_remote_address
+
+    from app.core import rate_limit
+
+    monkeypatch.setattr(settings, "ENVIRONMENT", "staging")
+    monkeypatch.setattr(settings, "REDIS_URL", "redis://localhost:6379/0")
+    # Raised AssertionError at import time with the former "async+redis" URI.
+    Limiter(key_func=get_remote_address, storage_uri=rate_limit._storage_uri())

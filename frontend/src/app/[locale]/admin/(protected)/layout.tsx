@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { AssistantBubble } from "@/components/assistant/AssistantBubble";
 import { ROUTES, getLocalizedPath } from "@/lib/config/routes";
 
 import { AdminShell } from "./AdminShell";
@@ -32,5 +33,10 @@ export default async function AdminProtectedLayout({
     redirect(getLocalizedPath(ROUTES.adminLogin, locale));
   }
 
-  return <AdminShell>{children}</AdminShell>;
+  return (
+    <>
+      <AdminShell>{children}</AdminShell>
+      <AssistantBubble />
+    </>
+  );
 }

@@ -47,7 +47,10 @@
     "notifications": "Notifications",
     "quotes": "Quotes",
     "customers": "Customers",
-    "dealership": "My dealership"
+    "dealership": "My dealership",
+    "aiSection": "Artificial intelligence",
+    "assistant": "Assistant",
+    "assistantCommunication": "Customer communication"
   },
   "app_subtitle": "Your PERFORM'CAR quotes in a few clicks"
 }

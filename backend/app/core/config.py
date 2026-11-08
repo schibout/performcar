@@ -56,6 +56,8 @@ class Settings(BaseSettings):
 
     FRONTEND_HOST: str = "http://localhost:5173"
     ENVIRONMENT: Literal["local", "staging", "production"] = "local"
+    # Set False only when served over plain HTTP (no TLS); ignored when ENVIRONMENT="local".
+    COOKIE_SECURE: bool = True
     DEFAULT_LANGUAGE: Literal["en", "fr"] = "fr"
 
     BACKEND_CORS_ORIGINS: Annotated[
@@ -124,6 +126,18 @@ class Settings(BaseSettings):
     MAX_UPLOAD_SIZE_BYTES: int = 5 * 1024 * 1024  # 5 MB
 
     REDIS_URL: str = "redis://localhost:6379/0"
+
+    # AI assistant (Hermes Agent, OpenAI-compatible API). The browser never sees
+    # the key: the backend relays the stream. HERMES_PROFILE selects
+    # ``/p/<profile>/v1``. ASSISTANT_SERVICE_KEY is shared with the profile's MCP
+    # server only; with a conversation ticket it lets the tools act as the user.
+    HERMES_API_URL: str = "http://host.docker.internal:18642"
+    HERMES_PROFILE: str = "performcar"
+    HERMES_API_KEY: str = ""
+    HERMES_MODEL: str = "hermes-agent"
+    HERMES_TIMEOUT_SECONDS: int = 300
+    ASSISTANT_SERVICE_KEY: str = ""
+    ASSISTANT_TICKET_TTL_SECONDS: int = 4 * 60 * 60
 
     # Disposable-email blocklist source. Points to the community-maintained
     # ``disposable-email-domains`` repo; override for air-gapped deployments.

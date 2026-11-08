@@ -1,5 +1,6 @@
 from app.models.admin_permission import AdminPermission
 from app.models.announcement import Announcement
+from app.models.assistant import AssistantConversation, AssistantMessage
 from app.models.dealership import Dealership
 from app.models.file import File
 from app.models.notification import Notification
@@ -34,6 +35,8 @@ from app.models.vehicle_catalog import (
 __all__ = [
     "AdminPermission",
     "Announcement",
+    "AssistantConversation",
+    "AssistantMessage",
     "CarBrand",
     "CarColor",
     "CarModel",

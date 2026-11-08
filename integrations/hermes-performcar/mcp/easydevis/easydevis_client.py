@@ -1,8 +1,8 @@
 """Client HTTP minimal de l'API PerformCar EasyDevis.
 
-L'API pose le jeton d'accès dans un cookie à la connexion et accepte aussi un
-en-tête ``Authorization: Bearer``. Le client se connecte au premier appel,
-réutilise le jeton, et se reconnecte une fois si l'API répond 401.
+Chaque appel agit au nom de l'utilisateur connecté à EasyDevis : le ticket de
+conversation (fourni au modèle par EasyDevis) et la clé de service de ce serveur
+sont envoyés en en-têtes ``X-Assistant-Ticket`` et ``X-Assistant-Key``.
 """
 
 from __future__ import annotations
@@ -30,49 +30,34 @@ def monthly_payment(total: float, down_payment: float, months: int) -> float:
 
 
 class EasyDevisClient:
-    """Authenticated access to the EasyDevis API with one service account."""
+    """Access to the EasyDevis API on behalf of the user of a conversation.
+
+    Each call carries the conversation ticket (given to the model by EasyDevis
+    for the current turn) and the service key that only this server holds. The
+    API resolves them to the connected user, with that user's permissions and
+    dealership.
+    """
 
     def __init__(
         self,
         base_url: str,
-        email: str,
-        password: str,
+        service_key: str,
         transport: httpx.AsyncBaseTransport | None = None,
     ) -> None:
-        self._email = email
-        self._password = password
-        self._token: str | None = None
+        self._service_key = service_key
         self._http = httpx.AsyncClient(
             base_url=base_url.rstrip("/"), timeout=30.0, transport=transport
         )
 
-    async def _login(self) -> None:
-        response = await self._http.post(
-            "/auth/login", data={"username": self._email, "password": self._password}
-        )
-        if response.status_code != 200:
+    async def request(self, method: str, path: str, ticket: str, **kwargs: Any) -> Any:
+        """Send one request as the user the ticket belongs to."""
+        if not ticket:
+            raise EasyDevisError(401, "error.assistant.ticket_missing")
+        headers = {"X-Assistant-Ticket": ticket, "X-Assistant-Key": self._service_key}
+        response = await self._http.request(method, path, headers=headers, **kwargs)
+        if response.is_error:
             raise _error(response)
-        token = response.cookies.get("access_token")
-        if not token:
-            # Compte avec double authentification : non pris en charge par l'assistant.
-            raise EasyDevisError(response.status_code, "error.assistant.login_without_token")
-        self._token = token
-
-    async def request(self, method: str, path: str, **kwargs: Any) -> Any:
-        """Send one request, logging in first and retrying once on 401."""
-        for attempt in range(2):
-            if self._token is None:
-                await self._login()
-            response = await self._http.request(
-                method, path, headers={"Authorization": f"Bearer {self._token}"}, **kwargs
-            )
-            if response.status_code == 401 and attempt == 0:
-                self._token = None
-                continue
-            if response.is_error:
-                raise _error(response)
-            return response.json()
-        raise EasyDevisError(401, "error.assistant.unauthorized")
+        return response.json()
 
     async def aclose(self) -> None:
         await self._http.aclose()

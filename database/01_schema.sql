@@ -1,5 +1,5 @@
 -- PostgreSQL 17. Schema consolide issu des migrations Alembic.
--- Revision source : b7c8d9e0f1a2. Base vide uniquement.
+-- Revision source : c4e8a1f2b3d7. Base vide uniquement.
 -- Inclut tables, cles, index et extension pg_trgm.
 
 --
@@ -67,6 +67,33 @@ CREATE TABLE public.announcement (
     show_banner boolean NOT NULL,
     send_email boolean NOT NULL,
     created_by uuid,
+    created_at timestamp with time zone NOT NULL
+);
+
+
+--
+-- Name: assistant_conversation; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.assistant_conversation (
+    id uuid NOT NULL,
+    user_id uuid NOT NULL,
+    kind character varying(20) NOT NULL,
+    title character varying(120) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone NOT NULL
+);
+
+
+--
+-- Name: assistant_message; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.assistant_message (
+    id uuid NOT NULL,
+    conversation_id uuid NOT NULL,
+    role character varying(12) NOT NULL,
+    content text NOT NULL,
     created_at timestamp with time zone NOT NULL
 );
 
@@ -502,6 +529,22 @@ ALTER TABLE ONLY public.announcement
 
 
 --
+-- Name: assistant_conversation assistant_conversation_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assistant_conversation
+    ADD CONSTRAINT assistant_conversation_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: assistant_message assistant_message_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assistant_message
+    ADD CONSTRAINT assistant_message_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: car_brand car_brand_name_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -859,6 +902,20 @@ CREATE INDEX ix_announcement_created ON public.announcement USING btree (created
 
 
 --
+-- Name: ix_assistant_conversation_user_kind_updated; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX ix_assistant_conversation_user_kind_updated ON public.assistant_conversation USING btree (user_id, kind, updated_at);
+
+
+--
+-- Name: ix_assistant_message_conversation_created; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX ix_assistant_message_conversation_created ON public.assistant_message USING btree (conversation_id, created_at);
+
+
+--
 -- Name: ix_car_model_brand_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1139,6 +1196,22 @@ ALTER TABLE ONLY public.admin_permission
 
 ALTER TABLE ONLY public.announcement
     ADD CONSTRAINT announcement_created_by_fkey FOREIGN KEY (created_by) REFERENCES public."user"(id) ON DELETE SET NULL;
+
+
+--
+-- Name: assistant_conversation assistant_conversation_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assistant_conversation
+    ADD CONSTRAINT assistant_conversation_user_id_fkey FOREIGN KEY (user_id) REFERENCES public."user"(id) ON DELETE CASCADE;
+
+
+--
+-- Name: assistant_message assistant_message_conversation_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.assistant_message
+    ADD CONSTRAINT assistant_message_conversation_id_fkey FOREIGN KEY (conversation_id) REFERENCES public.assistant_conversation(id) ON DELETE CASCADE;
 
 
 --

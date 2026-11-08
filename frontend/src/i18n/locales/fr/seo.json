@@ -154,5 +154,13 @@
   "adminDealerships": {
     "title": "Concessions",
     "description": "Gérez les concessions."
+  },
+  "assistant": {
+    "title": "Assistant IA",
+    "description": "Votre assistant EasyDevis."
+  },
+  "assistantCommunication": {
+    "title": "Communication client",
+    "description": "Rédigez vos messages clients avec l'assistant IA."
   }
 }

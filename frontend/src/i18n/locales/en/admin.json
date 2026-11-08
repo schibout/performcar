@@ -113,7 +113,8 @@
         "quotes": "My dealership's quotes",
         "customers": "My dealership's customers",
         "catalog": "Quote catalog",
-        "dealership": "My dealership"
+        "dealership": "My dealership",
+        "assistant": "AI assistant"
       },
       "quotes": "Quotes",
       "customers": "Customers",
@@ -133,7 +134,8 @@
       "upload": "Upload",
       "create": "Create",
       "reply": "Reply",
-      "close": "Close"
+      "close": "Close",
+      "use": "Use"
     }
   },
   "shell": {
@@ -147,7 +149,8 @@
       "monitoring": "Monitoring",
       "account": "Account",
       "accessControl": "Access control",
-      "dealerNetwork": "Dealer network"
+      "dealerNetwork": "Dealer network",
+      "ai": "Artificial intelligence"
     },
     "nav": {
       "dashboard": "Dashboard",
@@ -165,7 +168,9 @@
       "quotes": "Quotes",
       "customers": "Customers",
       "catalog": "Catalog",
-      "dealerships": "Dealerships"
+      "dealerships": "Dealerships",
+      "assistant": "Assistant",
+      "assistant-communication": "Customer communication"
     },
     "signedInAs": "Signed in as",
     "exit": "Exit admin",
@@ -241,6 +246,27 @@
       "unlock": "Unlock account",
       "changePassword": "Force password reset",
       "delete": "Delete user"
+    },
+    "create": {
+      "action": "Create user",
+      "title": "Create a user account",
+      "description": "The account is active and verified right away: hand the temporary password to the person.",
+      "emailLabel": "Email",
+      "emailPlaceholder": "first.last@example.com",
+      "firstNameLabel": "First name",
+      "lastNameLabel": "Last name",
+      "passwordLabel": "Temporary password",
+      "passwordPlaceholder": "At least 8 characters",
+      "dealershipLabel": "Dealership",
+      "dealershipPlaceholder": "No dealership",
+      "rolesLabel": "Roles",
+      "rolesHint": "An administration role (Admin badge) makes the account an administrator.",
+      "rolesRequired": "Choose at least one user role.",
+      "adminRoleForbidden": "You are not allowed to assign administration roles.",
+      "submit": "Create account",
+      "cancel": "Cancel",
+      "success": "Account created.",
+      "rolesFailed": "Account created, but its roles could not be applied: change them from its page."
     }
   },
   "userDetail": {

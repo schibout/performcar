@@ -16,6 +16,7 @@ const noCaps: AdminNavCaps = {
   canReadCustomers: false,
   canReadCatalog: false,
   canReadDealerships: false,
+  canUseAssistant: false,
 };
 
 const itemKeys = (caps: AdminNavCaps): string[] =>
@@ -48,6 +49,14 @@ describe("buildAdminNav", () => {
     expect(itemKeys({ ...noCaps, canReadCatalog: true })).toContain("catalog");
     expect(itemKeys({ ...noCaps, canReadDealerships: true })).toContain("dealerships");
     expect(itemKeys(noCaps)).not.toContain("customers");
+  });
+
+  it("shows the AI section only with self.assistant:use", () => {
+    const sections = buildAdminNav({ ...noCaps, canUseAssistant: true });
+    expect(sections.find((section) => section.key === "ai")?.items.map((item) => item.key)).toEqual(
+      ["assistant", "assistant-communication"],
+    );
+    expect(itemKeys(noCaps)).not.toContain("assistant");
   });
 
   it("drops a section left without any item", () => {

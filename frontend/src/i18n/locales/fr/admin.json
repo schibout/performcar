@@ -113,7 +113,8 @@
         "quotes": "Devis de ma concession",
         "customers": "Clients de ma concession",
         "catalog": "Catalogue des devis",
-        "dealership": "Ma concession"
+        "dealership": "Ma concession",
+        "assistant": "Assistant IA"
       },
       "quotes": "Devis",
       "customers": "Clients",
@@ -133,7 +134,8 @@
       "upload": "Importer",
       "create": "Créer",
       "reply": "Répondre",
-      "close": "Clôturer"
+      "close": "Clôturer",
+      "use": "Utiliser"
     }
   },
   "shell": {
@@ -147,7 +149,8 @@
       "monitoring": "Supervision",
       "account": "Compte",
       "accessControl": "Contrôle d'accès",
-      "dealerNetwork": "Réseau de concessions"
+      "dealerNetwork": "Réseau de concessions",
+      "ai": "Intelligence artificielle"
     },
     "nav": {
       "dashboard": "Tableau de bord",
@@ -165,7 +168,9 @@
       "quotes": "Devis",
       "customers": "Clients",
       "catalog": "Catalogue",
-      "dealerships": "Concessions"
+      "dealerships": "Concessions",
+      "assistant": "Assistant",
+      "assistant-communication": "Communication client"
     },
     "signedInAs": "Connecté en tant que",
     "exit": "Quitter l'administration",
@@ -241,6 +246,27 @@
       "unlock": "Déverrouiller le compte",
       "changePassword": "Forcer la réinitialisation du mot de passe",
       "delete": "Supprimer l'utilisateur"
+    },
+    "create": {
+      "action": "Créer un utilisateur",
+      "title": "Créer un compte utilisateur",
+      "description": "Le compte est actif et vérifié immédiatement : communiquez le mot de passe provisoire à la personne.",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "prenom.nom@exemple.fr",
+      "firstNameLabel": "Prénom",
+      "lastNameLabel": "Nom",
+      "passwordLabel": "Mot de passe provisoire",
+      "passwordPlaceholder": "Au moins 8 caractères",
+      "dealershipLabel": "Concession",
+      "dealershipPlaceholder": "Aucune concession",
+      "rolesLabel": "Rôles",
+      "rolesHint": "Un rôle d'administration (badge Admin) fait du compte un administrateur.",
+      "rolesRequired": "Choisissez au moins un rôle utilisateur.",
+      "adminRoleForbidden": "Vous n'avez pas le droit d'attribuer des rôles d'administration.",
+      "submit": "Créer le compte",
+      "cancel": "Annuler",
+      "success": "Compte créé.",
+      "rolesFailed": "Compte créé, mais les rôles n'ont pas pu être appliqués : modifiez-les depuis sa fiche."
     }
   },
   "userDetail": {

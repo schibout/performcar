@@ -48,12 +48,16 @@ SYSTEM_PERMISSION_SETS: tuple[SystemPermissionSetDefinition, ...] = (
     SystemPermissionSetDefinition(
         key="self.basic",
         name="Basic self-service",
-        description="Edit one's profile, upload files and read notifications.",
+        description=(
+            "Edit one's profile, upload files, read notifications and use the "
+            "AI assistant."
+        ),
         audience=RbacAudience.USER,
         permissions=(
             Permission.SELF_PROFILE_UPDATE,
             Permission.SELF_FILES_UPLOAD,
             Permission.SELF_NOTIFICATIONS_READ,
+            Permission.SELF_ASSISTANT_USE,
         ),
     ),
     SystemPermissionSetDefinition(
