@@ -1,3 +1,4 @@
+import hmac
 import uuid
 from collections.abc import AsyncGenerator, Awaitable, Callable
 from typing import Annotated
@@ -13,6 +14,7 @@ from app.core.messages.error_message import ErrorMessages
 from app.core.mfa import admin_mfa_required
 from app.core.security import decode_token_payload
 from app.models.user import User
+from app.repositories.assistant_ticket import resolve_ticket
 from app.repositories.token_blacklist import is_token_blacklisted
 from app.repositories.user import get_user_by_id
 from app.repositories.user_session import is_session_revoked
@@ -43,6 +45,10 @@ async def get_current_user(
     moved to ``get_current_active_user`` so deactivated users can still hit
     ``/users/me`` and ``/users/me/reactivate`` during the grace period.
     """
+    ticket = request.headers.get("X-Assistant-Ticket")
+    if ticket:
+        return await _resolve_assistant_user(request, db, ticket)
+
     token = request.cookies.get("access_token") or bearer_token
     if not token:
         raise HTTPException(
@@ -96,6 +102,38 @@ async def get_current_user(
     return user
 
 
+async def _resolve_assistant_user(
+    request: Request, db: AsyncSession, ticket: str
+) -> User:
+    """Resolve a call from the assistant's MCP tools to the user it acts for.
+
+    Both the service key (held only by the MCP server) and a live ticket (issued
+    for one conversation turn) are required. The login session the ticket came
+    from must still be valid, so a logout also cuts the assistant off.
+    """
+    unauthorized = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail=ErrorMessages.INVALID_TOKEN,
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    service_key = request.headers.get("X-Assistant-Key", "")
+    if not settings.ASSISTANT_SERVICE_KEY or not hmac.compare_digest(
+        service_key.encode(), settings.ASSISTANT_SERVICE_KEY.encode()
+    ):
+        raise unauthorized
+    resolved = await resolve_ticket(ticket)
+    if resolved is None:
+        raise unauthorized
+    user_id, sid = resolved
+    if sid and await is_session_revoked(sid):
+        raise unauthorized
+    user = await get_user_by_id(db, user_id=user_id)
+    if not user:
+        raise unauthorized
+    request.state.via_assistant = True
+    return user
+
+
 def get_current_active_user(
     current_user: Annotated[User, Depends(get_current_user)],
 ) -> User:
@@ -116,7 +154,16 @@ def _has_required_mfa(user: User, claims: dict | None) -> bool:
 
 
 def _ensure_admin_mfa(request: Request, user: User) -> None:
-    """Raise 403 if an admin's session has not proven a second factor."""
+    """Raise 403 if an admin's session has not proven a second factor.
+
+    Also the point where both admin gates refuse assistant tickets: the
+    assistant only ever acts through self-service routes.
+    """
+    if getattr(request.state, "via_assistant", False):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=ErrorMessages.INSUFFICIENT_PERMISSIONS,
+        )
     claims = getattr(request.state, "token_claims", None)
     if not _has_required_mfa(user, claims):
         raise HTTPException(

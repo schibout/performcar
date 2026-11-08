@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 
 import { AdminPagination } from "@/components/admin/shared/Pagination";
 import { DEFAULT_PAGE_SIZE } from "@/components/admin/shared/pagination-config";
+import { CreateUserModal } from "@/components/admin/users/CreateUserModal";
 import { UserActionDialogs } from "@/components/admin/users/UserActionDialogs";
 import {
   UsersFilters,
@@ -14,6 +15,7 @@ import {
   type UsersVerifiedFilter,
 } from "@/components/admin/users/UsersFilters";
 import { UsersTable } from "@/components/admin/users/UsersTable";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAdminUsers } from "@/hooks/api/use-admin";
 import { useUserActions, type UserActionKind } from "@/hooks/api/use-user-actions";
@@ -25,6 +27,7 @@ import {
   useCanSuspendUsers,
   useCanUnlockUsers,
   useCanWriteAdmins,
+  useCanWriteUsers,
   useIsSuperadmin,
 } from "@/hooks/use-permissions";
 import type { AdminUser } from "@/lib/types/admin";
@@ -46,6 +49,8 @@ export function UsersContent() {
   const [skip, setSkip] = useState(0);
   const [pageSize, setPageSize] = useState<number>(DEFAULT_PAGE_SIZE);
   const [pending, setPending] = useState<Pending>({ kind: null, user: null });
+  const [createOpen, setCreateOpen] = useState(false);
+  const canCreate = useCanWriteUsers();
 
   const search = useDebounce(searchInput, 250);
 
@@ -100,9 +105,20 @@ export function UsersContent() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">{t("users.title")}</h1>
-        <p className="mt-1 text-sm text-muted-foreground">{t("users.subtitle")}</p>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">{t("users.title")}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">{t("users.subtitle")}</p>
+        </div>
+        {canCreate ? (
+          <Button
+            onClick={() => {
+              setCreateOpen(true);
+            }}
+          >
+            {t("users.create.action")}
+          </Button>
+        ) : null}
       </div>
 
       <UsersFilters
@@ -162,6 +178,13 @@ export function UsersContent() {
           ) : null}
         </CardContent>
       </Card>
+
+      <CreateUserModal
+        open={createOpen}
+        onClose={() => {
+          setCreateOpen(false);
+        }}
+      />
 
       <UserActionDialogs
         action={pending.kind}

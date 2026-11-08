@@ -47,7 +47,10 @@
     "notifications": "Notifications",
     "quotes": "Devis",
     "customers": "Clients",
-    "dealership": "Ma concession"
+    "dealership": "Ma concession",
+    "aiSection": "Intelligence artificielle",
+    "assistant": "Assistant",
+    "assistantCommunication": "Communication client"
   },
   "app_subtitle": "Vos devis PERFORM'CAR en quelques clics"
 }

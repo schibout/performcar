@@ -34,6 +34,8 @@ export type SeoPageKey =
   | "quoteDetail"
   | "customers"
   | "dealership"
+  | "assistant"
+  | "assistantCommunication"
   | "adminQuotes"
   | "adminCustomers"
   | "adminCatalog"

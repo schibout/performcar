@@ -113,6 +113,11 @@
     "customer": {
       "not_found": "Client introuvable.",
       "has_quotes": "Ce client possède des devis et ne peut pas être supprimé."
+    },
+    "assistant": {
+      "unavailable": "L'assistant IA est momentanément indisponible. Réessayez dans un instant.",
+      "not_configured": "L'assistant IA n'est pas configuré.",
+      "conversation_not_found": "Conversation introuvable."
     }
   }
 }

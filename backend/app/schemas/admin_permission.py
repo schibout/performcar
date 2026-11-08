@@ -70,6 +70,7 @@ class Permission(StrEnum):
     SELF_CATALOG_READ = "self.catalog:read"
     SELF_DEALERSHIP_READ = "self.dealership:read"
     SELF_DEALERSHIP_WRITE = "self.dealership:write"
+    SELF_ASSISTANT_USE = "self.assistant:use"
 
 
 SELF_PREFIX = "self."

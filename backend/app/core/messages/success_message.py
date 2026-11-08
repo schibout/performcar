@@ -43,6 +43,7 @@ class SuccessMessages:
     ROOT_TRANSFERRED = "success.admin.root_transferred"
     RBAC_ROLE_DELETED = "success.rbac.role_deleted"
     RBAC_PERMISSION_SET_DELETED = "success.rbac.permission_set_deleted"
+    ASSISTANT_CONVERSATION_DELETED = "success.assistant.conversation_deleted"
 
     # File / upload
     FILE_UPLOADED = "success.file.uploaded"

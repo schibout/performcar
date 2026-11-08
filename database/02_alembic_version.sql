@@ -3,4 +3,4 @@ CREATE TABLE public.alembic_version (
     version_num VARCHAR(32) NOT NULL,
     CONSTRAINT alembic_version_pkc PRIMARY KEY (version_num)
 );
-INSERT INTO public.alembic_version (version_num) VALUES ('b7c8d9e0f1a2');
+INSERT INTO public.alembic_version (version_num) VALUES ('c4e8a1f2b3d7');

@@ -1,0 +1,69 @@
+{
+  "restricted": "Vous n'avez pas accès à l'assistant IA.",
+  "bubble": {
+    "title": "Assistant EasyDevis",
+    "open": "Ouvrir l'assistant",
+    "close": "Fermer l'assistant",
+    "fullScreen": "Ouvrir en plein écran"
+  },
+  "chat": {
+    "empty": "Posez une question sur EasyDevis, vos devis ou la navigation dans l'application.",
+    "placeholder": "Écrivez votre message… (Entrée pour envoyer, Maj+Entrée pour aller à la ligne)",
+    "send": "Envoyer",
+    "stop": "Arrêter",
+    "thinking": "L'assistant réfléchit…",
+    "consulting": "L'assistant consulte EasyDevis…",
+    "newConversation": "Nouvelle conversation"
+  },
+  "error": {
+    "generic": "L'assistant n'a pas pu répondre. Réessayez dans un instant."
+  },
+  "page": {
+    "title": "Assistant IA",
+    "subtitle": "Posez vos questions sur EasyDevis et vos devis."
+  },
+  "list": {
+    "title": "Conversations",
+    "empty": "Aucune conversation pour le moment.",
+    "untitled": "Nouvelle conversation",
+    "delete": "Supprimer",
+    "cancel": "Annuler",
+    "deleteTitle": "Supprimer la conversation",
+    "deleteDescription": "Cette conversation et ses messages seront définitivement supprimés."
+  },
+  "communication": {
+    "title": "Communication client",
+    "subtitle": "Rédigez vos messages clients à partir d'un devis.",
+    "manualNotice": "L'envoi reste manuel pour le moment : copiez le message généré puis collez-le dans votre messagerie ou vos SMS.",
+    "history": "Messages générés",
+    "reference": "Référence du devis",
+    "referencePlaceholder": "Choisissez un devis ou saisissez une référence (QUO-…)",
+    "type": "Type de message",
+    "channel": "Canal",
+    "tone": "Ton",
+    "instructions": "Consignes complémentaires (facultatif)",
+    "instructionsPlaceholder": "Ex. : mentionner l'offre de financement, vouvoyer le client…",
+    "generate": "Générer",
+    "result": "Résultat",
+    "copy": "Copier",
+    "copied": "Message copié dans le presse-papiers.",
+    "copyFailed": "Impossible de copier le message.",
+    "empty": "Remplissez le formulaire puis cliquez sur « Générer ». Vous pourrez ensuite affiner le message ici.",
+    "types": {
+      "send": "Envoi du devis",
+      "followUp": "Relance devis sans réponse",
+      "thanks": "Remerciement après signature",
+      "reminder": "Rappel de rendez-vous",
+      "free": "Message libre"
+    },
+    "channels": {
+      "email": "Email",
+      "sms": "SMS"
+    },
+    "tones": {
+      "professional": "Professionnel",
+      "warm": "Chaleureux",
+      "premium": "Premium"
+    }
+  }
+}

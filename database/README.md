@@ -1,7 +1,7 @@
 # Base de données PostgreSQL
 
 Scripts de création pour le backend existant, analysé le 6 novembre 2026.
-Cible : **PostgreSQL 17**, schéma `public`, révision Alembic **`b7c8d9e0f1a2`**.
+Cible : **PostgreSQL 17**, schéma `public`, révision Alembic **`c4e8a1f2b3d7`**.
 
 ## Contenu
 

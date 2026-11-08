@@ -8,6 +8,7 @@ import type {
   AdminListParams,
   AdminPermissionsUpdatePayload,
   AdminUserListParams,
+  AdminUserCreatePayload,
   AdminUserUpdatePayload,
   RootTransferConfirmPayload,
   RootTransferRequestPayload,
@@ -210,6 +211,16 @@ export const useSetAdminPermissions = () => {
       invalidateUserSurfaces(queryClient);
       queryClient.invalidateQueries({ queryKey: adminKeys.user(id) });
       queryClient.invalidateQueries({ queryKey: rbacKeys.access(id) });
+    },
+  });
+};
+
+export const useCreateUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (payload: AdminUserCreatePayload) => adminApi.createUser(payload),
+    onSuccess: () => {
+      invalidateUserSurfaces(queryClient);
     },
   });
 };

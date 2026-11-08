@@ -1,0 +1,69 @@
+{
+  "restricted": "You don't have access to the AI assistant.",
+  "bubble": {
+    "title": "EasyDevis assistant",
+    "open": "Open the assistant",
+    "close": "Close the assistant",
+    "fullScreen": "Open full screen"
+  },
+  "chat": {
+    "empty": "Ask a question about EasyDevis, your quotes or how to navigate the app.",
+    "placeholder": "Type your message… (Enter to send, Shift+Enter for a new line)",
+    "send": "Send",
+    "stop": "Stop",
+    "thinking": "The assistant is thinking…",
+    "consulting": "The assistant is checking EasyDevis…",
+    "newConversation": "New conversation"
+  },
+  "error": {
+    "generic": "The assistant could not answer. Please try again shortly."
+  },
+  "page": {
+    "title": "AI assistant",
+    "subtitle": "Ask your questions about EasyDevis and your quotes."
+  },
+  "list": {
+    "title": "Conversations",
+    "empty": "No conversations yet.",
+    "untitled": "New conversation",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "deleteTitle": "Delete conversation",
+    "deleteDescription": "This conversation and its messages will be permanently deleted."
+  },
+  "communication": {
+    "title": "Customer communication",
+    "subtitle": "Draft customer messages from a quote.",
+    "manualNotice": "Sending is manual for now: copy the generated message and paste it into your email or SMS app.",
+    "history": "Generated messages",
+    "reference": "Quote reference",
+    "referencePlaceholder": "Pick a quote or type a reference (QUO-…)",
+    "type": "Message type",
+    "channel": "Channel",
+    "tone": "Tone",
+    "instructions": "Extra instructions (optional)",
+    "instructionsPlaceholder": "E.g. mention the financing offer…",
+    "generate": "Generate",
+    "result": "Result",
+    "copy": "Copy",
+    "copied": "Message copied to the clipboard.",
+    "copyFailed": "Could not copy the message.",
+    "empty": "Fill in the form and click \"Generate\". You can then refine the message here.",
+    "types": {
+      "send": "Quote delivery",
+      "followUp": "Follow-up on unanswered quote",
+      "thanks": "Thank-you after signature",
+      "reminder": "Appointment reminder",
+      "free": "Free message"
+    },
+    "channels": {
+      "email": "Email",
+      "sms": "SMS"
+    },
+    "tones": {
+      "professional": "Professional",
+      "warm": "Warm",
+      "premium": "Premium"
+    }
+  }
+}

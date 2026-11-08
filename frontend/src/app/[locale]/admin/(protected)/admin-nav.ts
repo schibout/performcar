@@ -9,9 +9,11 @@ import {
   KeyRound,
   LayoutDashboard,
   Megaphone,
+  MessageSquareText,
   Package,
   Settings,
   ShieldCheck,
+  Sparkles,
   Ticket,
   UserCog,
   Users,
@@ -49,6 +51,7 @@ export interface AdminNavCaps {
   canReadCustomers: boolean;
   canReadCatalog: boolean;
   canReadDealerships: boolean;
+  canUseAssistant: boolean;
 }
 
 export const buildAdminNav = (caps: AdminNavCaps): AdminNavSection[] => {
@@ -118,6 +121,23 @@ export const buildAdminNav = (caps: AdminNavCaps): AdminNavSection[] => {
           show: caps.canReadActivities,
         },
         { key: "support", href: ROUTES.adminSupport, icon: Ticket, show: caps.canReadSupport },
+      ],
+    },
+    {
+      key: "ai",
+      items: [
+        {
+          key: "assistant",
+          href: ROUTES.adminAssistant,
+          icon: Sparkles,
+          show: caps.canUseAssistant,
+        },
+        {
+          key: "assistant-communication",
+          href: ROUTES.adminAssistantCommunication,
+          icon: MessageSquareText,
+          show: caps.canUseAssistant,
+        },
       ],
     },
     {

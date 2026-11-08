@@ -1,0 +1,56 @@
+# PerformCar EasyDevis - deploiement serveur (piloté par ../deploy.sh).
+# PostgreSQL = cluster 17 natif de l'hote (port 1521), joint via host.docker.internal.
+# Tout est lie a 127.0.0.1 : seul nginx (port 8082) est expose.
+name: performcar
+
+x-backend: &backend
+  build: ../backend
+  image: performcar-backend
+  restart: always
+  env_file: ../backend/.env
+  extra_hosts: ["host.docker.internal:host-gateway"]
+  volumes:
+    - ../backend/alembic.ini:/app/alembic.ini:ro
+  depends_on:
+    redis:
+      condition: service_healthy
+
+services:
+  backend:
+    <<: *backend
+    ports: ["127.0.0.1:8020:8000"]
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/api/v1/health/live"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
+
+  worker:
+    <<: *backend
+    command: ["uv", "run", "arq", "app.worker.settings.WorkerSettings"]
+
+  redis:
+    image: redis:7
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes: [redis-data:/data]
+
+  frontend:
+    build:
+      context: ../frontend
+      args:
+        NEXT_PUBLIC_API_URL: http://backend:8000
+        NEXT_PUBLIC_WS_URL: ${PUBLIC_WS_URL:-ws://51.178.91.77:8082}
+        NEXT_PUBLIC_APP_URL: ${PUBLIC_URL:-http://51.178.91.77:8082}
+    image: performcar-frontend
+    restart: always
+    ports: ["127.0.0.1:3020:3000"]
+    depends_on: [backend]
+
+volumes:
+  redis-data:

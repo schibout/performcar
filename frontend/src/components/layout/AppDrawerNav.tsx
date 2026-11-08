@@ -8,7 +8,9 @@ import {
   FileText,
   LayoutDashboard,
   LifeBuoy,
+  MessageSquareText,
   ShieldCheck,
+  Sparkles,
   User as UserIcon,
   X,
 } from "lucide-react";
@@ -187,6 +189,27 @@ export const AuthedNavLinks = ({ user, isActive, navigate }: AuthedNavLinksProps
           onClick={navigate}
           badge={unread?.unread_count ?? 0}
         />
+      )}
+      {has(Permission.SelfAssistantUse) && (
+        <>
+          <p className="px-4 pt-3 pb-1 text-[11px] font-semibold tracking-wider text-muted-foreground/70 uppercase">
+            {t("common:nav.aiSection")}
+          </p>
+          <NavLink
+            href={ROUTES.assistant}
+            icon={Sparkles}
+            label={t("common:nav.assistant")}
+            active={isActive(ROUTES.assistant) && !isActive(ROUTES.assistantCommunication)}
+            onClick={navigate}
+          />
+          <NavLink
+            href={ROUTES.assistantCommunication}
+            icon={MessageSquareText}
+            label={t("common:nav.assistantCommunication")}
+            active={isActive(ROUTES.assistantCommunication)}
+            onClick={navigate}
+          />
+        </>
       )}
       <NavLink
         href={ROUTES.profile}

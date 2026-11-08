@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from app.api.routes import (
     admin,
     announcements,
+    assistant,
     auth,
     catalog,
     customers,
@@ -29,6 +30,7 @@ api_router.include_router(
 )
 api_router.include_router(support.router, prefix="/support", tags=["support"])
 api_router.include_router(quotes.router, prefix="/quotes", tags=["quotes"])
+api_router.include_router(assistant.router, prefix="/assistant", tags=["assistant"])
 api_router.include_router(customers.router, prefix="/customers", tags=["customers"])
 api_router.include_router(catalog.router, prefix="/catalog", tags=["catalog"])
 api_router.include_router(dealership.router, prefix="/dealership", tags=["dealership"])

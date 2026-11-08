@@ -113,6 +113,11 @@
     "customer": {
       "not_found": "Customer not found.",
       "has_quotes": "This customer has quotes and cannot be deleted."
+    },
+    "assistant": {
+      "unavailable": "The AI assistant is temporarily unavailable. Please try again shortly.",
+      "not_configured": "The AI assistant is not configured.",
+      "conversation_not_found": "Conversation not found."
     }
   }
 }

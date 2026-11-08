@@ -1,7 +1,7 @@
 import uuid
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Query, Request
+from fastapi import APIRouter, Depends, Query, Request, status
 
 from app.api.decorators import audit_unexpected_failure
 from app.api.deps import SessionDep, require_permission
@@ -9,6 +9,7 @@ from app.core.messages.success_message import SuccessMessages
 from app.core.rate_limit import rate_limit_strict
 from app.models.user import User
 from app.schemas.admin import (
+    AdminUserCreate,
     AdminUserListItem,
     AdminUserListResponse,
     AdminUserUpdate,
@@ -25,6 +26,7 @@ from app.services.admin.session_service import (
 )
 from app.services.admin.user_service import (
     change_password_admin_service,
+    create_user_admin_service,
     delete_user_admin_service,
     get_user_admin_service,
     list_users_admin_service,
@@ -87,6 +89,27 @@ async def list_users(
         is_active=is_active,
         is_verified=is_verified,
     )
+
+
+@router.post(
+    "", response_model=AdminUserUpdateResponse, status_code=status.HTTP_201_CREATED
+)
+@audit_unexpected_failure(
+    activity_type=ActivityType.CREATE,
+    resource_type=ResourceType.USER,
+    endpoint="/admin/users",
+)
+async def create_user_endpoint(
+    request: Request,
+    current_user: AdminUserUpdateAuth,
+    session: SessionDep,
+    payload: AdminUserCreate,
+) -> AdminUserUpdateResponse:
+    """Create a verified user account directly from the admin panel."""
+    user = await create_user_admin_service(
+        request=request, session=session, current_user=current_user, payload=payload
+    )
+    return AdminUserUpdateResponse(user=user, message=SuccessMessages.USER_CREATED)
 
 
 @router.get("/{user_id}", response_model=AdminUserListItem)

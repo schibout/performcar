@@ -59,4 +59,5 @@ export enum Permission {
   SelfCatalogRead = "self.catalog:read",
   SelfDealershipRead = "self.dealership:read",
   SelfDealershipWrite = "self.dealership:write",
+  SelfAssistantUse = "self.assistant:use",
 }

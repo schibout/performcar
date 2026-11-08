@@ -11,6 +11,7 @@ import type {
   AdminUser,
   AdminUserListParams,
   AdminUserListResponse,
+  AdminUserCreatePayload,
   AdminUserUpdatePayload,
   AdminUserUpdateResponse,
   PermissionCatalogResponse,
@@ -45,6 +46,10 @@ export const adminApi = {
     api.get<AdminUserListResponse, AdminUserListResponse>("/admin/users", {
       params: pruneParams(params),
     }),
+
+  // Active, already verified `user` account; roles are set afterwards.
+  createUser: (payload: AdminUserCreatePayload): Promise<AdminUserUpdateResponse> =>
+    api.post<AdminUserUpdateResponse, AdminUserUpdateResponse>("/admin/users", payload),
 
   getUser: (id: string): Promise<AdminUser> => api.get<AdminUser, AdminUser>(`/admin/users/${id}`),
 
